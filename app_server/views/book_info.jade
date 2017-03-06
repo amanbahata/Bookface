@@ -3,8 +3,11 @@
 extends layout
 
 block content
-  .row.page-header
-    .col-xs-12
+  .row.page-header: .col-lg-12
+    h1= pageHeader.title
+  .row
+    .col-xs-12.col-md-9
+      .
       h1 The escape
   .row
     .col-xs-12.col-md-9
