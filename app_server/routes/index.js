@@ -3,11 +3,10 @@
  */
 
 var express = require('express');
-var router = express();
+var router = express.Router();
+var ctrlMain = require('../controllers/books');
 
-router.get('/', function(req, res){
-    res.send('<h1>Hello</h1>');
-});
 
+router.get('/', ctrlMain.index);
 
 module.exports = router;

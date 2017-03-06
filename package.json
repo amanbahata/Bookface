@@ -4,7 +4,9 @@
   "description": "a social networking site for people who love reading",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.15.1"
+    "express": "^4.15.1",
+    "jade": "^1.11.0",
+    "path": "^0.12.7"
   },
   "devDependencies": {},
   "scripts": {
