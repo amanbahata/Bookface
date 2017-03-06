@@ -2,8 +2,10 @@
   "name": "bookface1",
   "version": "1.0.0",
   "description": "a social networking site for people who love reading",
-  "main": "index.js",
-  "dependencies": {},
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.15.1"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
