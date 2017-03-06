@@ -14,5 +14,5 @@ module.exports.homeList = function (req, res) {
  /*Get add review page*/
 
 module.exports.addReview = function (req, res) {
-    res.render('index', {title: 'Add Review'});
+    res.render('book_review_form', {title: 'Add Review'});
 }
