@@ -13,6 +13,12 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'jade' );
 
+var routes = require('./app_server/routes/index');
+var routesApi = require('./app_api/routes/index');
+
+app.use('/', routes);
+app.use('/api', routesApi);
+
 app.use(require('./app_server/routes/index'));
 app.use(require('./app_api/routes/index'));
 
