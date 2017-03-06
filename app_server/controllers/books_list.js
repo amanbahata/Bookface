@@ -3,7 +3,13 @@
  */
 /*Get books list*/
 module.exports.homeList = function (req, res) {
-    res.render('books_list', {title: 'Bookface'});
+    res.render('books_list', {
+        title: 'Bookface',
+        pageHeader: {
+            title: 'Bookface',
+        }
+
+    });
 }
 
 /*Get book info page*/
