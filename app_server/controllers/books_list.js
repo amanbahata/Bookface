@@ -3,12 +3,12 @@
  */
 /*Get books list*/
 module.exports.homeList = function (req, res) {
-    res.render('index', {title: 'Bookface'});
+    res.render('books_list', {title: 'Bookface'});
 }
 
 /*Get book info page*/
  module.exports.bookInfo = function (req, res) {
-     res.render('index', {title: 'Book Info'});
+     res.render('book_info', {title: 'Book Info'});
  }
 
  /*Get add review page*/
