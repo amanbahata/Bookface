@@ -15,6 +15,7 @@ var bookSchema = new mongoose.Schema({
 
         name: {type: String, required: true},
         author: {type: String, required: true},
+        description: {type: String, required: true},
         rating: {type: Number, "default" : 0, min: 0, max: 3},
         reviews: [reviewSchema]
 });

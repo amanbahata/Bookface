@@ -12,9 +12,41 @@ var sendJasonResponse = function(res, status, content) {
 
 module.exports.listByAuthor = function (req, res) {
     sendJasonResponse(res, 200, {"status" : "success"});
+
 };
 
 module.exports.booksCreate = function (req, res) {
-    sendJasonResponse(res, 200, {"status" : "success"});
+    Book.create({
+        name: req.query.name,
+        author: req.query.author,
+        description: req.query.description
+    }, function(err, book){
+        if(err){
+            sendJasonResponse(res, 400, err);
+        }else{
+            sendJasonResponse(res, 200, book);
+        }
+    });
 };
 
+module.exports.booksReadOne = function (req, res) {
+    if (req.params && req.params.bookid){
+        Book.findById(req.params.bookid)
+            .exec(function(err, book){
+                if(!book){
+                    sendJasonResponse(res, 404, {
+                        "message" : "bookid not found"
+                    });
+                    return;
+                }else if (err){
+                    sendJasonResponse(res, 404, err);
+                    return;
+                }
+                sendJasonResponse(res, 200, book);
+            });
+    } else {
+        sendJasonResponse(res, 404, {
+            "message" : "No bookid in request"
+        });
+    }
+};

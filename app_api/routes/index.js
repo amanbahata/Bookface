@@ -11,10 +11,17 @@ var ctrlReviews = require('../controllers/reviews');
 //Books
 
 router.get('/books', ctrlBooks.listByAuthor);
-// router.post('/books', ctrlBooks.booksCreate);
-// router.get('/books/:bookid', ctrlBooks.booksReadOne);
+router.post('/books', ctrlBooks.booksCreate);
+router.get('/books/:bookid', ctrlBooks.booksReadOne);
 // router.put('/books/:bookid', ctrlBooks.booksUpdateOne);
 // router.delete('/books/:bookid/', ctrlBooks.bookDeleteOne);
+
+//Reviews
+
+router.post('/books/:bookid/reviews', ctrlReviews.reviewsCreate);
+router.get('/books/:bookid/reviews/:reviewid', ctrlReviews.reviewsReadOne);
+router.put('/books/:bookid/reviews/:reviewid', ctrlReviews.reviewsUpdateOne);
+router.delete('books/:bookid/reviews/:reviewid', ctrlReviews.reviewsDeleteOne);
 
 
 
