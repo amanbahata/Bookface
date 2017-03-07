@@ -6,7 +6,7 @@ module.exports.homeList = function (req, res) {
     res.render('books_list', {
         title: 'Bookface',
         pageHeader: {
-            title: 'Bookface',
+            title: 'Books list',
         },
         books: [{
             name: 'The Escape',
@@ -23,7 +23,7 @@ module.exports.homeList = function (req, res) {
         }]
 
     });
-}
+};
 
 /*Get book info page*/
  module.exports.bookInfo = function (req, res) {
@@ -47,7 +47,7 @@ module.exports.homeList = function (req, res) {
              }]
          }
      });
- }
+ };
 
  /*Get add review page*/
 
@@ -56,4 +56,4 @@ module.exports.addReview = function (req, res) {
         title: 'Review The escape',
         pageHeader: {title: 'Review The escape'}
     });
-}
+};

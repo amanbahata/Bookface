@@ -3,35 +3,28 @@
 doctype html
 html
     head
+        //meta(name='viewport', content='width=device-width, initial-scale=1.0')
         title= title
-        link(rel='stylesheet', href='/stylesheets/style.css')
-        link(rel='stylesheet', href='../public/bootstrap/css/bootstrap.css')
+        link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet')
+        link(href='/stylesheets/style.css', rel='stylesheet')
 
     body
         .navbar.navbar-default.navbar-fixed-top
             .container
                 .navbar-header
-                    #navbar-main.navbar-collapse.collapse
-                    ul.nav.navbar-nav
+                    a.navbar-brand(href='/') Bookface
+                ul.nav.navbar-nav
+                    li
+                        a(href='/login') Login
+                    li
+                        a(href='/register') Register
 
-                        li
-                            a(href="#login") Login
-                        li
-                            a(href="#register") Register
+        .container
+            block content
 
-                        .navbar.navbar-default.navbar-fixed-top
-                            .container
-                                .navbar-header
-                                    a.navbar-brand(href="/")
-                                        h1 Bookface
-            .container
-                block content
+        .container
+            #footer
+                .row
+                    .col-xs-12
+                        small &copy; Aman 2017
 
-
-                #footer
-                    .row
-                        .col-xs-12
-                            small &copy; Aman 2017
-
-script(src='http://code.jquery.com/jquery-1.11.0.min.js')
-script(src='../public/bootstrap/js/bootstrp.js')
