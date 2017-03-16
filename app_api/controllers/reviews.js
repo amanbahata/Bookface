@@ -28,10 +28,10 @@ module.exports.reviewsCreate = function (req, res) {
     }
 };
 
+
 module.exports.reviewsReadOne = function (req, res){
     if (req.params && req.params.bookid && req.params.reviewid) {
-        Book
-            .findById(req.params.bookid)
+        Book.findById(req.params.bookid)
             .select('name reviews')
             .exec(
                 function (err, book){
@@ -55,7 +55,7 @@ module.exports.reviewsReadOne = function (req, res){
                             response = {
                                 book : {
                                     name : book.name,
-                                    id: re.params.bookid
+                                    id: req.params.bookid
                                 },
                                 review : review
                             };
@@ -82,4 +82,40 @@ module.exports.reviewsUpdateOne = function (req, res) {
 module.exports.reviewsDeleteOne = function (req, res) {
     sendJasonResponse(res, 200, {"status" : "success"});
 };
+
+
+var addReview = function(req, res, book){
+  if (!book){
+      sendJasonResponse(res, 404, {"message" : "bookid not found"});
+  }else{
+      book.reviews.push({
+          author: req.body.author,
+          rating: req.book.rating,
+          reviewText: req.book.reviewText
+      });
+      book.save(function(err, book){
+          var thisReiew;
+          if (err){
+              sendJasonResponse(res, 404, err);
+          }else{
+              updateAvarageRating(book._id);
+              thisReview = book.reviews[book.reviews.length - 1];
+              sendJasonResponse(res, 201, thisReview);
+          }
+      });
+  }
+};
+
+var updateAvarageRating = function(bookId){
+    Book
+        .findById(bookId)
+        .select('rating reviews')
+        .exec(
+            function(err, book){
+                if (!err){
+                    setAvarageRAting(book);
+                }
+            });
+};
+
 

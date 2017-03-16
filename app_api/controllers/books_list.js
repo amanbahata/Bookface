@@ -17,9 +17,9 @@ module.exports.listByAuthor = function (req, res) {
 
 module.exports.booksCreate = function (req, res) {
     Book.create({
-        name: req.query.name,
-        author: req.query.author,
-        description: req.query.description
+        name: req.body.name,
+        author: req.body.author,
+        description: req.body.description
     }, function(err, book){
         if(err){
             sendJasonResponse(res, 400, err);
