@@ -24,7 +24,7 @@ module.exports.booksCreate = function (req, res) {
         if(err){
             sendJasonResponse(res, 400, err);
         }else{
-            sendJasonResponse(res, 200, book);
+            sendJasonResponse(res, 201, book);
         }
     });
 };

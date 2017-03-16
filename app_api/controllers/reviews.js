@@ -11,7 +11,21 @@ var sendJasonResponse = function(res, status, content) {
 };
 
 module.exports.reviewsCreate = function (req, res) {
-    sendJasonResponse(res, 200, {"status" : "success"});
+    var bookId = req.params.bookid;
+    if(bookId){
+        Book.findById(bookId).select('reviews')
+            .exec(
+              function(err, book){
+                  if (err){
+                      sendJasonResponse(res, 400, err);
+                  }else{
+                      addReview(req, res, book);
+                  }
+              }
+            );
+    }else{
+        sendJasonResponse(res, 404, {"message" : "The book was not found."});
+    }
 };
 
 module.exports.reviewsReadOne = function (req, res){
