@@ -10,7 +10,7 @@ var sendJasonResponse = function(res, status, content) {
     res.json(content);
 };
 
-module.exports.listByAuthor = function (req, res) {
+module.exports.listBooks = function (req, res) {
     sendJasonResponse(res, 200, {"status" : "success"});
 
 };

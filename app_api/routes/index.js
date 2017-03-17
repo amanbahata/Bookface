@@ -20,7 +20,7 @@ router.delete('/author/:authorid/', ctrAuthors.authorDeleteOne);
 
 //Books
 
-router.get('/books', ctrlBooks.listByAuthor);
+router.get('/books', ctrlBooks.listBooks);
 router.post('/books', ctrlBooks.booksCreate);
 router.get('/books/:bookid', ctrlBooks.booksReadOne);
 // router.put('/books/:bookid', ctrlBooks.booksUpdateOne);
