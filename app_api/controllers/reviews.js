@@ -11,26 +11,26 @@ var sendJasonResponse = function(res, status, content) {
 };
 
 module.exports.reviewsCreate = function (req, res) {
-    var bookId = req.params.bookid;
-    if(bookId){
-        Book.findById(bookId).select('reviews')
+    var authorId = req.params.authorid;
+    if(authorId){
+        Book.findById(authorId).select('books reviews')
             .exec(
-              function(err, book){
+              function(err, authorId){
                   if (err){
                       sendJasonResponse(res, 400, err);
                   }else{
-                      addReview(req, res, book);
+                      addReview(req, res, authorId);
                   }
               }
             );
     }else{
-        sendJasonResponse(res, 404, {"message" : "The book was not found."});
+        sendJasonResponse(res, 404, {"message" : "The author was not found."});
     }
 };
 
 
 module.exports.reviewsReadOne = function (req, res){
-    if (req.params && req.params.bookid && req.params.reviewid) {
+    if (req.params && req.params.authorid && req.params.bookid && req.params.reviewid) {
         Book.findById(req.params.bookid)
             .select('name reviews')
             .exec(
@@ -84,35 +84,35 @@ module.exports.reviewsDeleteOne = function (req, res) {
 };
 
 
-var addReview = function(req, res, book){
-  if (!book){
-      sendJasonResponse(res, 404, {"message" : "bookid not found"});
+var addReview = function(req, res, author){
+  if (!author){
+      sendJasonResponse(res, 404, {"message" : "authorid not found"});
   }else{
-      book.reviews.push({
+      author.books.reviews.push({
           author: req.body.author,
           rating: req.body.rating,
           reviewText: req.body.reviewText
       });
-      book.save(function(err, book){
+      author.save(function(err, author){
           if (err){
               sendJasonResponse(res, 404, err);
           }else{
-              updateAverageRating(book._id);
-            var  thisReview = book.reviews[book.reviews.length - 1];
+              updateAverageRating(author._id);
+            var  thisReview = author.books.reviews[author.books.reviews.length - 1];
               sendJasonResponse(res, 201, thisReview);
           }
       });
   }
 };
 
-var updateAverageRating = function(bookId){
+var updateAverageRating = function(authorid){
     Book
-        .findById(bookId)
+        .findById(authorid)
         .select('rating reviews')
         .exec(
-            function(err, book){
+            function(err, authorid){
                 if (!err){
-                    setAverageRating(book);
+                    setAverageRating(authorid);
                 }
             });
 };
