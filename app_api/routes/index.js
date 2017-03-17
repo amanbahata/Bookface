@@ -11,27 +11,27 @@ var ctrlReviews = require('../controllers/reviews');
 
 //Authors
 
-router.get('/author', ctrAuthors.listByAuthor);
-router.post('/author', ctrAuthors.authorCreate);
-router.get('/author/:authorid', ctrAuthors.authorReadOne);
-router.put('/author/:authorid', ctrAuthors.authorUpdateOne);
-router.delete('/author/:authorid/', ctrAuthors.authorDeleteOne);
+router.get('/authors', ctrAuthors.listByAuthor);
+router.post('/authors', ctrAuthors.authorCreate);
+router.get('/authors/:authorid', ctrAuthors.authorReadOne);
+router.put('/authors/:authorid', ctrAuthors.authorUpdateOne);
+router.delete('/authors/:authorid/', ctrAuthors.authorDeleteOne);
 
 
 //Books
 
-router.get('/books', ctrlBooks.listBooks);
-router.post('/books', ctrlBooks.booksCreate);
-router.get('/books/:bookid', ctrlBooks.booksReadOne);
+router.get('/authors/:authorid/books', ctrlBooks.listBooks);
+router.post('/authors/:authorid/books', ctrlBooks.booksCreate);
+router.get('/authors/:authorid/books/:bookid', ctrlBooks.booksReadOne);
 // router.put('/books/:bookid', ctrlBooks.booksUpdateOne);
 // router.delete('/books/:bookid/', ctrlBooks.bookDeleteOne);
 
 //Reviews
 
-router.post('/books/:bookid/reviews', ctrlReviews.reviewsCreate);
-router.get('/books/:bookid/reviews/:reviewid', ctrlReviews.reviewsReadOne);
-router.put('/books/:bookid/reviews/:reviewid', ctrlReviews.reviewsUpdateOne);
-router.delete('books/:bookid/reviews/:reviewid', ctrlReviews.reviewsDeleteOne);
+router.post('/authors/:authorid/books/:bookid/reviews', ctrlReviews.reviewsCreate);
+router.get('/authors/:authorid/books/:bookid/reviews/:reviewid', ctrlReviews.reviewsReadOne);
+router.put('/authors/:authorid/books/:bookid/reviews/:reviewid', ctrlReviews.reviewsUpdateOne);
+router.delete('/authors/:authorid/books/:bookid/reviews/:reviewid', ctrlReviews.reviewsDeleteOne);
 
 
 
