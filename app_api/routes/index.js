@@ -4,8 +4,18 @@
 
 var express = require('express');
 var router = express.Router();
+var ctrAuthors = require('../controllers/authors_list');
 var ctrlBooks = require('../controllers/books_list');
 var ctrlReviews = require('../controllers/reviews');
+
+
+//Authors
+
+router.get('/author', ctrAuthors.listByAuthor);
+router.post('/author', ctrAuthors.authorCreate);
+router.get('/author/:authorid', ctrAuthors.authorReadOne);
+router.put('/author/:authorid', ctrAuthors.authorUpdateOne);
+router.delete('/author/:authorid/', ctrAuthors.authorDeleteOne);
 
 
 //Books

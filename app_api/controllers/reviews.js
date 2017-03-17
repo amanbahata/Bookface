@@ -90,35 +90,34 @@ var addReview = function(req, res, book){
   }else{
       book.reviews.push({
           author: req.body.author,
-          rating: req.book.rating,
-          reviewText: req.book.reviewText
+          rating: req.body.rating,
+          reviewText: req.body.reviewText
       });
       book.save(function(err, book){
-          var thisReiew;
           if (err){
               sendJasonResponse(res, 404, err);
           }else{
-              updateAvarageRating(book._id);
-              thisReview = book.reviews[book.reviews.length - 1];
+              updateAverageRating(book._id);
+            var  thisReview = book.reviews[book.reviews.length - 1];
               sendJasonResponse(res, 201, thisReview);
           }
       });
   }
 };
 
-var updateAvarageRating = function(bookId){
+var updateAverageRating = function(bookId){
     Book
         .findById(bookId)
         .select('rating reviews')
         .exec(
             function(err, book){
                 if (!err){
-                    setAvarageRating(book);
+                    setAverageRating(book);
                 }
             });
 };
 
-var setAvarageRating = funvtion(book){
+var setAverageRating = function(book){
     var averageRating;
     var i;
     var totalValueOfRatings = 0;
