@@ -30,7 +30,6 @@ router.get('/authors/:authorid/books/:bookid', ctrlBooks.booksReadOne);
 
 router.post('/authors/:authorid/books/:bookid/reviews', ctrlReviews.reviewsCreate);
 router.get('/authors/:authorid/books/:bookid/reviews/:reviewid', ctrlReviews.reviewsReadOne);
-router.put('/authors/:authorid/books/:bookid/reviews/:reviewid', ctrlReviews.reviewsUpdateOne);
 router.delete('/authors/:authorid/books/:bookid/reviews/:reviewid', ctrlReviews.reviewsDeleteOne);
 
 

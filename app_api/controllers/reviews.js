@@ -12,14 +12,16 @@ var sendJasonResponse = function(res, status, content) {
 
 module.exports.reviewsCreate = function (req, res) {
     var authorId = req.params.authorid;
+    var bookid = req.params.bookid;
     if(authorId){
-        Book.findById(authorId).select('books reviews')
+        Book.findById(authorId).findById(bookid)
+            .select('books reviews')
             .exec(
               function(err, authorId){
                   if (err){
                       sendJasonResponse(res, 400, err);
                   }else{
-                      addReview(req, res, authorId);
+                      addReview(req, res, bookid);
                   }
               }
             );
@@ -75,16 +77,55 @@ module.exports.reviewsReadOne = function (req, res){
     }
 };
 
-module.exports.reviewsUpdateOne = function (req, res) {
-    sendJasonResponse(res, 200, {"status" : "success"});
-};
 
 module.exports.reviewsDeleteOne = function (req, res) {
-    sendJasonResponse(res, 200, {"status" : "success"});
+    if (!req.params.authorid || !req.params.bookid || !req.reviewid){
+        sendJasonResponse(res, 404, {
+            "message" : "Not found, authorid, bookid and reviewid are all required"
+        });
+        return;
+    }
+    Book
+        .findById(req.params.authorid)
+        .select('books reviews')
+        .exec(
+            function(err, author){
+                if(!author){
+                    sendJasonResponse(res, 404, {
+                        "message" : "authorid not found"
+                    });
+                    return;
+                }else if(err){
+                    sendJasonResponse(res, 404,err);
+                    return;
+                }
+                if (author.books.reviews && author.books.reviews.lenght > 0){
+                    if (!author.books.reviews.id(req.params.reviewid)){
+                        sendJasonResponse(res, 404, {
+                            "message" : "reviewid not found"
+                        });
+                    }else{
+                        author.books.reviews.id(req.params.reviewid).remove();
+                        author.books.save(function(err){
+                            if(err){
+                                sendJasonResponse(res, 404, err);
+                            }else{
+                                updateAverageRating(author.book._id);
+                                sendJasonResponse(res, 204, null);
+                            }
+                        });
+                    }
+                }else{
+                    sendJasonResponse(res, 404, {
+                        "message" : "No review to delete"
+                    });
+                }
+            }
+        );
 };
 
 
-var addReview = function(req, res, author){
+var addReview = function(req, res, bookid){
   if (!author){
       sendJasonResponse(res, 404, {"message" : "authorid not found"});
   }else{

@@ -15,19 +15,6 @@ module.exports.listBooks = function (req, res) {
 
 };
 
-// module.exports.booksCreate = function (req, res) {
-//     Book.create({
-//         name: req.query.name,
-//         description: req.query.description
-//     }, function(err, book){
-//         if(err){
-//             sendJasonResponse(res, 400, err);
-//         }else{
-//             sendJasonResponse(res, 201, book);
-//         }
-//     });
-// };
-
 module.exports.booksCreate = function (req, res) {
     var author = req.params.authorid;
     if(author){
