@@ -113,9 +113,29 @@ var updateAvarageRating = function(bookId){
         .exec(
             function(err, book){
                 if (!err){
-                    setAvarageRAting(book);
+                    setAvarageRating(book);
                 }
             });
 };
 
+var setAvarageRating = funvtion(book){
+    var averageRating;
+    var i;
+    var totalValueOfRatings = 0;
+    if(book.reviews && book.reviews.length > 0){
+        var countNumberOfReviews = book.reviews.length;
+        for( i = 0; i < countNumberOfReviews; i ++){
+            totalValueOfRatings = totalValueOfRatings + book.reviews[i].rating;
+        }
+        averageRating = parseInt(totalValueOfRatings/countNumberOfReviews, 10);
+        book.rating = averageRating;
+        book.save(function(err){
+            if(err){
+                console.log(err);
+            }else{
+                console.log("Updated average rating is ", averageRating);
+            }
+        });
+    }
+};
 
