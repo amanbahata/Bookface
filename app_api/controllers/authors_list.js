@@ -72,13 +72,13 @@ module.exports.authorReadOne = function (req, res) {
     }
 };
 
-module.exports.authorUpdateOne = function (req, res) {
-    sendJasonResponse(res, 200, {"status" : "success"});
-
-};
-
-
-module.exports.authorDeleteOne = function (req, res) {
-    sendJasonResponse(res, 200, {"status" : "success"});
-
-};
+// module.exports.authorUpdateOne = function (req, res) {
+//     sendJasonResponse(res, 200, {"status" : "success"});
+//
+// };
+//
+//
+// module.exports.authorDeleteOne = function (req, res) {
+//     sendJasonResponse(res, 200, {"status" : "success"});
+//
+// };
