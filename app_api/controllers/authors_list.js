@@ -10,8 +10,30 @@ var sendJasonResponse = function(res, status, content) {
 };
 
 module.exports.listByAuthor = function (req, res) {
-    sendJasonResponse(res, 200, {"status" : "success"});
-
+            Book.find()
+                .select('name')
+                .exec(
+                    function (err, authors){
+                        var response, author;
+                        if (authors && authors.length > 0){
+                            author = authors;
+                            if (!author){
+                                sendJasonResponse(res, 404, {
+                                    "message" : "authors not found"
+                                });
+                            }else {
+                                response = {
+                                    author : author
+                                };
+                                sendJasonResponse(res, 200, response);
+                            }
+                        }else{
+                            sendJasonResponse(res, 404, {
+                                "message" : "No authors found"
+                            });
+                        }
+                    }
+                );
 };
 
 module.exports.authorCreate = function (req, res) {
