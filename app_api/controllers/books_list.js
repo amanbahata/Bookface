@@ -11,8 +11,49 @@ var sendJasonResponse = function(res, status, content) {
 };
 
 module.exports.listBooks = function (req, res) {
-    sendJasonResponse(res, 200, {"status" : "success"});
-
+    if (req.params && req.params.authorid ) {
+        Book.findById(req.params.authorid)
+            .select('name books')
+            .exec(
+                function (err, author){
+                    var response, book;
+                    if (!author) {
+                        sendJasonResponse(res, 404, {
+                            "message" : "authorid not found"
+                        });
+                        return;
+                    }else if(err){
+                        sendJasonResponse(res, 400, err);
+                        return;
+                    }
+                    if (author.books && author.books.length > 0){
+                        book = author.books;
+                        if (!book){
+                            sendJasonResponse(res, 404, {
+                                "message" : "books not found"
+                            });
+                        }else {
+                            response = {
+                                author : {
+                                    name : author.name,
+                                    id: req.params.authorid
+                                },
+                                book : book
+                            };
+                            sendJasonResponse(res, 200, response);
+                        }
+                    }else{
+                        sendJasonResponse(res, 404, {
+                            "message" : "No books found"
+                        });
+                    }
+                }
+            );
+    }else {
+        sendJasonResponse(res, 404, {
+            "message": "Not found, authorid and books are both required"
+        });
+    }
 };
 
 module.exports.booksCreate = function (req, res) {
