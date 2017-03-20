@@ -57,39 +57,29 @@ module.exports.listReviews = function (req, res) {
     }
 };
 
-// module.exports.reviewsCreate = function (req, res) {
-//     var authorid = req.params.authorid;
-//     var bookid = req.params.bookid;
-//     if(authorid){
-//         var author = Book.findById(authorid);
-//         for (var i =0; i < author.books.length ; i++){
-//             if(author.book[i]._id == bookid ){
-//                 author.book[i]._id.select('reviews')
-//                     .exec(
-//                         function(err, book){
-//                             if (err){
-//                                 sendJasonResponse(res, 400, err);
-//                             }else{
-//                                 addReview(req, res, book);
-//                             }
-//                         }
-//                     );
-//             }
-//         }
-//
-//
-//     }else{
-//         sendJasonResponse(res, 404, {"message" : "The author was not found."});
-//     }
-// };
-
 module.exports.reviewsCreate = function (req, res) {
-    var authorId = req.params.authorid;
-    var bookId = req.params.bookid;
-    console.log(authorId);
-    console.log(bookId);
-    console.log(Book.findById(authorId));
-}
+    var authorid = req.params.authorid;
+    var bookid = req.params.bookid;
+
+    if(authorid){
+
+        Book.findById(authorid)
+            .select('books')
+            .exec(
+                function(err, bookid){
+                    if (err){
+                        sendJasonResponse(res, 400, err);
+                    }else{
+                        console.log("Saving to database: Step1 ");
+                        console.log(bookid);
+                        addReview(req, res, bookid);
+                    }
+                }
+            );
+    }else{
+        sendJasonResponse(res, 404, {"message" : "The author was not found."});
+    }
+};
 
 
 module.exports.reviewsReadOne = function (req, res){
@@ -210,11 +200,11 @@ var addReview = function(req, res, book){
 var updateAverageRating = function(bookid){
     Book
         .findById(bookid)
-        .select('rating')
+        .select('books rating')
         .exec(
-            function(err, bookid){
+            function(err, book){
                 if (!err){
-                    setAverageRating(bookid);
+                    setAverageRating(book);
                 }
             });
 };
