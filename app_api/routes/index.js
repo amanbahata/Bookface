@@ -24,7 +24,7 @@ router.get('/authors/:authorid/books', ctrlBooks.listBooks);
 router.post('/authors/:authorid/books', ctrlBooks.booksCreate);
 router.get('/authors/:authorid/books/:bookid', ctrlBooks.booksReadOne);
 // router.put('/books/:bookid', ctrlBooks.booksUpdateOne);
-router.delete('/books/:bookid/', ctrlBooks.bookDeleteOne);
+router.delete('/authors/:authorid/books/:bookid', ctrlBooks.bookDeleteOne);
 
 //Reviews
 
