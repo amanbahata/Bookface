@@ -72,13 +72,22 @@ module.exports.authorReadOne = function (req, res) {
     }
 };
 
-// module.exports.authorUpdateOne = function (req, res) {
-//     sendJasonResponse(res, 200, {"status" : "success"});
-//
-// };
-//
-//
-// module.exports.authorDeleteOne = function (req, res) {
-//     sendJasonResponse(res, 200, {"status" : "success"});
-//
-// };
+
+module.exports.authorDeleteOne = function (req, res) {
+    var authorid = req.params.authorid;
+    if(authorid){
+        Book.findByIdAndRemove(authorid)
+            .exec(function(err, author){
+                  if(err){
+                      sendJasonResponse(res, 404, err);
+                      return;
+                  }
+                  sendJasonResponse(res, 204, null);
+              }
+            );
+    }else{
+        sendJasonResponse(res, 404, {
+            "message" : "No authorid"
+        });
+    }
+};

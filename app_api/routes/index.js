@@ -15,7 +15,7 @@ router.get('/authors', ctrAuthors.listByAuthor);
 router.post('/authors', ctrAuthors.authorCreate);
 router.get('/authors/:authorid', ctrAuthors.authorReadOne);
 // router.put('/authors/:authorid', ctrAuthors.authorUpdateOne);
-// router.delete('/authors/:authorid/', ctrAuthors.authorDeleteOne);
+router.delete('/authors/:authorid', ctrAuthors.authorDeleteOne);
 
 
 //Books
