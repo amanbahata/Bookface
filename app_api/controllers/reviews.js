@@ -70,9 +70,9 @@ module.exports.reviewsCreate = function (req, res) {
                     if (err){
                         sendJasonResponse(res, 400, err);
                     }else{
-                        console.log("Saving to database: Step1 ");
+
                         console.log(bookid);
-                        addReview(req, res, bookid);
+                       addReview(req, res, bookid);
                     }
                 }
             );
@@ -81,6 +81,9 @@ module.exports.reviewsCreate = function (req, res) {
     }
 };
 
+// myModel.findById(myDocumentId, function (err, myDocument) {
+//     var subDocument = myDocument.mySubdocuments.id(mySubDocumentId);
+// });
 
 module.exports.reviewsReadOne = function (req, res){
     if (req.params && req.params.authorid && req.params.bookid && req.params.reviewid) {
@@ -176,51 +179,57 @@ module.exports.reviewsDeleteOne = function (req, res) {
 };
 
 
-var addReview = function(req, res, book){
-  if (!book){
+var addReview = function(req, res, author){
+  if (!author){
       sendJasonResponse(res, 404, {"message" : "bookid not found"});
   }else{
-      book.reviews.push({
-          author: req.query.author,
+      var singleBook = author.books.id(req.params.bookid);
+      singleBook.reviews.push({
+          reviewText: req.query.reviewText,
           rating: req.query.rating,
-          reviewText: req.query.reviewText
+          author: req.query.author
       });
-      book.save(function(err, book){
+
+     author.save(function(err, book){
           if (err){
               sendJasonResponse(res, 404, err);
           }else{
-              updateAverageRating(book._id);
-            var  thisReview = book.reviews[books.reviews.length - 1];
+              var bookid = req.params.bookid;
+              //updateAverageRating(bookid);
+              var  thisReview = author.books.id(req.params.bookid).reviews[author.books.id(req.params.bookid).reviews.length - 1];
               sendJasonResponse(res, 201, thisReview);
           }
       });
   }
 };
 
-var updateAverageRating = function(bookid){
+var updateAverageRating = function(singleBook){
     Book
-        .findById(bookid)
-        .select('books rating')
+        .findById(singleBook)
+        .select('rating')
         .exec(
-            function(err, book){
+            function(err, singleBook){
                 if (!err){
-                    setAverageRating(book);
+                    setAverageRating(singleBook);
                 }
             });
+    setAverageRating(singleBook);
 };
 
-var setAverageRating = function(book){
+var setAverageRating = function(singleBook){
     var averageRating;
     var i;
     var totalValueOfRatings = 0;
-    if(book.reviews && book.reviews.length > 0){
-        var countNumberOfReviews = book.reviews.length;
+
+
+    if(singleBook.reviews && singleBook.reviews.length > 0){
+        var countNumberOfReviews = singleBook.reviews.length;
         for( i = 0; i < countNumberOfReviews; i ++){
-            totalValueOfRatings = totalValueOfRatings + book.reviews[i].rating;
+            totalValueOfRatings = totalValueOfRatings + singleBook.reviews[i].rating;
         }
         averageRating = parseInt(totalValueOfRatings/countNumberOfReviews, 10);
         book.rating = averageRating;
-        book.save(function(err){
+        singleBook.save(function(err){
             if(err){
                 console.log(err);
             }else{
