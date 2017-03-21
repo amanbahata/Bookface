@@ -8,7 +8,7 @@ var ctrlMain = require('../controllers/authors_list');
 
 
 router.get('/', ctrlMain.homeList);
-router.get('/book', ctrlMain.bookInfo);
+router.get('/authors/:authorid', ctrlMain.booksList);
 router.get('/book/review/new', ctrlMain.addReview);
 
 module.exports = router;

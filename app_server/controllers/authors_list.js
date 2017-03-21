@@ -36,8 +36,9 @@ var homepageRenderer = function(req, res, responseBody){
 
 
 
-/*Get author list*/
-
+/*
+    Get the authors list
+ */
 module.exports.homeList = function (req, res) {
     var requestOptions, path;
     path = '/api/authors';
@@ -53,31 +54,78 @@ module.exports.homeList = function (req, res) {
     );
 };
 
-/*Get book info page*/
- module.exports.bookInfo = function (req, res) {
-     res.render('book_info', {
-         title: 'The escape',
-         pageHeader: {title: 'The escape'},
-         book: {
-             name: 'The escape',
-             author: 'David Baldacci',
-             rating: 3,
-             reviews: [{
-                 author: 'Aman Enghida',
-                 rating: 3,
-                 timestamp: '05/03/17',
-                 reviewText: 'I had spent a good time reading this book.'
-             },{
-                 author: 'Joh Doe',
-                 rating: 3,
-                 timestamp: '04/03/17',
-                 reviewText: 'I did not like this book.'
-             }]
+
+
+/*
+    Get books list of a single author
+ */
+
+ module.exports.booksList = function (req, res) {
+     var requestOptions, path;
+     path = '/api/authors/' + req.params.authorid;
+     requestOptions = {
+         url : apiOptions.server + path,
+         method : "GET",
+         json: {}
+     };
+     request (requestOptions,
+         function(err, response, body){
+            var data = body;
+            bookListRenderer(req, res, data);
          }
-     });
+     );
  };
 
- /*Get add review page*/
+
+/*
+ Rendering the single author page
+ */
+
+var bookListRenderer = function(req, res, authorDetail){
+    var message;
+    if (!(authorDetail.books instanceof Array)){
+        message = "API lookup error";
+        authorDetail = [];
+    }else{
+        if (!authorDetail.books.length){
+            message = "No books found for " + authorDetail.name;
+        }
+    }
+    res.render('books_list', {
+        title: authorDetail.name,
+        pageHeader: {
+            title: authorDetail.name
+        },
+        books: authorDetail.books,
+        message : message
+    });
+};
+
+
+
+
+var reviewsRenderer = function(req, res, authorDetail){
+    var message;
+    if (!(authorDetail.books instanceof Array)){
+        message = "API lookup error";
+        authorDetail = [];
+    }else{
+        if (!authorDetail.books.length){
+            message = "No books found for " + authorDetail.name;
+        }
+    }
+    res.render('books_list', {
+        title: authorDetail.name,
+        pageHeader: {
+            title: authorDetail.name
+        },
+        books: authorDetail.books,
+        message : message
+    });
+};
+
+/*Get add review page*/
+
 
 module.exports.addReview = function (req, res) {
     res.render('book_review_form', {
