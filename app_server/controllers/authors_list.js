@@ -15,18 +15,29 @@ var apiOptions = {
  */
 
 var homepageRenderer = function(req, res, responseBody){
+    var message;
+    if (!(responseBody.author instanceof Array)){
+        message = "API lookup error";
+        responseBody = [];
+    }else{
+        if (!responseBody.author.length){
+            message = "No authors found";
+        }
+    }
     res.render('authors_list', {
             title: 'Bookface',
             pageHeader: {
                 title: 'List of Authors'
             },
-            authors: responseBody
+            authors: responseBody.author,
+            message : message
         });
 };
 
 
 
-/*Get books list*/
+/*Get author list*/
+
 module.exports.homeList = function (req, res) {
     var requestOptions, path;
     path = '/api/authors';
@@ -35,8 +46,9 @@ module.exports.homeList = function (req, res) {
         method : "GET",
         json: {}
     };
-    request (requestOptions, function(err, response, body){
-                homepageRenderer(req, res, body);
+    request (requestOptions,
+        function(err, response, body){
+            homepageRenderer(req, res, body);
         }
     );
 };
