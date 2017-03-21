@@ -4,7 +4,7 @@
 
 var express = require('express');
 var router = express.Router();
-var ctrlMain = require('../controllers/books_list');
+var ctrlMain = require('../controllers/authors_list');
 
 
 router.get('/', ctrlMain.homeList);

@@ -183,9 +183,9 @@ var addReview = function(req, res, author){
   }else{
       var singleBook = author.books.id(req.params.bookid);
       singleBook.reviews.push({
-          author: req.query.author,
-          rating: req.query.rating,
-          reviewText: req.query.reviewText
+          author: req.body.author,
+          rating: req.body.rating,
+          reviewText: req.body.reviewText
 
 
       });

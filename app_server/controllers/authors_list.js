@@ -1,28 +1,44 @@
 /**
  * Created by aman1 on 06/03/2017.
  */
+var request = require('request');
+
+/*
+    Setting up the api options
+ */
+var apiOptions = {
+    server : "http://localhost:3000"
+};
+
+/*
+    Setting up the main rendering function
+ */
+
+var homepageRenderer = function(req, res, responseBody){
+    res.render('authors_list', {
+            title: 'Bookface',
+            pageHeader: {
+                title: 'List of Authors'
+            },
+            authors: responseBody
+        });
+};
+
+
+
 /*Get books list*/
 module.exports.homeList = function (req, res) {
-    res.render('books_list', {
-        title: 'Bookface',
-        pageHeader: {
-            title: 'Books list',
-        },
-        books: [{
-            name: 'The Escape',
-            author: 'David Baldacci',
-            rating: 3
-        },{
-            name: 'The great gasby',
-            author: 'F. Scott Fitzgerald',
-            rating: 2
-        },{
-            name: 'The Grapes of Wrath',
-            author: 'John Steinbeck',
-            rating: 1
-        }]
-
-    });
+    var requestOptions, path;
+    path = '/api/authors';
+    requestOptions = {
+        url : apiOptions.server + path,
+        method : "GET",
+        json: {}
+    };
+    request (requestOptions, function(err, response, body){
+                homepageRenderer(req, res, body);
+        }
+    );
 };
 
 /*Get book info page*/
