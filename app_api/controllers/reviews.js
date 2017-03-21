@@ -81,9 +81,7 @@ module.exports.reviewsCreate = function (req, res) {
     }
 };
 
-// myModel.findById(myDocumentId, function (err, myDocument) {
-//     var subDocument = myDocument.mySubdocuments.id(mySubDocumentId);
-// });
+
 
 module.exports.reviewsReadOne = function (req, res){
     if (req.params && req.params.authorid && req.params.bookid && req.params.reviewid) {
@@ -185,9 +183,11 @@ var addReview = function(req, res, author){
   }else{
       var singleBook = author.books.id(req.params.bookid);
       singleBook.reviews.push({
-          reviewText: req.query.reviewText,
+          author: req.query.author,
           rating: req.query.rating,
-          author: req.query.author
+          reviewText: req.query.reviewText
+
+
       });
 
      author.save(function(err, book){
@@ -215,27 +215,27 @@ var updateAverageRating = function(singleBook){
             });
     setAverageRating(singleBook);
 };
-
-var setAverageRating = function(singleBook){
-    var averageRating;
-    var i;
-    var totalValueOfRatings = 0;
-
-
-    if(singleBook.reviews && singleBook.reviews.length > 0){
-        var countNumberOfReviews = singleBook.reviews.length;
-        for( i = 0; i < countNumberOfReviews; i ++){
-            totalValueOfRatings = totalValueOfRatings + singleBook.reviews[i].rating;
-        }
-        averageRating = parseInt(totalValueOfRatings/countNumberOfReviews, 10);
-        book.rating = averageRating;
-        singleBook.save(function(err){
-            if(err){
-                console.log(err);
-            }else{
-                console.log("Updated average rating is ", averageRating);
-            }
-        });
-    }
-};
+//
+// var setAverageRating = function(singleBook){
+//     var averageRating;
+//     var i;
+//     var totalValueOfRatings = 0;
+//
+//
+//     if(singleBook.reviews && singleBook.reviews.length > 0){
+//         var countNumberOfReviews = singleBook.reviews.length;
+//         for( i = 0; i < countNumberOfReviews; i ++){
+//             totalValueOfRatings = totalValueOfRatings + singleBook.reviews[i].rating;
+//         }
+//         averageRating = parseInt(totalValueOfRatings/countNumberOfReviews, 10);
+//         book.rating = averageRating;
+//         singleBook.save(function(err){
+//             if(err){
+//                 console.log(err);
+//             }else{
+//                 console.log("Updated average rating is ", averageRating);
+//             }
+//         });
+//     }
+// };
 
