@@ -15,4 +15,10 @@ router.get('/authors/:authorid/books/:bookid/reviews/new', ctrlMain.addReview);
 router.post('/authors/:authorid/books/:bookid/reviews/new', ctrlMain.doAddReview);
 
 
+router.get('/authors', ctrlMain.addAuthor);
+
+
+
+
+
 module.exports = router;

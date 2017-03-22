@@ -179,9 +179,6 @@ module.exports.doAddReview = function(req, res){
     var requestOptions, path, authorid, bookid, postData;
     authorid = req.params.authorid;
     bookid = req.params.bookid;
-    console.log(authorid + "  "+ bookid);
-    console.log(req.body);
-    console.log("***************************");
     path = '/api/authors/' + authorid + '/books/' + bookid + '/reviews';
     postData = {
         author: req.body.name,
@@ -202,4 +199,33 @@ module.exports.doAddReview = function(req, res){
             }
         }
     );
+};
+
+
+
+
+
+//
+// module.exports.addAuthor = function (req, res) {
+//     // var requestOptions, path;
+//     // path = '/api/authors';
+//     // requestOptions = {
+//     //     url : apiOptions.server + path,
+//     //     method : "GET",
+//     //     json: {}
+//     // };
+//     request (requestOptions,
+//         function(err, response, body){
+//             var data = body;
+//             renderAuthorForm(req, res);
+//         }
+//     );
+// };
+
+module.exports.addAuthor = function (req, res) {
+    res.render('author_add_form', {
+        title: 'New Author',
+        pageHeader: {title: 'Add a new author to the list'}
+    });
+
 };
