@@ -105,22 +105,19 @@ var bookListRenderer = function(req, res, authorDetail){
 
 
 module.exports.reviewsList = function (req, res) {
-    // var requestOptions, path;
-    // path = '/api/authors/' + req.params.authorid + '/books/' + req.params.bookid;
-    // requestOptions = {
-    //     url : apiOptions.server + path,
-    //     method : "GET",
-    //     json: {}
-    // };
-    // request (requestOptions,
-    //     function(err, response, body){
-    //         var data = body;
-    //         console.log(requestOptions + '*****************');
-    //         reviewsRenderer(req, res, data);
-    //     }
-    // );
-
-    console.log("*********************");
+    var requestOptions, path;
+    path = '/api/authors/' + req.params.authorid + '/books/' + req.params.bookid;
+    requestOptions = {
+        url : apiOptions.server + path,
+        method : "GET",
+        json: {}
+    };
+    request (requestOptions,
+        function(err, response, body){
+            var data = body;
+            reviewsRenderer(req, res, data);
+        }
+    );
 };
 
 

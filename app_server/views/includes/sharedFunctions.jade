@@ -1,0 +1,10 @@
+//Created by aman1 on 22/03/2017.
+
+
+mixin dateFormatter(dateString)
+    -var date = new Date(dateString);
+    -var d = date.getDate();
+    -var m = date.getMonth();
+    -var y = date.getFullYear();
+    -var output = d+'/'+m+'/'+y;
+    =output

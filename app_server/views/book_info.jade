@@ -1,6 +1,7 @@
 //Created by aman1 on 06/03/2017.
 
 extends layout
+include includes/sharedFunctions
 
 block content
   .row.page-header: .col-lg-12
@@ -23,9 +24,8 @@ block content
                  .col-xs-12
                        .review
                             .row
-                                small.reviewTimestamp #{review.timestamp}
-                            .row
-                                span.reviewAuthor #{review.author}
+                                span.reviewAuthor #{review.author} 
+                                    +dateFormatter(review.createdOn)
                             .row
                                 span.rating= review.rating
                                     p !{(review.reviewText).replace(/\n/g, '<br/>')}
