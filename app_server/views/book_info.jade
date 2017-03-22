@@ -9,8 +9,8 @@ block content
     .col-xs-12.col-md-9
       .row
        .col-xs-12.col-sm-6
-        p.author= book.author
-        p.rating= book.rating
+        p Rating #{rating}
+        p Description #{description}
         .row
          .col-xs-12
           .panel.panel-primary.review-panel
@@ -18,7 +18,7 @@ block content
             a.btn.btn-default.pull-right(href="/book/review/new") Add Review
             p.panel-title Reader reviews
              .panel-body.review-container
-              each review in book.reviews
+              each review in reviews
                  .row
                  .col-xs-12
                        .review

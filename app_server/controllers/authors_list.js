@@ -71,7 +71,7 @@ module.exports.homeList = function (req, res) {
      request (requestOptions,
          function(err, response, body){
             var data = body;
-            bookListRenderer(req, res, data);
+             bookListRenderer(req, res, data);
          }
      );
  };
@@ -96,6 +96,7 @@ var bookListRenderer = function(req, res, authorDetail){
         pageHeader: {
             title: authorDetail.name
         },
+        author: authorDetail,
         books: authorDetail.books,
         message : message
     });
@@ -103,23 +104,46 @@ var bookListRenderer = function(req, res, authorDetail){
 
 
 
+module.exports.reviewsList = function (req, res) {
+    // var requestOptions, path;
+    // path = '/api/authors/' + req.params.authorid + '/books/' + req.params.bookid;
+    // requestOptions = {
+    //     url : apiOptions.server + path,
+    //     method : "GET",
+    //     json: {}
+    // };
+    // request (requestOptions,
+    //     function(err, response, body){
+    //         var data = body;
+    //         console.log(requestOptions + '*****************');
+    //         reviewsRenderer(req, res, data);
+    //     }
+    // );
 
-var reviewsRenderer = function(req, res, authorDetail){
+    console.log("*********************");
+};
+
+
+
+
+var reviewsRenderer = function(req, res, data){
     var message;
-    if (!(authorDetail.books instanceof Array)){
+    if (!(data.book.reviews instanceof Array)){
         message = "API lookup error";
-        authorDetail = [];
+        data = [];
     }else{
-        if (!authorDetail.books.length){
-            message = "No books found for " + authorDetail.name;
+        if (!data.book.reviews.length){
+            message = "No reviews found for " + data.name;
         }
     }
-    res.render('books_list', {
-        title: authorDetail.name,
+    res.render('book_info', {
+        title: data.book.name,
         pageHeader: {
-            title: authorDetail.name
+            title: data.book.name
         },
-        books: authorDetail.books,
+        rating: data.book.rating,
+        description: data.book.description,
+        reviews: data.book.reviews,
         message : message
     });
 };

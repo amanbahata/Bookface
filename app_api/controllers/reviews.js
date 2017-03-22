@@ -71,7 +71,7 @@ module.exports.reviewsCreate = function (req, res) {
                         sendJasonResponse(res, 400, err);
                     }else{
 
-                        console.log(bookid);
+ //                       console.log(bookid);
                        addReview(req, res, bookid);
                     }
                 }
@@ -83,51 +83,51 @@ module.exports.reviewsCreate = function (req, res) {
 
 
 
-module.exports.reviewsReadOne = function (req, res){
-    if (req.params && req.params.authorid && req.params.bookid && req.params.reviewid) {
-        Book.findById(req.params.bookid)
-            .select('name reviews')
-            .exec(
-                function (err, book){
-                    var response, review;
-                    if (!book) {
-                        sendJasonResponse(res, 404, {
-                            "message" : "bookid not found"
-                        });
-                        return;
-                    }else if(err){
-                        sendJasonResponse(res, 400, err);
-                        return;
-                    }
-                    if (book.reviews && book.reviews.length > 0){
-                        review = book.reviews.id(req.params.reviewid);
-                        if (!review){
-                            sendJasonResponse(res, 404, {
-                                "message" : "reviewid not found"
-                            });
-                        }else {
-                            response = {
-                                book : {
-                                    name : book.name,
-                                    id: req.params.bookid
-                                },
-                                review : review
-                            };
-                            sendJasonResponse(res, 200, response);
-                        }
-                    }else{
-                        sendJasonResponse(res, 404, {
-                           "message" : "No reviews found"
-                        });
-                    }
-                }
-            );
-    }else{
-        sendJasonResponse(res, 404, {
-            "message" : "Not found, bookid and reviews are both required"
-        });
-    }
-};
+// module.exports.reviewsReadOne = function (req, res){
+//     if (req.params && req.params.authorid && req.params.bookid && req.params.reviewid) {
+//         Book.findById(req.params.bookid)
+//             .select('name reviews')
+//             .exec(
+//                 function (err, book){
+//                     var response, review;
+//                     if (!book) {
+//                         sendJasonResponse(res, 404, {
+//                             "message" : "bookid not found"
+//                         });
+//                         return;
+//                     }else if(err){
+//                         sendJasonResponse(res, 400, err);
+//                         return;
+//                     }
+//                     if (book.reviews && book.reviews.length > 0){
+//                         review = book.reviews.id(req.params.reviewid);
+//                         if (!review){
+//                             sendJasonResponse(res, 404, {
+//                                 "message" : "reviewid not found"
+//                             });
+//                         }else {
+//                             response = {
+//                                 book : {
+//                                     name : book.name,
+//                                     id: req.params.bookid
+//                                 },
+//                                 review : review
+//                             };
+//                             sendJasonResponse(res, 200, response);
+//                         }
+//                     }else{
+//                         sendJasonResponse(res, 404, {
+//                            "message" : "No reviews found"
+//                         });
+//                     }
+//                 }
+//             );
+//     }else{
+//         sendJasonResponse(res, 404, {
+//             "message" : "Not found, bookid and reviews are both required"
+//         });
+//     }
+// };
 
 
 module.exports.reviewsDeleteOne = function (req, res) {

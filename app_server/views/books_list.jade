@@ -15,5 +15,7 @@ block content
             .row.list-group
                 each book in books
                     .col-xs-12.list-group-item
+                        p Rated: #{book.rating}
                         h4
-                            a(href="/books/#{book._id}")= book.name
+                            a(href="/authors/#{author._id}/books/#{book._id}/reviews")= book.name
+                        p Description: #{book.description}
