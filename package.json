@@ -4,6 +4,7 @@
   "description": "a social networking site for people who love reading",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "bootstrap": "^3.3.7",
     "express": "^4.15.1",
     "jade": "^1.11.0",

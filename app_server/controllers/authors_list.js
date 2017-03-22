@@ -138,6 +138,8 @@ var reviewsRenderer = function(req, res, data){
         pageHeader: {
             title: data.book.name
         },
+        author : data.author.id,
+        book: data.book._id,
         rating: data.book.rating,
         description: data.book.description,
         reviews: data.book.reviews,
@@ -149,8 +151,55 @@ var reviewsRenderer = function(req, res, data){
 
 
 module.exports.addReview = function (req, res) {
+    var requestOptions, path;
+    path = '/api/authors/' + req.params.authorid + '/books/' + req.params.bookid;
+    requestOptions = {
+        url : apiOptions.server + path,
+        method : "GET",
+        json: {}
+    };
+    request (requestOptions,
+        function(err, response, body){
+            var data = body;
+            renderReviewForm(req, res, data);
+        }
+    );
+};
+
+var renderReviewForm = function (req, res, data) {
     res.render('book_review_form', {
-        title: 'Review The escape',
-        pageHeader: {title: 'Review The escape'}
+        title: 'Review ' + data.book.name,
+        pageHeader: {title: 'Review ' + data.book.name},
+        data: data
     });
+
+};
+
+module.exports.doAddReview = function(req, res){
+    var requestOptions, path, authorid, bookid, postData;
+    authorid = req.params.authorid;
+    bookid = req.params.bookid;
+    console.log(authorid + "  "+ bookid);
+    console.log(req.body);
+    console.log("***************************");
+    path = '/api/authors/' + authorid + '/books/' + bookid + '/reviews';
+    postData = {
+        author: req.body.name,
+        rating: parseInt(req.body.rating, 10),
+        reviewText: req.body.review
+    };
+    requestOptions = {
+        url : apiOptions.server + path,
+        method : "POST",
+        json: postData
+    };
+    request (requestOptions,
+        function(err, response, body){
+            if (response.statusCode === 201){
+                res.redirect('/authors/' + authorid + '/books/' + bookid + '/reviews');
+            }else{
+               // _showError(req, res, response.statusCode);
+            }
+        }
+    );
 };

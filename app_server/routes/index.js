@@ -11,6 +11,8 @@ router.get('/', ctrlMain.homeList);
 router.get('/authors/:authorid', ctrlMain.booksList);
 //router.get('/authors/:authorid/books', ctrlMain.reviewsList);
 router.get('/authors/:authorid/books/:bookid/reviews', ctrlMain.reviewsList);
-//router.get('/authors/:authorid/books/:bookid/review/new', ctrlMain.addReview);
+router.get('/authors/:authorid/books/:bookid/reviews/new', ctrlMain.addReview);
+router.post('/authors/:authorid/books/:bookid/reviews/new', ctrlMain.doAddReview);
+
 
 module.exports = router;

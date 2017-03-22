@@ -8,7 +8,7 @@ block content
             h3= pageHeader.title
     .row
         .col-xs-12.col-md-6
-            form.form-horizontal(action="/book", method="get", role="form")
+            form.form-horizontal(action="", method="post", role="form")
                 .form-group
                     label.col-xs-10.col-sm-2.control-label(for="name") Name
                     .col-xs-12.col-sm-10
@@ -17,6 +17,8 @@ block content
                     label.col-xs-10.col-sm-2.control-label(for="rating") Rating
                     .col-xs-12.col-sm-2
                         select#rating.form-control.input-sm(name="rating")
+                            option 5
+                            option 4
                             option 3
                             option 2
                             option 1

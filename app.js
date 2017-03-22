@@ -4,6 +4,7 @@
 var path = require('path');
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
 
 
 require('./app_server/models/db');
@@ -12,6 +13,9 @@ app.set('port', process.env.PORT || 3000);
 
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'jade' );
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 var routes = require('./app_server/routes/index');
 var routesApi = require('./app_api/routes/index');

@@ -16,7 +16,7 @@ block content
          .col-xs-12
           .panel.panel-primary.review-panel
            .panel-heading
-            a.btn.btn-default.pull-right(href="/book/review/new") Add Review
+            a.btn.btn-default.pull-right(href="/authors/#{author}/books/#{book}/reviews/new") Add Review
             p.panel-title Reader reviews
              .panel-body.review-container
               each review in reviews
@@ -24,8 +24,8 @@ block content
                  .col-xs-12
                        .review
                             .row
-                                span.reviewAuthor #{review.author} 
+                                span.reviewAuthor #{review.author}
                                     +dateFormatter(review.createdOn)
                             .row
                                 span.rating= review.rating
-                                    p !{(review.reviewText).replace(/\n/g, '<br/>')}
+                                p #{(review.reviewText)}
