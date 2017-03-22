@@ -86,20 +86,21 @@ var bookListRenderer = function(req, res, authorDetail){
     if (!(authorDetail.books instanceof Array)){
         message = "API lookup error";
         authorDetail = [];
-    }else{
-        if (!authorDetail.books.length){
+    }else {
+        if (!authorDetail.books.length) {
             message = "No books found for " + authorDetail.name;
         }
+
+        res.render('books_list', {
+            title: authorDetail.name,
+            pageHeader: {
+                title: authorDetail.name
+            },
+            author: authorDetail,
+            books: authorDetail.books,
+            message: message
+        });
     }
-    res.render('books_list', {
-        title: authorDetail.name,
-        pageHeader: {
-            title: authorDetail.name
-        },
-        author: authorDetail,
-        books: authorDetail.books,
-        message : message
-    });
 };
 
 
@@ -180,6 +181,10 @@ module.exports.doAddReview = function(req, res){
     authorid = req.params.authorid;
     bookid = req.params.bookid;
     path = '/api/authors/' + authorid + '/books/' + bookid + '/reviews';
+
+
+    console.log(req.body);
+
     postData = {
         author: req.body.name,
         rating: parseInt(req.body.rating, 10),
@@ -195,37 +200,9 @@ module.exports.doAddReview = function(req, res){
             if (response.statusCode === 201){
                 res.redirect('/authors/' + authorid + '/books/' + bookid + '/reviews');
             }else{
-               // _showError(req, res, response.statusCode);
+                console.log("Something went wrong");
+                res.redirect('/authors/' + authorid + '/books/' + bookid + '/reviews');
             }
         }
     );
-};
-
-
-
-
-
-//
-// module.exports.addAuthor = function (req, res) {
-//     // var requestOptions, path;
-//     // path = '/api/authors';
-//     // requestOptions = {
-//     //     url : apiOptions.server + path,
-//     //     method : "GET",
-//     //     json: {}
-//     // };
-//     request (requestOptions,
-//         function(err, response, body){
-//             var data = body;
-//             renderAuthorForm(req, res);
-//         }
-//     );
-// };
-
-module.exports.addAuthor = function (req, res) {
-    res.render('author_add_form', {
-        title: 'New Author',
-        pageHeader: {title: 'Add a new author to the list'}
-    });
-
 };

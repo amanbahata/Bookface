@@ -24,7 +24,7 @@ block content
                  .col-xs-12
                        .review
                             .row
-                                span.reviewAuthor #{review.author}
+                                span.reviewAuthor #{review.author} on
                                     +dateFormatter(review.createdOn)
                             .row
                                 span.rating= review.rating
