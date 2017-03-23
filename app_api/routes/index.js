@@ -14,7 +14,7 @@ var ctrlReviews = require('../controllers/reviews');
 router.get('/authors', ctrlAuthors.listByAuthor);
 router.post('/authors', ctrlAuthors.authorCreate);
 router.get('/authors/:authorid', ctrlAuthors.authorReadOne);
-router.delete('/authors/:authorid', ctrlAuthors.authorDeleteOne);
+//router.delete('/authors/:authorid', ctrlAuthors.authorDeleteOne);
 
 
 //Books

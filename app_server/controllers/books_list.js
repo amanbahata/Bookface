@@ -60,8 +60,6 @@ module.exports.addBook = function (req, res) {
 };
 
 var renderBookAddForm = function (req, res, data) {
-
-    console.log(data);
     res.render('book_add_form', {
         title: 'Add book by ',
         pageHeader: {title: 'Add book by ' },
@@ -74,10 +72,6 @@ module.exports.doAddBook = function(req, res){
     var requestOptions, path, authorid, postData;
     authorid = req.params.authorid;
     path = '/api/authors/' + authorid + '/books';
-
-
-    console.log(req.body);
-
     postData = {
         name: req.body.name,
         description: req.body.description
@@ -101,29 +95,24 @@ module.exports.doAddBook = function(req, res){
 
 
 
-module.exports.doDeleteBook = function(req, res){
-    var requestOptions, path, authorid, bookid;
-    authorid = req.params.authorid;
-    bookid = req.params.bookid;
-    path = '/api/authors/' + authorid + '/books/' + bookid;
-
-
-    console.log(req.params);
-
-    requestOptions = {
-        url : apiOptions.server + path,
-        method : "DELETE",
-        json: {}
-    };
-    request (requestOptions,
-        function(err, response){
-            console.log(response);
-            if (response.statusCode === 200){
-                res.redirect('/authors/' + authorid);
-            }else{
-                console.log("Something went wrong");
-                res.redirect('/authors/' + authorid);
-            }
-        }
-    );
-};
+// module.exports.doDeleteBook = function(req, res){
+//     var requestOptions, path, authorid, bookid;
+//     authorid = req.params.authorid;
+//     bookid = req.params.bookid;
+//     path = '/api/authors/' + authorid + '/books/' + bookid;
+//     requestOptions = {
+//         url : apiOptions.server + path,
+//         method : "DELETE",
+//         json: {}
+//     };
+//     request (requestOptions,
+//         function(err, response){
+//             if (response.statusCode === 200){
+//                 res.redirect('/authors/' + authorid);
+//             }else{
+//                 console.log("Something went wrong");
+//                 res.redirect('/authors/' + authorid);
+//             }
+//         }
+//     );
+// };

@@ -7,7 +7,7 @@ var app = express();
 var bodyParser = require('body-parser');
 
 
-require('./app_server/models/db');
+require('./app_api/models/db');
 
 app.set('port', process.env.PORT || 3000);
 

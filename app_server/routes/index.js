@@ -21,7 +21,7 @@ router.post('/new', ctrlSecond.doAddAuthor);
 
 router.get('/authors/:authorid/new', ctrlSecond.addBook);
 router.post('/authors/:authorid/new', ctrlSecond.doAddBook);
-router.delete('/authors/:authorid/books/:bookid', ctrlSecond.doDeleteBook);
+//router.delete('/authors/:authorid/books/:bookid', ctrlSecond.doDeleteBook);
 
 
 
