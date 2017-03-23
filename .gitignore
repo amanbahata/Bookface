@@ -1,4 +1,7 @@
 
+# WEBSTORM FOLDER
 .idea/
 
-node_modules/
+#Dependency directory
+node_modules
+.env

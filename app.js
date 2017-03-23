@@ -1,6 +1,7 @@
 /**
  * Created by aman1 on 06/03/2017.
  */
+require('dotenv').load();       // enables the set up environment variables
 var path = require('path');
 var express = require('express');
 var app = express();
