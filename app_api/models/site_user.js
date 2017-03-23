@@ -53,4 +53,4 @@ siteUserSchema.methods.generateToken = function(){
 };
 
 
-mongoose.model('User', userSchema);
+mongoose.model('User', siteUserSchema);
