@@ -6,6 +6,8 @@ var express = require('express');
 var router = express.Router();
 var ctrlMain = require('../controllers/authors_list');
 var ctrlSecond = require('../controllers/books_list');
+var ctrlLogin = require('../controllers/login');
+
 
 
 
@@ -24,6 +26,7 @@ router.post('/authors/:authorid/new', ctrlSecond.doAddBook);
 //router.delete('/authors/:authorid/books/:bookid', ctrlSecond.doDeleteBook);
 
 
+router.get('/login', ctrlLogin.login);
 
 
 
