@@ -6,7 +6,7 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('express-jwt');
 var authentication = jwt({
-    secret: process.env.JWT_SECRET,   // set secret using environment variable
+    secret: process.env.JWT_SECRET,   // set secret using environment variables
     userProperty: 'payload'             // define property on request to be payload
 })
 var ctrlAuthors = require('../controllers/authors_list');
@@ -25,7 +25,7 @@ router.get('/authors/:authorid', ctrlAuthors.authorReadOne);
 //Books
 
 router.get('/authors/:authorid/books', ctrlBooks.listBooks);
-router.post('/authors/:authorid/books', authentication, authentication, ctrlBooks.booksCreate);
+router.post('/authors/:authorid/books', authentication, ctrlBooks.booksCreate);
 router.get('/authors/:authorid/books/:bookid', ctrlBooks.booksReadOne);
 router.delete('/authors/:authorid/books/:bookid', authentication ,ctrlBooks.bookDeleteOne);
 
@@ -34,7 +34,7 @@ router.delete('/authors/:authorid/books/:bookid', authentication ,ctrlBooks.book
 router.get('/authors/:authorid/books/:bookid/reviews', ctrlReviews.listReviews);
 router.post('/authors/:authorid/books/:bookid/reviews', authentication ,ctrlReviews.reviewsCreate);
 
-//Authenication
+//Authentication
 
 router.post('/register', ctrlAuthentication.register);
 router.post('/login', ctrlAuthentication.login);

@@ -22,16 +22,17 @@ module.exports.register = function (req, res) {
 
     if (!req.body.name || !req.body.email || !req.body.password){
         sendJsonResponse(res, 400, {
-            "message" : "All input field required."
+            "message" : "All input field required."  // respond with error message if the required fields are not found
         });
         return;
     }
 
+    // create a new user instance and set the screen name, user name, email and password
     var user = new User();
     user.screenName = req.body.screenName;
     user.name = req.body.name;
     user.email = req.body.email;
-    user.setPassword(req.body.password);
+    user.setPassword(req.body.password);   // use setPassword from the schema method to salt and hash entered password
 
 
     user.save(function(err){
@@ -39,7 +40,7 @@ module.exports.register = function (req, res) {
         if (err) {
             sendJsonResponse(res, 404, err);
         }else{
-            token = user.generateToken();
+            token = user.generateToken();   // generate token and send it to the browser
             sendJsonResponse(res, 200, {
                 "token" : token
             });

@@ -37,23 +37,23 @@ module.exports.listByAuthor = function (req, res) {
 };
 
 module.exports.authorCreate = function (req, res) {
-    getUser(req, res, function (req, res, userName) {
-        if (req.body.name) {
-            Book.create({
-                name: req.body.name
-            }, function (err, author) {
-                if (err) {
-                    sendJasonResponse(res, 400, err);
-                } else {
-                    sendJasonResponse(res, 201, author);
-                }
-            });
-        }else{
-            sendJasonResponse(res, 404, {
-                "message" : "Author name is required"
-            });
-        }
-    });
+
+    if (req.body.name) {
+
+        Book.create({
+            name: req.body.name
+        }, function (err, author) {
+            if (err) {
+                sendJasonResponse(res, 400, err);
+            } else {
+                sendJasonResponse(res, 201, author);
+            }
+        });
+    }else{
+        sendJasonResponse(res, 404, {
+            "message" : "Author name is required"
+        })
+    }
 };
 
 
@@ -82,22 +82,20 @@ module.exports.authorReadOne = function (req, res) {
 
 
 module.exports.authorDeleteOne = function (req, res) {
-    getUser(req, res, function (req, res, userName) {
-        var authorid = req.params.authorid;
-        if (authorid) {
-            Book.findByIdAndRemove(authorid)
-                .exec(function (err, author) {
-                        if (err) {
-                            sendJasonResponse(res, 404, err);
-                            return;
-                        }
-                        sendJasonResponse(res, 204, null);
-                    }
-                );
-        } else {
-            sendJasonResponse(res, 404, {
-                "message": "No authorid"
-            });
-        }
-    });
+    var authorid = req.params.authorid;
+    if(authorid){
+        Book.findByIdAndRemove(authorid)
+            .exec(function(err, author){
+                  if(err){
+                      sendJasonResponse(res, 404, err);
+                      return;
+                  }
+                  sendJasonResponse(res, 204, null);
+              }
+            );
+    }else{
+        sendJasonResponse(res, 404, {
+            "message" : "No authorid"
+        });
+    }
 };

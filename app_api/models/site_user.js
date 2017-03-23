@@ -14,7 +14,7 @@ var siteUserSchema = new mongoose.Schema({
   email: {
       type: String, unique: true, required: true
   },
-    screenName: {type: String, required: true},
+    screenName: {type: String, unique: true, required: true},
     name: {type: String, required: true},
     hash: {type:String},
     salt: {type: String}
@@ -51,7 +51,7 @@ siteUserSchema.methods.generateToken = function(){
         _id: this._id,
         email: this.email,
         name: this.name,
-        exp: parseInt(expiryDate.getTime()/1000)}, process.env.JWT_SECRET);   //sends this secret for the use of the hashing algorithm
+        exp: parseInt(expiryDate.getTime()/1000)}, process.env.JWT_SECRET);   //sends this secret word for the use of the hashing algorithm
 };
 
 

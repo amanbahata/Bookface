@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var dbURI = 'mongodb://localhost/Bookface';
 mongoose.connect(dbURI);
 
-/*Monitoring monggose connection for successful connection, connection error and when mongoose is disconnected*/
+/*Monitoring mongoose connection for successful connection, connection error and when mongoose is disconnected*/
 mongoose.connection.on('connected', function(){
     console.log('Mongoose connected to ' + dbURI);
 });

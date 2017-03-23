@@ -23,7 +23,7 @@ module.exports.doAddAuthor = function(req, res){
     var requestOptions, path, postData;
     path = '/api/authors';
     postData = {
-        name: req.body.name,
+        name: req.body.name
     };
     requestOptions = {
         url : apiOptions.server + path,

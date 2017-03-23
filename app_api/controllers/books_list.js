@@ -57,23 +57,21 @@ module.exports.listBooks = function (req, res) {
 };
 
 module.exports.booksCreate = function (req, res) {
-    getUser(req, res, function (req, res, userName) {
-        var author = req.params.authorid;
-        if (author) {
-            Book.findById(author).select('books')
-                .exec(
-                    function (err, author) {
-                        if (err) {
-                            sendJasonResponse(res, 400, err);
-                        } else {
-                            addBook(req, res, author);
-                        }
+    var author = req.params.authorid;
+    if(author){
+        Book.findById(author).select('books')
+            .exec(
+                function(err, author){
+                    if (err){
+                        sendJasonResponse(res, 400, err);
+                    }else{
+                        addBook(req, res, author);
                     }
-                );
-        } else {
-            sendJasonResponse(res, 404, {"message": "The author was not found."});
-        }
-    });
+                }
+            );
+    }else{
+        sendJasonResponse(res, 404, {"message" : "The author was not found."});
+    }
 };
 
 var addBook = function(req, res, author){
@@ -141,49 +139,48 @@ module.exports.booksReadOne = function (req, res){
 };
 
 module.exports.bookDeleteOne = function (req, res){
-    getUser(req, res, function (req, res, userName) {
-        if (!req.params.authorid || !req.params.bookid) {
+    if(!req.params.authorid || !req.params.bookid){
             sendJasonResponse(res, 404, {
-                "message": "Not found, authorid and bookid both needed"
+            "message" : "Not found, authorid and bookid both needed"
             });
-            return;
-        }
-        Book.findById(req.params.authorid)
-            .select('name books')
-            .exec(
-                function (err, author) {
-                    if (!author) {
-                        sendJasonResponse(res, 404, {
-                            "message": "authorid not found"
-                        });
-                        return;
-                    } else if (err) {
-                        sendJasonResponse(res, 400, err);
-                        return;
-                    }
-                    if (author.books && author.books.length > 0) {
-                        if (!author.books.id(req.params.bookid)) {
-                            sendJasonResponse(res, 404, {
-                                "message": "bookid not found"
-                            });
-                        } else {
-                            author.books.id(req.params.bookid).remove();
-                            author.save(function (err) {
-                                if (err) {
-                                    sendJasonResponse(res, 404, err);
-                                } else {
-                                    sendJasonResponse(res, 204, null);
-                                }
-                            });
-                        }
-                    } else {
-                        sendJasonResponse(res, 404, {
-                            "message": "No book to delete"
-                        });
-                    }
+        return;
+    }
+    Book.findById(req.params.authorid)
+        .select('name books')
+        .exec(
+            function(err, author){
+                if(!author){
+                    sendJasonResponse(res, 404, {
+                        "message" : "authorid not found"
+                    });
+                    return;
+                }else if (err){
+                    sendJasonResponse(res, 400, err);
+                    return;
                 }
-            );
-    });
+                if (author.books && author.books.length > 0){
+                    if(!author.books.id(req.params.bookid)){
+                        sendJasonResponse(res, 404, {
+                            "message" : "bookid not found"
+                        });
+                    }else{
+                        author.books.id(req.params.bookid).remove();
+                        author.save(function(err){
+                           if (err){
+                               sendJasonResponse(res, 404, err);
+                           }else{
+                               sendJasonResponse(res, 204, null);
+                           }
+                        });
+                    }
+
+                }else{
+                    sendJasonResponse(res, 404, {
+                        "message" : "No book to delete"
+                    });
+                }
+            }
+        );
 
 };
 

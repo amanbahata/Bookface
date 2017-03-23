@@ -22,7 +22,7 @@ passport.use(new LocalStrategy({
         }
         if (!user.validatePassword(password)){
             return done(null, false, {
-                "message" : "incorrect password."
+                "message" : "Incorrect password."
             });
         }
         return done(null, user);

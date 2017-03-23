@@ -18,9 +18,10 @@ var homepageRenderer = function(req, res, responseBody){
     var message;
     if (!(responseBody.author instanceof Array)){
         message = "API lookup error";
-        responseBody = [];
+        responseBody.author = [];
     }else{
         if (!responseBody.author.length){
+            responseBody.author = [];
             message = "No authors found";
         }
     }
