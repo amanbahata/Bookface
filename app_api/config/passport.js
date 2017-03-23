@@ -20,68 +20,11 @@ passport.use(new LocalStrategy({
                 "message" : 'Incorrect username.'
             });
         }
+        if (!user.validatePassword(password)){
+            return done(null, false, {
+                "message" : "incorrect password."
+            });
+        }
+        return done(null, user);
     });
 }));
-
-
-/*
-    Registration controller for the api
- */
-
-
-module.exports.register = function (req, res) {
-    if (!req.body.name || !req.body.email || !req.body.password){
-        sendJSONresponse(res, 400, {
-           "message" : "All input field required."
-        });
-        return;
-    }
-
-    var user = new User();
-    user.name = req.body.name;
-    user.email = req.body.email;
-    user.setPassword(req.body.password);
-
-    user.save(function(err){
-        var token;
-        if (err) {
-            sendJSONresponse(res, 404, err);
-        }else{
-            token = user.generateToken();
-            sendJSONresponse(res, 200, {
-                "token" : token
-            });
-        }
-    })
-};
-
-
-/*
-    Login controller for the api
- */
-
-module.exports.login = function (req, res) {
-    if (!req.body.email || !req.body.password){
-        sendJSONresponse(res, 400, {
-            "message" : "All fields required."
-        });
-        return;
-    }
-    passport.authenticate('local', function (err, user, info) {
-        var token;
-
-        if (err){
-            sendJSONresponse(res, 404, err);
-            return;
-        }
-        if (user){
-            token = user.generateToken();
-            sendJSONresponse(res, 200, {
-                "token" : token
-            });
-        }else{
-            sendJSONresponse(res, 401, info);
-        }
-
-    })(req, res);
-};

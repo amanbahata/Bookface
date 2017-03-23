@@ -6,9 +6,11 @@ var path = require('path');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var passport = require('passport');
 
 
 require('./app_api/models/db');
+require('./app_api/config/passport');        // require strategy after model definition
 
 app.set('port', process.env.PORT || 3000);
 
@@ -20,6 +22,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var routes = require('./app_server/routes/index');
 var routesApi = require('./app_api/routes/index');
+
+app.use(passport.initializa());
 
 app.use('/', routes);
 app.use('/api', routesApi);

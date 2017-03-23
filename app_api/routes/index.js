@@ -7,6 +7,7 @@ var router = express.Router();
 var ctrlAuthors = require('../controllers/authors_list');
 var ctrlBooks = require('../controllers/books_list');
 var ctrlReviews = require('../controllers/reviews');
+var ctrlAuthentication = require('../controllers/authentication');
 
 
 //Authors
@@ -28,6 +29,11 @@ router.delete('/authors/:authorid/books/:bookid', ctrlBooks.bookDeleteOne);
 
 router.get('/authors/:authorid/books/:bookid/reviews', ctrlReviews.listReviews);
 router.post('/authors/:authorid/books/:bookid/reviews', ctrlReviews.reviewsCreate);
+
+//Authenication
+
+router.post('/register', ctrlAuthentication.register);
+router.post('/login', ctrlAuthentication.login);
 
 
 
