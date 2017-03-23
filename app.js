@@ -31,6 +31,14 @@ app.use('/api', routesApi);
 app.use(require('./app_server/routes/index'));
 app.use(require('./app_api/routes/index'));
 
+// error handling to catch unauthorised error
+app.use(function(err, req, res, next){
+    if (err.name === 'UnauthorisedError'){
+        res.status(401);
+        res.json({"message" :  err.name + ": " + err.message});
+    }
+});
+
 var server = app.listen(app.get('port'), function(){
     console.log('Server listening on port ' + app.get('port'));
 });
