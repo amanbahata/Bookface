@@ -20,7 +20,6 @@ var ctrlAuthentication = require('../controllers/authentication');
 router.get('/authors', ctrlAuthors.listByAuthor);
 router.post('/authors', authentication , ctrlAuthors.authorCreate);
 router.get('/authors/:authorid', ctrlAuthors.authorReadOne);
-//router.delete('/authors/:authorid', ctrlAuthors.authorDeleteOne);
 
 
 //Books
