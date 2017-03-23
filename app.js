@@ -15,7 +15,7 @@ app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'jade' );
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 var routes = require('./app_server/routes/index');
 var routesApi = require('./app_api/routes/index');

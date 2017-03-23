@@ -181,10 +181,6 @@ module.exports.doAddReview = function(req, res){
     authorid = req.params.authorid;
     bookid = req.params.bookid;
     path = '/api/authors/' + authorid + '/books/' + bookid + '/reviews';
-
-
-    console.log(req.body);
-
     postData = {
         author: req.body.name,
         rating: parseInt(req.body.rating, 10),

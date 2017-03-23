@@ -11,7 +11,8 @@ block content
       .row
        .col-xs-12.col-sm-6
         p Rating #{rating}
-        p Description #{description}
+            a.btn.btn-default.pull-right(href="/authors/#{author}/books/#{book}") Delete Book
+           p Description #{description}
         .row
          .col-xs-12
           .panel.panel-primary.review-panel
