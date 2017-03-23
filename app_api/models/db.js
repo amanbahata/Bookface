@@ -18,3 +18,4 @@ mongoose.connection.on('disconnected', function(){
 
 
 require('./books_repo');
+require('./site_user');
