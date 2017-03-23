@@ -4,6 +4,7 @@
 
 var mongoose = require('mongoose');
 var crypto = require('crypto');
+var jwt = require('jsonwebtoken');
 
 /*
     Set up the database schema for the site user
@@ -13,6 +14,7 @@ var siteUserSchema = new mongoose.Schema({
   email: {
       type: String, unique: true, required: true
   },
+    screenName: {type: String, required: true},
     name: {type: String, required: true},
     hash: {type:String},
     salt: {type: String}
