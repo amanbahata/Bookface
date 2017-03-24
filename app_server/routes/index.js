@@ -7,6 +7,7 @@ var router = express.Router();
 var ctrlMain = require('../controllers/authors_list');
 var ctrlSecond = require('../controllers/books_list');
 var ctrlLogin = require('../controllers/login');
+var ctrlRegister = require('../controllers/register');
 
 
 
@@ -27,6 +28,10 @@ router.post('/authors/:authorid/new', ctrlSecond.doAddBook);
 
 
 router.get('/login', ctrlLogin.login);
+router.get('/register', ctrlRegister.register);
+
+//router.get('/login', ctrlLogin.login);
+router.post('/register', ctrlRegister.doRegister);
 
 
 
