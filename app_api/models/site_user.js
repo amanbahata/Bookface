@@ -17,7 +17,8 @@ var siteUserSchema = new mongoose.Schema({
     screenName: {type: String, unique: true, required: true},
     name: {type: String, required: true},
     hash: {type:String},
-    salt: {type: String}
+    salt: {type: String},
+    active: {type: Boolean, default: false}
 });
 
 

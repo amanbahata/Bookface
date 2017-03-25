@@ -8,6 +8,7 @@ var ctrlMain = require('../controllers/authors_list');
 var ctrlSecond = require('../controllers/books_list');
 var ctrlLogin = require('../controllers/login');
 var ctrlRegister = require('../controllers/register');
+var ctrlVerify = require('../controllers/verification');
 
 
 
@@ -32,6 +33,7 @@ router.get('/register', ctrlRegister.register);
 
 //router.get('/login', ctrlLogin.login);
 router.post('/register', ctrlRegister.doRegister);
+router.get('/verify/:tokenid', ctrlVerify.doVerification);
 
 
 

@@ -31,7 +31,7 @@ module.exports.register = function (req, res) {
 var renderRegisterForm = function (req, res, responseBody) {
     res.render('register', {
         title: 'Register',
-        pageHeader: {title: 'Register'},
+        pageHeader: {title: 'Register'}
     });
 };
 
@@ -54,6 +54,7 @@ module.exports.doRegister = function(req, res){
 
         console.log(response.statusCode);
             if (response.statusCode === 200){
+                console.log(response.body.token);
                 res.redirect('/login');
             }else{
                 console.log("Something went wrong");

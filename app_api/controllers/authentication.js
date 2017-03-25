@@ -4,6 +4,7 @@
 
 var passport = require('passport');
 var mongoose = require('mongoose');
+var jwt = require('jwt-simple');
 var User = mongoose.model('User');
 
 
@@ -22,7 +23,7 @@ module.exports.register = function (req, res) {
 
     if (!req.body.name || !req.body.email || !req.body.password){
         sendJsonResponse(res, 400, {
-            "message" : "All input field required."  // respond with error message if the required fields are not found
+            "message" : "All input fields required."  // respond with error message if the required fields are not found
         });
         return;
     }
@@ -75,9 +76,45 @@ module.exports.login = function (req, res) {
                 "token" : token
             });
         }else{
-            sendJsonResponse(res, 401, info);  // otherwise return information aout why the authentication failed
+            sendJsonResponse(res, 401, info);  // otherwise return information about why the authentication failed
         }
 
     })(req, res);
+};
+
+
+module.exports.verify = function (req, res) {
+    if(req.params && req.params.tokenid){
+        var token = req.params.tokenid;
+        var decoded = jwt.decode(token, process.env.JWT_SECRET);
+        console.log(decoded.email);
+
+
+        User.findOne({email: decoded.email}, function (err, user) {
+            user.active = true;
+
+            user.save(function (err) {
+                if(err) {
+                    console.error('ERROR!');
+                }
+            });
+        });
+
+
+
+
+
+
+        sendJsonResponse(res, 200, {
+            "message" : "Authentication done."
+        });
+    }else{
+        sendJsonResponse(res, 404, {
+            "message" : "Email not found. Please register to the site."
+        });
+    }
+
+
+
 };
 
