@@ -5,6 +5,7 @@
 var passport = require('passport');
 var mongoose = require('mongoose');
 var jwt = require('jwt-simple');
+var jwtPayloadDecoder = require('jwt-payload-decoder');
 var User = mongoose.model('User');
 
 
@@ -85,28 +86,23 @@ module.exports.login = function (req, res) {
 
 module.exports.verify = function (req, res) {
     if(req.params && req.params.tokenid){
-        var token = req.params.tokenid;
-        var decoded = jwt.decode(token, process.env.JWT_SECRET);
-        console.log(decoded.email);
 
+        var token = jwtPayloadDecoder.getPayload(req.params.tokenid);
 
-        User.findOne({email: decoded.email}, function (err, user) {
+        User.findOne({email: token.email}, function (err, user) {
             user.active = true;
 
             user.save(function (err) {
                 if(err) {
-                    console.error('ERROR!');
+                    sendJsonResponse(res, 404, {
+                        "message" : "There has been an error please try again."
+                    });
+                }else{
+                    sendJsonResponse(res, 200, {
+                        "message" : "Authentication done."
+                    });
                 }
             });
-        });
-
-
-
-
-
-
-        sendJsonResponse(res, 200, {
-            "message" : "Authentication done."
         });
     }else{
         sendJsonResponse(res, 404, {

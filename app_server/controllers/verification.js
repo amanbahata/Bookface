@@ -2,8 +2,7 @@
  * Created by aman1 on 24/03/2017.
  */
 
-const nodemailer = require('nodemailer');
-const xoauth2 = require('xoauth2');
+
 var request = require('request');
 
 
@@ -15,43 +14,13 @@ var apiOptions = {
     server : "http://localhost:3000"
 };
 
-// var transporter = nodemailer.createTransport("SMTP",{
-//     service: 'gmail',
-//     auth : {
-//         user: "gmail usern name",
-//         password: "gmail password"
-//
-//     }
-// });
-//
-// var mailOptions = {
-//     from: '',
-//     to: '',
-//     subject: '',
-//     text: ''
-// };
-//
-// transporter.sendMail(mailOptions, function (err, res) {
-//    if (err){
-//        console.log("Error sending email");
-//    }else{
-//        console.log("Email sent with success");
-//    }
-// });
+
 
 
 
 module.exports.doVerification = function (req, res) {
-    var requestOptions, path, postData;
-    path = '/api/verify/' + req.params.tokenid;
-    // postData = {
-    //     screenName: req.body.screenName,
-    //     name: req.body.name,
-    //     email: req.body.email,
-    //     password: req.body.password
-    // };
-
-
+    var requestOptions, path;
+    path = '/api/verify/' + req.params.email;
     requestOptions = {
         url : apiOptions.server + path,
         method : "GET",
@@ -59,12 +28,32 @@ module.exports.doVerification = function (req, res) {
     };
     request (requestOptions,
         function(err, response){
+        var verified = false;
             if (response.statusCode === 200){
-                res.redirect('/login');
+                verified = true;
+                renderVerificationForm(req, res, verified);
             }else{
                 console.log("Something went wrong");
-                res.redirect('/register');
+                renderVerificationForm(req, res, verified);
             }
         }
     );
+};
+
+
+
+var renderVerificationForm = function(req, res, verified){
+    var message;
+    if (verified){
+        message = "Thank you for verifying your email address. You can now log in. ";
+    }else {
+        message = "There has been a problem verifying your email please register again.";
+    }
+    res.render('verified_page', {
+        title: "Verification",
+        pageHeader: {
+            title: "Account verification"
+        },
+        message: message
+    });
 };

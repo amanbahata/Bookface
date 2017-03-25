@@ -86,22 +86,20 @@ var bookListRenderer = function(req, res, authorDetail){
     var message;
     if (!(authorDetail.books instanceof Array)){
         message = "API lookup error";
-        authorDetail = [];
     }else {
         if (!authorDetail.books.length) {
             message = "No books found for " + authorDetail.name;
         }
-
-        res.render('books_list', {
-            title: authorDetail.name,
-            pageHeader: {
-                title: authorDetail.name
-            },
-            author: authorDetail,
-            books: authorDetail.books,
-            message: message
-        });
     }
+    res.render('books_list', {
+        title: authorDetail.name,
+        pageHeader: {
+            title: authorDetail.name
+        },
+        author: authorDetail,
+        books: authorDetail.books,
+        message: message
+    });
 };
 
 

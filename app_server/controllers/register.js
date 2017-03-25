@@ -54,7 +54,7 @@ module.exports.doRegister = function(req, res){
 
         console.log(response.statusCode);
             if (response.statusCode === 200){
-                console.log(response.body.token);
+                              // console.log(response.body.token);
                 res.redirect('/login');
             }else{
                 console.log("Something went wrong");
