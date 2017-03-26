@@ -56,8 +56,6 @@ module.exports.doRegister = function(req, res){
                 if (response.body) {
                     mailer.sendEmail(req.body.email, response.body.token);
                 }
-
-                console.log(response.body.token);
                 res.redirect('/login');
             }else{
                 console.log("Something went wrong");

@@ -31,23 +31,24 @@ siteUserSchema.methods.setPassword = function(password) {
 };
 
 /*
-    Password validation when users log in to website
+    Password validation when users log in to website.
+    Returns true if the hashed version of the entered password is equal to the saved hashed version
+    of the password and if the user has completed the email verification
  */
 
 siteUserSchema.methods.validatePassword = function(password) {
   var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
-  return this.hash === hash;
+  return (this.hash === hash) && this.active ;
 };
 
 
 /*
-    Generation of a jason web token that xpires every seven days
+    Generation of a jason web token that expires every seven days
  */
 
 siteUserSchema.methods.generateToken = function(){
     var expiryDate = new Date();
     expiryDate.setDate(expiryDate.getDate() + 7);
-
     return jwt.sign({
         _id: this._id,
         email: this.email,

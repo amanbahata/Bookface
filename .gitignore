@@ -4,4 +4,6 @@
 
 #Dependency directory
 node_modules
+
+#Envioment variables
 .env

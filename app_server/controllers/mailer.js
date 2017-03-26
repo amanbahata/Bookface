@@ -5,22 +5,25 @@
 const nodemailer = require('nodemailer');
 
 
+// get the data from environment variables
+var user_email = process.env.SENDER_EMAIL;
+var pass = process.env.SENDER_EMAIL_PASSWORD;
 
 module.exports.sendEmail = function(email, token) {
     var transporter = nodemailer.createTransport({
-        service: 'Gmail',
+        service: 'Gmail',                               //default mail provider
         auth: {
-            user: 'XXXXXXXX@gmail.com',                          // Sender email id
-            pass:  XXXXXXXX          //process.env.EMAIL_PASSWORD                    // Sender password
+            user: user_email,
+            pass: pass
         }
     });
 
-    var html = '<a href=\"http://localhost:3000/verify/' + token + '\">Click this link to verify email</a>';
+    var html = '<a href=\"http://localhost:3000/verify/' + token + '\">Click this link to verify your email</a>';
 
     var mailOptions = {
-        from: 'XXXXXXXX@gmail.com',                              // sender address
-        to: email,                                                 // list of receivers
-        subject: 'Do not reply, Bookface email verification',      // Subject line
+        from:  user_email,                                                //Senders' email
+        to: email,                                                        // receivers email
+        subject: 'Please do not reply, Bookface email verification',      // Subject line
         html: html
     };
 
