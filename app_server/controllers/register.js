@@ -4,6 +4,7 @@
 
 
 var request = require('request');
+var mailer = require('./mailer');
 
 /*
  Setting up the api options
@@ -51,10 +52,12 @@ module.exports.doRegister = function(req, res){
     };
     request (requestOptions,
         function(err, response){
-
-        console.log(response.statusCode);
             if (response.statusCode === 200){
-                              // console.log(response.body.token);
+                if (response.body) {
+                    mailer.sendEmail(req.body.email, response.body.token);
+                }
+
+                console.log(response.body.token);
                 res.redirect('/login');
             }else{
                 console.log("Something went wrong");

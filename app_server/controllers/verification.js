@@ -20,7 +20,7 @@ var apiOptions = {
 
 module.exports.doVerification = function (req, res) {
     var requestOptions, path;
-    path = '/api/verify/' + req.params.email;
+    path = '/api/verify/' + req.params.tokenid;
     requestOptions = {
         url : apiOptions.server + path,
         method : "GET",
@@ -33,7 +33,6 @@ module.exports.doVerification = function (req, res) {
                 verified = true;
                 renderVerificationForm(req, res, verified);
             }else{
-                console.log("Something went wrong");
                 renderVerificationForm(req, res, verified);
             }
         }

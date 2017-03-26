@@ -5,7 +5,6 @@
 var passport = require('passport');
 var mongoose = require('mongoose');
 var jwt = require('jwt-simple');
-var jwtPayloadDecoder = require('jwt-payload-decoder');
 var User = mongoose.model('User');
 
 
@@ -87,11 +86,10 @@ module.exports.login = function (req, res) {
 module.exports.verify = function (req, res) {
     if(req.params && req.params.tokenid){
 
-        var token = jwtPayloadDecoder.getPayload(req.params.tokenid);
+        var token = jwt.decode(req.params.tokenid, process.env.JWT_SECRET);
 
         User.findOne({email: token.email}, function (err, user) {
             user.active = true;
-
             user.save(function (err) {
                 if(err) {
                     sendJsonResponse(res, 404, {

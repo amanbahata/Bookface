@@ -38,7 +38,7 @@ router.post('/authors/:authorid/books/:bookid/reviews', authentication ,ctrlRevi
 
 router.post('/register', ctrlAuthentication.register);
 router.post('/login', ctrlAuthentication.login);
-router.get('/verify/:email', ctrlAuthentication.verify);
+router.get('/verify/:tokenid', ctrlAuthentication.verify);
 
 
 

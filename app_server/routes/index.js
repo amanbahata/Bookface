@@ -33,7 +33,7 @@ router.get('/register', ctrlRegister.register);
 
 //router.get('/login', ctrlLogin.login);
 router.post('/register', ctrlRegister.doRegister);
-router.get('/verify/:email', ctrlVerify.doVerification);
+router.get('/verify/:tokenid', ctrlVerify.doVerification);
 
 
 
