@@ -15,7 +15,7 @@ var apiOptions = {
 
 
 module.exports.register = function (req, res) {
-    var requestOptions, path, message;
+    var requestOptions, path;
     path = '/api/register';
     requestOptions = {
         url : apiOptions.server + path,
@@ -58,9 +58,17 @@ module.exports.doRegister = function(req, res){
                 }
                 res.redirect('/login');
             }else{
-                console.log("Something went wrong");
-                res.redirect('/register');
+                console.log("User email already used");
+                renderErrorPage(res);
             }
         }
     );
 };
+
+var renderErrorPage = function (res) {
+    res.render('error', {
+        title: 'Oops',
+        pageHeader: {title: 'Failed Registration'},
+        message : "The entered email already exists."
+    });
+}

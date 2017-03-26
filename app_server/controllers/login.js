@@ -23,12 +23,12 @@ module.exports.login = function (req, res) {
     request (requestOptions,
         function(err, response, body){
             var data = body;
-            renderReviewForm(req, res);
+            renderLoginForm(req, res);
         }
     );
 };
 
-var renderReviewForm = function (req, res) {
+var renderLoginForm = function (req, res) {
     res.render('login', {
         title: 'Login',
         pageHeader: {title: 'Login'}

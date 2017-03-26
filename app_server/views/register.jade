@@ -6,14 +6,15 @@ block content
         .col-lg-12
             h3= pageHeader.title
     .container
-        .row
-            .col-sm-6.col-md-4.col-md-offset-4
-                .account-wall
-                    form( action='/register', method='POST')
-                        input(type='text', name='screenName' class='form-control', placeholder='Screen name', required, autofocus)
-                        input(type='text', name='name' class='form-control', placeholder='Name', required)
-                        input(type='email', name='email' class='form-control', placeholder='Email', required)
-                        input(type='password', name='password' class='form-control', placeholder='Password', required)
-                        button(class='btn btn-lg btn-primary btn-block', type='submit') Register
-                        span.clearfix
-                a(href='/login', class='text-center new-account') Log-in
+        p=message
+            .row
+                .col-sm-6.col-md-4.col-md-offset-4
+                    .account-wall
+                        form( action='/register', method='POST')
+                            input(type='text', name='screenName' class='form-control', placeholder='Screen name', required, autofocus)
+                            input(type='text', name='name' class='form-control', placeholder='Name', required)
+                            input(type='email', name='email' class='form-control', placeholder='Email', required)
+                            input(type='password', name='password' class='form-control', placeholder='Password', required)
+                            button(class='btn btn-lg btn-primary btn-block', type='submit') Register
+                            span.clearfix
+                    a(href='/login', class='text-center new-account') Log-in
