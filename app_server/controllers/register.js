@@ -15,21 +15,10 @@ var apiOptions = {
 
 
 module.exports.register = function (req, res) {
-    var requestOptions, path;
-    path = '/api/register';
-    requestOptions = {
-        url : apiOptions.server + path,
-        method : "GET",
-        json: {}
-    };
-    request (requestOptions,
-        function(err, response, body){
-            renderRegisterForm(req, res, body);
-        }
-    );
+    renderRegisterForm(req, res);
 };
 
-var renderRegisterForm = function (req, res, responseBody) {
+var renderRegisterForm = function (req, res) {
     res.render('register', {
         title: 'Register',
         pageHeader: {title: 'Register'}

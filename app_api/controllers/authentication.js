@@ -54,11 +54,7 @@ module.exports.register = function (req, res) {
  Login controller for the api
  */
 
-module.exports.login = function (req, res) {
-
-    console.log(req.body.email);
-    console.log(req.body.password);
-
+module.exports.doLogin = function (req, res) {
     if (!req.body.email || !req.body.password){  // check that all the required fields are supplied
         sendJsonResponse(res, 400, {
             "message" : "All fields required."
@@ -111,8 +107,5 @@ module.exports.verify = function (req, res) {
             "message" : "Email not found. Please register to the site."
         });
     }
-
-
-
 };
 

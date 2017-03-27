@@ -38,7 +38,7 @@ siteUserSchema.methods.setPassword = function(password) {
 
 siteUserSchema.methods.validatePassword = function(password) {
   var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
-  return this.hash === hash;
+  return this.hash === hash ;
 };
 
 

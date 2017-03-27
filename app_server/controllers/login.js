@@ -13,18 +13,7 @@ var apiOptions = {
 
 
 module.exports.login = function (req, res) {
-    var requestOptions, path;
-    path = '/api/login';
-    requestOptions = {
-        url : apiOptions.server + path,
-        method : "GET",
-        json: {}
-    };
-    request (requestOptions,
-        function(err, response, body){
-            renderLoginForm(req, res);
-        }
-    );
+    renderLoginForm(req, res);
 };
 
 var renderLoginForm = function (req, res) {
@@ -51,12 +40,13 @@ module.exports.doLogin = function (req, res) {
     request (requestOptions,
         function(err, response){
             if (response.statusCode === 200){
-                if (response.body) {
-                    console.log(response.body.token);
-                }
+                setTimeout(function(){res.redirect('/')}, 3000);
             }else{
-                console.log(response.statusCode);
-                //renderErrorPage(res);
+                res.render('login',{
+                    title:'Login',
+                    pageHeader: {title: 'Login'},
+                    message : 'invalid email or password.'
+                });
             }
         }
     );

@@ -25,13 +25,14 @@ var routesApi = require('./app_api/routes/index');
 
 
 app.use('/', routes);
-//app.use(passport.initialize());
+
+app.use(passport.initialize());
 app.use('/api', routesApi);
 
 app.use(require('./app_server/routes/index'));
 app.use(require('./app_api/routes/index'));
 
-//error handling to catch unauthorised error
+error handling to catch unauthorised error
 app.use(function(err, req, res, next){
     if (err.name === 'UnauthorisedError'){
         res.status(401);
