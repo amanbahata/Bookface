@@ -14,6 +14,7 @@ var apiOptions = {
     Setting up the main rendering function
  */
 
+
 var homepageRenderer = function(req, res, responseBody){
     var message;
     if (!(responseBody.author instanceof Array)){

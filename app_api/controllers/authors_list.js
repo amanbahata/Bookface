@@ -10,6 +10,9 @@ var sendJasonResponse = function(res, status, content) {
 };
 
 module.exports.listByAuthor = function (req, res) {
+
+    console.log(req.session);
+
             Book.find()
                 .select('name')
                 .exec(
@@ -37,23 +40,21 @@ module.exports.listByAuthor = function (req, res) {
 };
 
 module.exports.authorCreate = function (req, res) {
-
-    if (req.body.name) {
-
-        Book.create({
-            name: req.body.name
-        }, function (err, author) {
-            if (err) {
-                sendJasonResponse(res, 400, err);
-            } else {
-                sendJasonResponse(res, 201, author);
-            }
-        });
-    }else{
-        sendJasonResponse(res, 404, {
-            "message" : "Author name is required"
-        })
-    }
+        if (req.body.name) {
+            Book.create({
+                name: req.body.name
+            }, function (err, author) {
+                if (err) {
+                    sendJasonResponse(res, 400, err);
+                } else {
+                    sendJasonResponse(res, 201, author);
+                }
+            });
+        }else{
+            sendJasonResponse(res, 404, {
+                "message" : "Author name is required"
+            })
+        }
 };
 
 

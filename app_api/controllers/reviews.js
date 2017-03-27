@@ -145,7 +145,7 @@ var updateAverageRating = function(singleBook){
                     setAverageRating(singleBook);
                 }
             });
-    setAverageRating(singleBook);
+   // setAverageRating(singleBook);
 };
 //
 // var setAverageRating = function(singleBook){

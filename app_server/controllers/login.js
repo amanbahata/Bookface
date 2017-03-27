@@ -26,6 +26,8 @@ var renderLoginForm = function (req, res) {
 
 
 module.exports.doLogin = function (req, res) {
+
+    console.log(req.session);
     var requestOptions, path, postData;
     path = '/api/login';
     postData = {
@@ -40,6 +42,10 @@ module.exports.doLogin = function (req, res) {
     request (requestOptions,
         function(err, response){
             if (response.statusCode === 200){
+                 req.session = response.body.token;
+
+                 console.log(req.session);
+
                 setTimeout(function(){res.redirect('/')}, 3000);
             }else{
                 res.render('login',{
