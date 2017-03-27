@@ -69,6 +69,7 @@ var renderErrorPage = function (res) {
     res.render('error', {
         title: 'Oops',
         pageHeader: {title: 'Failed Registration'},
-        message : "The entered email already exists."
+        message : "The entered email already exists, Or we had a problem processing your registration. Please" +
+        " try registering again."
     });
 }

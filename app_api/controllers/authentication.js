@@ -55,6 +55,10 @@ module.exports.register = function (req, res) {
  */
 
 module.exports.login = function (req, res) {
+
+    console.log(req.body.email);
+    console.log(req.body.password);
+
     if (!req.body.email || !req.body.password){  // check that all the required fields are supplied
         sendJsonResponse(res, 400, {
             "message" : "All fields required."

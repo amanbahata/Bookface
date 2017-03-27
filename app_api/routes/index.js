@@ -18,21 +18,21 @@ var ctrlAuthentication = require('../controllers/authentication');
 //Authors
 
 router.get('/authors', ctrlAuthors.listByAuthor);
-router.post('/authors', authentication , ctrlAuthors.authorCreate);
+router.post('/authors',   ctrlAuthors.authorCreate);
 router.get('/authors/:authorid', ctrlAuthors.authorReadOne);
 
 
 //Books
 
 router.get('/authors/:authorid/books', ctrlBooks.listBooks);
-router.post('/authors/:authorid/books', authentication, ctrlBooks.booksCreate);
+router.post('/authors/:authorid/books',  ctrlBooks.booksCreate);
 router.get('/authors/:authorid/books/:bookid', ctrlBooks.booksReadOne);
-router.delete('/authors/:authorid/books/:bookid', authentication ,ctrlBooks.bookDeleteOne);
+router.delete('/authors/:authorid/books/:bookid',  ctrlBooks.bookDeleteOne);
 
 //Reviews
 
 router.get('/authors/:authorid/books/:bookid/reviews', ctrlReviews.listReviews);
-router.post('/authors/:authorid/books/:bookid/reviews', authentication ,ctrlReviews.reviewsCreate);
+router.post('/authors/:authorid/books/:bookid/reviews',  ctrlReviews.reviewsCreate);
 
 //Authentication
 

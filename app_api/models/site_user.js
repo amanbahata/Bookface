@@ -38,7 +38,7 @@ siteUserSchema.methods.setPassword = function(password) {
 
 siteUserSchema.methods.validatePassword = function(password) {
   var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
-  return (this.hash === hash) && this.active ;
+  return this.hash === hash;
 };
 
 
@@ -52,6 +52,7 @@ siteUserSchema.methods.generateToken = function(){
     return jwt.sign({
         _id: this._id,
         email: this.email,
+        screenName: this.screenName,
         name: this.name,
         exp: parseInt(expiryDate.getTime()/1000)}, process.env.JWT_SECRET);   //sends this secret word for the use of the hashing algorithm
 };

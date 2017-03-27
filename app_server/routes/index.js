@@ -31,7 +31,7 @@ router.post('/authors/:authorid/new', ctrlSecond.doAddBook);
 router.get('/login', ctrlLogin.login);
 router.get('/register', ctrlRegister.register);
 
-//router.get('/login', ctrlLogin.login);
+router.post('/login', ctrlLogin.doLogin);
 router.post('/register', ctrlRegister.doRegister);
 router.get('/verify/:tokenid', ctrlVerify.doVerification);
 
