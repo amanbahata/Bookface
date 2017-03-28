@@ -59,10 +59,19 @@ module.exports.homeList = function (req, res) {
 
 
 module.exports.addAuthor = function (req, res) {
-    res.render('author_add_form', {
-        title: 'New Author',
-        pageHeader: {title: 'add new author to the list'}
-    });
+    if (req.session.user) {
+        res.render('author_add_form', {
+            title: 'New Author',
+            pageHeader: {title: 'add new author to the list'}
+        });
+    }else{
+        res.render('author_add_form', {
+            title: 'New Author',
+            pageHeader: {title: 'add new author to the list'},
+            message : 'You must be logged in to add a new author'
+        });
+
+    }
 };
 
 module.exports.doAddAuthor = function(req, res){
@@ -81,7 +90,7 @@ module.exports.doAddAuthor = function(req, res){
             if (response.statusCode === 201){
                 res.redirect('/');
             }else{
-                console.log("Something went wrong");
+                console.log(response.body);
                 res.redirect('/');
             }
         }

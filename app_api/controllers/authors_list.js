@@ -10,36 +10,38 @@ var sendJasonResponse = function(res, status, content) {
 };
 
 module.exports.listByAuthor = function (req, res) {
-
-    console.log(req.session);
-
-            Book.find()
-                .select('name')
-                .exec(
-                    function (err, authors){
-                        var response, author;
-                        if (authors && authors.length > 0){
-                            author = authors;
-                            if (!author){
-                                sendJasonResponse(res, 404, {
-                                    "message" : "authors not found"
-                                });
-                            }else {
-                                response = {
-                                    author : author
-                                };
-                                sendJasonResponse(res, 200, response);
-                            }
-                        }else{
+        Book.find()
+            .select('name')
+            .exec(
+                function (err, authors) {
+                    var response, author;
+                    if (authors && authors.length > 0) {
+                        author = authors;
+                        if (!author) {
                             sendJasonResponse(res, 404, {
-                                "message" : "No authors found"
+                                "message": "authors not found"
                             });
+                        } else {
+                            response = {
+                                author: author
+                            };
+                            sendJasonResponse(res, 200, response);
                         }
+                    } else {
+                        sendJasonResponse(res, 404, {
+                            "message": "No authors found"
+                        });
                     }
-                );
+                }
+            );
 };
 
 module.exports.authorCreate = function (req, res) {
+
+    console.log(req);
+
+    if (req.body.user) {
+
         if (req.body.name) {
             Book.create({
                 name: req.body.name
@@ -55,6 +57,11 @@ module.exports.authorCreate = function (req, res) {
                 "message" : "Author name is required"
             })
         }
+    }else {
+        sendJasonResponse(res, 404, {
+            "message" : "Unauthorized access."
+        });
+    }
 };
 
 
