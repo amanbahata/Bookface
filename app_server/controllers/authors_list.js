@@ -43,6 +43,8 @@ var homepageRenderer = function(req, res, responseBody){
  */
 module.exports.homeList = function (req, res) {
 
+
+
     var requestOptions, path;
     path = '/api/authors';
     requestOptions = {
@@ -59,7 +61,7 @@ module.exports.homeList = function (req, res) {
 
 
 module.exports.addAuthor = function (req, res) {
-    if (req.session.user) {
+    if (req.session.token) {
         res.render('author_add_form', {
             title: 'New Author',
             pageHeader: {title: 'add new author to the list'}
@@ -75,7 +77,6 @@ module.exports.addAuthor = function (req, res) {
 };
 
 module.exports.doAddAuthor = function(req, res){
-
     var requestOptions, path, postData;
     path = '/api/authors';
     postData = {
@@ -84,7 +85,10 @@ module.exports.doAddAuthor = function(req, res){
     requestOptions = {
         url : apiOptions.server + path,
         method : "POST",
-        json: postData
+        json: postData,
+        headers: {
+            "token" : req.session.token
+        }
     };
     request (requestOptions,
         function(err, response, body){

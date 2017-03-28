@@ -70,7 +70,7 @@ module.exports.doLogin = function (req, res) {
         }
         // generate a token if passport returns a user instance
         if (user){
-            token = user.generateUser();
+            token = user.generateToken();
             sendJsonResponse(res, 200, {
                 "token" : token
             });
@@ -107,4 +107,5 @@ module.exports.verify = function (req, res) {
         });
     }
 };
+
 

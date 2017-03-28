@@ -4,7 +4,7 @@
 
 var express = require('express');
 var router = express.Router();
-// var jwt = require('express-jwt');
+var jwt = require('express-jwt');
 // var authentication = jwt({
 //     secret: process.env.JWT_SECRET,   // set secret using environment variables
 //     userProperty: 'payload'             // define property on request to be payload

@@ -2,7 +2,9 @@
  * Created by aman1 on 17/03/2017.
  */
 var mongoose = require('mongoose');
+var jwtDecode = require('jwt-decode');
 var Book = mongoose.model('Book');
+
 
 var sendJasonResponse = function(res, status, content) {
     res.status(status);
@@ -38,7 +40,7 @@ module.exports.listByAuthor = function (req, res) {
 
 module.exports.authorCreate = function (req, res) {
 
-  console.log(req.session.id);
+    console.log(jwtDecode(req.headers.token));
 
     if (req.body.user) {
 
@@ -107,3 +109,5 @@ module.exports.authorDeleteOne = function (req, res) {
         });
     }
 };
+
+

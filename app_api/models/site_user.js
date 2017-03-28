@@ -58,10 +58,4 @@ siteUserSchema.methods.generateToken = function(){
 };
 
 
-siteUserSchema.methods.generateUser = function () {
-    return [{userName: this.email,
-             screenName: this.screenName}];
-};
-
-
 mongoose.model('User', siteUserSchema);

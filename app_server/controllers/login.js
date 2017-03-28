@@ -40,7 +40,7 @@ module.exports.doLogin = function (req, res) {
     request (requestOptions,
         function(err, response){
             if (response.statusCode === 200){
-                    req.session.user = response.body.token;                   // save token information to future request
+                req.session.token = response.body.token;
                 setTimeout(function(){res.redirect('/')}, 3000);
             }else{
                 res.render('login',{

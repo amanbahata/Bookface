@@ -29,12 +29,11 @@ var routes = require('./app_server/routes/index');
 var routesApi = require('./app_api/routes/index');
 
 
-//app.use(cookieParser());
+app.use(cookieParser());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 60000 }
+    saveUninitialized: true
 }));
 
 app.use('/', routes);
@@ -42,8 +41,8 @@ app.use(passport.initialize());
 
 app.use('/api', routesApi);
 
-app.use(require('./app_server/routes/index'));
-app.use(require('./app_api/routes/index'));
+// app.use(require('./app_server/routes/index'));
+// app.use(require('./app_api/routes/index'));
 
 //error handling to catch unauthorised error
 // app.use(function(err, req, res, next){
