@@ -17,6 +17,12 @@ var apiOptions = {
 
 var homepageRenderer = function(req, res, responseBody){
     var message;
+    var loggedIn = false;
+
+    if (req.session && req.session.token){
+        loggedIn = true;
+    }
+
     if (!(responseBody.author instanceof Array)){
         message = "API lookup error";
         responseBody.author = [];
@@ -31,6 +37,7 @@ var homepageRenderer = function(req, res, responseBody){
             pageHeader: {
                 title: 'List of Authors'
             },
+            loggedIn: loggedIn,
             authors: responseBody.author,
             message : message
         });
@@ -42,9 +49,6 @@ var homepageRenderer = function(req, res, responseBody){
     Get the authors list
  */
 module.exports.homeList = function (req, res) {
-
-
-
     var requestOptions, path;
     path = '/api/authors';
     requestOptions = {
@@ -61,7 +65,7 @@ module.exports.homeList = function (req, res) {
 
 
 module.exports.addAuthor = function (req, res) {
-    if (req.session.token) {
+    if (req.session && req.session.token) {
         res.render('author_add_form', {
             title: 'New Author',
             pageHeader: {title: 'add new author to the list'}

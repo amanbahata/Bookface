@@ -29,11 +29,16 @@ module.exports.addBook = function (req, res) {
 };
 
 var renderBookAddForm = function (req, res, data) {
-    res.render('book_add_form', {
+    if (req.session && req.session.token){
+        res.render('book_add_form', {
         title: 'Add book by ',
-        pageHeader: {title: 'Add book by ' },
+        pageHeader: {title: 'Add book by '},
         data: data
-    });
+        });
+    }else{
+        res.redirect('/');
+
+    }
 
 };
 
@@ -117,6 +122,12 @@ module.exports.booksList = function (req, res) {
 
 var bookListRenderer = function(req, res, authorDetail){
     var message;
+    var loggedIn = false;
+
+    if (req.session && req.session.token){
+        loggedIn = true;
+    }
+
     if (!(authorDetail.books instanceof Array)){
         message = "API lookup error";
     }else {
@@ -129,6 +140,7 @@ var bookListRenderer = function(req, res, authorDetail){
         pageHeader: {
             title: authorDetail.name
         },
+        loggedIn: loggedIn,
         author: authorDetail,
         books: authorDetail.books,
         message: message

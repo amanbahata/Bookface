@@ -14,10 +14,15 @@ html
                 .navbar-header
                     a.navbar-brand(href='/') Bookface
                 ul.nav.navbar-nav
-                    li
-                        a(href='/login') Login
-                    li
-                        a(href='/register') Register
+                    #{loggedIn}
+                    if loggedIn
+                        li
+                            a(href='/logout') Logout
+                    else
+                        li
+                            a(href='/login') Login
+                        li
+                            a(href='/register') Register
 
         .container
             block content

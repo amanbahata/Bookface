@@ -8,7 +8,6 @@ block content
         .row
             .col-lg-6
                 h3= pageHeader.title
-
     .row
         .col-xs-12.col-sm-8
             .error= message
@@ -19,3 +18,13 @@ block content
                         .col-xs-12.list-group-item
                             h4
                               a(href="/authors/#{author._id}")= author.name
+                #{loggedIn}
+                    if loggedIn
+                        a.btn.btn-default.pull-right(href="/new") Add Author
+                    else
+                        a.btn.btn-default.pull-right(href="/login") Log-in
+            .row.list-group
+                each author in authors
+                    .col-xs-12.list-group-item
+                        h4
+                          a(href="/authors/#{author._id}")= author.name
