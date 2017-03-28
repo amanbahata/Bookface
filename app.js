@@ -29,18 +29,15 @@ var routes = require('./app_server/routes/index');
 var routesApi = require('./app_api/routes/index');
 
 
-app.use('/', routes);
-
 app.use(cookieParser());
 app.use(session({
-    secret: 'it is a secret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
-    cookie: {secure: true}
+    saveUninitialized: true
 }));
 
+app.use('/', routes);
 app.use(passport.initialize());
-app.use(passport.session());
 
 app.use('/api', routesApi);
 

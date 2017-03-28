@@ -12,37 +12,6 @@ var apiOptions = {
 };
 
 
-module.exports.addAuthor = function (req, res) {
-    res.render('author_add_form', {
-        title: 'New Author',
-        pageHeader: {title: 'add new author to the list'}
-    });
-};
-
-module.exports.doAddAuthor = function(req, res){
-    var requestOptions, path, postData;
-    path = '/api/authors';
-    postData = {
-        name: req.body.name
-    };
-    requestOptions = {
-        url : apiOptions.server + path,
-        method : "POST",
-        json: postData
-    };
-    request (requestOptions,
-        function(err, response, body){
-            if (response.statusCode === 201){
-                res.redirect('/');
-            }else{
-                console.log("Something went wrong");
-                res.redirect('/');
-            }
-        }
-    );
-};
-
-
 module.exports.addBook = function (req, res) {
     var requestOptions, path;
     path = '/api/authors/' + req.params.authorid + '/books';

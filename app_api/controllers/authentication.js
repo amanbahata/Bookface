@@ -71,7 +71,7 @@ module.exports.doLogin = function (req, res) {
         }
         // generate a token if passport returns a user instance
         if (user){
-            token = user.generateToken();
+            token = user.generateUser();
             sendJsonResponse(res, 200, {
                 "token" : token
             });

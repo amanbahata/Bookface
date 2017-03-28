@@ -20,8 +20,8 @@ router.get('/authors/:authorid/books/:bookid/reviews/new', ctrlMain.addReview);
 router.post('/authors/:authorid/books/:bookid/reviews/new', ctrlMain.doAddReview);
 
 
-router.get('/new', ctrlSecond.addAuthor);
-router.post('/new', ctrlSecond.doAddAuthor);
+router.get('/new', ctrlMain.addAuthor);
+router.post('/new', ctrlMain.doAddAuthor);
 
 router.get('/authors/:authorid/new', ctrlSecond.addBook);
 router.post('/authors/:authorid/new', ctrlSecond.doAddBook);
