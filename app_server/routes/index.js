@@ -14,10 +14,10 @@ var ctrlVerify = require('../controllers/verification');
 
 
 router.get('/', ctrlMain.homeList);
-router.get('/authors/:authorid', ctrlMain.booksList);
-router.get('/authors/:authorid/books/:bookid/reviews', ctrlMain.reviewsList);
-router.get('/authors/:authorid/books/:bookid/reviews/new', ctrlMain.addReview);
-router.post('/authors/:authorid/books/:bookid/reviews/new', ctrlMain.doAddReview);
+router.get('/authors/:authorid', ctrlSecond.booksList);
+router.get('/authors/:authorid/books/:bookid/reviews', ctrlSecond.reviewsList);
+router.get('/authors/:authorid/books/:bookid/reviews/new', ctrlSecond.addReview);
+router.post('/authors/:authorid/books/:bookid/reviews/new', ctrlSecond.doAddReview);
 
 
 router.get('/new', ctrlMain.addAuthor);
