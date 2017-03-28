@@ -2,9 +2,8 @@
  * Created by aman1 on 17/03/2017.
  */
 var mongoose = require('mongoose');
-var jwtDecode = require('jwt-decode');
 var Book = mongoose.model('Book');
-
+var check = require('./check_status');
 
 var sendJasonResponse = function(res, status, content) {
     res.status(status);
@@ -39,11 +38,7 @@ module.exports.listByAuthor = function (req, res) {
 };
 
 module.exports.authorCreate = function (req, res) {
-
-    console.log(jwtDecode(req.headers.token));
-
-    if (req.body.user) {
-
+    if (check.checkStatus(req)) {
         if (req.body.name) {
             Book.create({
                 name: req.body.name

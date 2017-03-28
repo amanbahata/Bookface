@@ -4,6 +4,8 @@
 
 var mongoose = require('mongoose');
 var Book = mongoose.model('Book');
+var check = require('./check_status');
+
 
 var sendJasonResponse = function(res, status, content) {
     res.status(status);
@@ -57,20 +59,26 @@ module.exports.listBooks = function (req, res) {
 };
 
 module.exports.booksCreate = function (req, res) {
-    var author = req.params.authorid;
-    if(author){
-        Book.findById(author).select('books')
-            .exec(
-                function(err, author){
-                    if (err){
-                        sendJasonResponse(res, 400, err);
-                    }else{
-                        addBook(req, res, author);
+    if (check.checkStatus(req)) {
+        var author = req.params.authorid;
+        if (author) {
+            Book.findById(author).select('books')
+                .exec(
+                    function (err, author) {
+                        if (err) {
+                            sendJasonResponse(res, 400, err);
+                        } else {
+                            addBook(req, res, author);
+                        }
                     }
-                }
-            );
+                );
+        } else {
+            sendJasonResponse(res, 404, {"message": "The author was not found."});
+        }
     }else{
-        sendJasonResponse(res, 404, {"message" : "The author was not found."});
+        sendJasonResponse(res, 404, {
+            "message" : "Unauthorized access."
+        });
     }
 };
 

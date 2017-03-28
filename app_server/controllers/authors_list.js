@@ -95,7 +95,6 @@ module.exports.doAddAuthor = function(req, res){
             if (response.statusCode === 201){
                 res.redirect('/');
             }else{
-                console.log(response.body);
                 res.redirect('/');
             }
         }
