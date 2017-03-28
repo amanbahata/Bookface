@@ -17,6 +17,12 @@ var apiOptions = {
 
 var homepageRenderer = function(req, res, responseBody){
     var message;
+    var loggedIn = false;
+
+    if (req.session && req.session.token){
+        loggedIn = true;
+    }
+
     if (!(responseBody.author instanceof Array)){
         message = "API lookup error";
         responseBody.author = [];
@@ -31,6 +37,7 @@ var homepageRenderer = function(req, res, responseBody){
             pageHeader: {
                 title: 'List of Authors'
             },
+            loggedIn: loggedIn,
             authors: responseBody.author,
             message : message
         });
