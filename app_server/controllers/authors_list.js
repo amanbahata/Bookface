@@ -42,9 +42,6 @@ var homepageRenderer = function(req, res, responseBody){
     Get the authors list
  */
 module.exports.homeList = function (req, res) {
-
-
-
     var requestOptions, path;
     path = '/api/authors';
     requestOptions = {
@@ -61,7 +58,7 @@ module.exports.homeList = function (req, res) {
 
 
 module.exports.addAuthor = function (req, res) {
-    if (req.session.token) {
+    if (req.session && req.session.token) {
         res.render('author_add_form', {
             title: 'New Author',
             pageHeader: {title: 'add new author to the list'}
