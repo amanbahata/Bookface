@@ -15,24 +15,3 @@ module.exports.checkStatus = function (req) {
         return false;
     }
 };
-
-    //console.log(jwtDecode(req.headers.token));
-
-
-            // User.findOne({email: username}, function (err, user) {
-            //     if (err){
-            //         return done(err);
-            //     }
-            //     if (!user){
-            //         return done(null, false, {
-            //             "message" : 'Incorrect username.'
-            //         });
-            //     }
-            //     if (!user.validatePassword(password)){
-            //         return done(null, false, {
-            //             "message" : "Incorrect password."
-            //         });
-            //     }
-            //     return done(null, user);
-            // });
-

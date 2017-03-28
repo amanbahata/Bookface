@@ -16,7 +16,7 @@ block content
                 if loggedIn
                     a.btn.btn-default.pull-right(href="/authors/#{author._id}/new") Add Books
                 else
-                    a.btn.btn-default.pull-right(href="/login") Log-in
+                    small You must log in to add books.
             .row.list-group
                 each book in books
                     .col-xs-12.list-group-item
