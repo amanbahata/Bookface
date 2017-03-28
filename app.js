@@ -29,11 +29,12 @@ var routes = require('./app_server/routes/index');
 var routesApi = require('./app_api/routes/index');
 
 
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 }
 }));
 
 app.use('/', routes);

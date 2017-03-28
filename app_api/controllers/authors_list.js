@@ -38,7 +38,7 @@ module.exports.listByAuthor = function (req, res) {
 
 module.exports.authorCreate = function (req, res) {
 
-    console.log(req);
+  console.log(req.session.id);
 
     if (req.body.user) {
 

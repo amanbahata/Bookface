@@ -75,6 +75,7 @@ module.exports.addAuthor = function (req, res) {
 };
 
 module.exports.doAddAuthor = function(req, res){
+
     var requestOptions, path, postData;
     path = '/api/authors';
     postData = {
