@@ -3,7 +3,6 @@
  */
 var mongoose = require('mongoose');
 var Book = mongoose.model('Book');
-var check = require('./check_status');
 
 var sendJasonResponse = function(res, status, content) {
     res.status(status);
@@ -38,17 +37,6 @@ module.exports.listByAuthor = function (req, res) {
 };
 
 module.exports.authorCreate = function (req, res) {
-<<<<<<< HEAD
-      Book.create({
-          writer: "Mara"
-      }, function (err, writer) {
-          if (err) {
-              sendJasonResponse(res, 400, err);
-          }else{
-              sendJasonResponse(res, 201, writer);
-          }
-      });
-=======
 
     console.log(req.query.name);
 
@@ -74,7 +62,6 @@ module.exports.authorCreate = function (req, res) {
    //          "message" : "Unauthorized access."
    //      });
    // // }
->>>>>>> authorAdder
 };
 
 
@@ -120,5 +107,3 @@ module.exports.authorDeleteOne = function (req, res) {
         });
     }
 };
-
-
