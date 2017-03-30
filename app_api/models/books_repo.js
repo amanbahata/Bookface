@@ -35,7 +35,7 @@ var reviewSchema = new mongoose.Schema({
 
 var bookSchema = new mongoose.Schema({
     bookRating: {type: Number, 'default': 0, min: 0, max: 5},
-    addedby: {type: String, required: true},
+    addedBy: {type: String, required: true},
     author: {type: String, require: true},
     title: {type: String, required: true, unique: true},
     description: {type: String, required: true },
