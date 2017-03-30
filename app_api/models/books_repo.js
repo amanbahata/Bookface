@@ -13,7 +13,11 @@ var reviewSchema = new mongoose.Schema({
 
 var bookSchema = new mongoose.Schema({
 
+<<<<<<< HEAD
         title: {type: String, required: true},
+=======
+        name: {type: String, required: true},
+>>>>>>> authorAdder
         description: {type: String, required: true},
         rating: {type: Number, 'default' : 0, min: 0, max: 5},
         reviews: [reviewSchema]
