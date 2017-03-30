@@ -4,8 +4,8 @@
 var mongoose = require('mongoose');
 
 var reviewSchema = new mongoose.Schema({
-    author: {type: String,required: true},
-    rating: {type: Number, required: true, min: 0, max: 5},
+    screenName: {type: String,required: true},
+    reviewRating: {type: Number, required: true, min: 0, max: 5},
     reviewText: {type: String, required: true},
     createdOn: {type: Date, 'default': Date.now}
 
@@ -13,14 +13,14 @@ var reviewSchema = new mongoose.Schema({
 
 var bookSchema = new mongoose.Schema({
 
-        title: {type: String, unique: true, required: true},
+        title: {type: String, required: true},
         description: {type: String, required: true},
         rating: {type: Number, 'default' : 0, min: 0, max: 5},
         reviews: [reviewSchema]
 });
 
 var authorSchema = new mongoose.Schema({
-    name: {type: String, unique: true,required: true},
+    writer: {type: String, required: true},
     books: [bookSchema]
 });
 

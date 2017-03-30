@@ -38,24 +38,15 @@ module.exports.listByAuthor = function (req, res) {
 };
 
 module.exports.authorCreate = function (req, res) {
-       // if (req.body.name) {
-
-            console.log(req.body);
-
-            Book.create({
-                name: req.body.name
-            }, function (err, authorName) {
-                if (err) {
-                    sendJasonResponse(res, 400, err);
-                } else {
-                    sendJasonResponse(res, 201, authorName);
-                }
-            });
-        // }else{
-        //     sendJasonResponse(res, 404, {
-        //         "message" : "Author name is required"
-        //     });
-        // }
+      Book.create({
+          writer: "Mara"
+      }, function (err, writer) {
+          if (err) {
+              sendJasonResponse(res, 400, err);
+          }else{
+              sendJasonResponse(res, 201, writer);
+          }
+      });
 };
 
 

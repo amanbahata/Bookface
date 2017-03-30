@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose');
 var dbURI = 'mongodb://localhost/Bookface';
+mongoose.Promise = global.Promise;
 mongoose.connect(dbURI);
 
 /*Monitoring mongoose connection for successful connection, connection error and when mongoose is disconnected*/
