@@ -44,7 +44,7 @@ module.exports.listBooks = function (req, res){
         .select('bookRating addedBy author title')
         .exec(
             function (err, books) {
-                var response, books;
+                var response;
                 if (books && books.length > 0) {
                     if (!books) {
                         sendJasonResponse(res, 404, {
@@ -64,6 +64,28 @@ module.exports.listBooks = function (req, res){
             }
     );
 };
+
+
+module.exports.booksReadOne = function (req, res) {
+    if (req.params.bookid){
+        var singleBook = req.params.bookid;
+        Book.findById(singleBook).exec(function (err, book) {
+           if (!book){
+               sendJasonResponse(res, 404, {"message" : "bookid not found"});
+               return;
+           }else if (err){
+               sendJasonResponse(res, 404, err);
+               return;
+           }
+            sendJasonResponse(res, 200, book);
+        });
+    }else{
+        sendJasonResponse(res, 404, {"message" : "Please send your request again with bookid."});
+    }
+}
+
+
+
 
 
 
@@ -152,51 +174,51 @@ module.exports.listBooks = function (req, res){
 //     }
 // };
 
-module.exports.booksReadOne = function (req, res){
-    if (req.params && req.params.authorid && req.params.bookid ) {
-        Book.findById(req.params.authorid)
-            .select('name books')
-            .exec(
-                function (err, author){
-                    var response, book;
-                    if (!author) {
-                        sendJasonResponse(res, 404, {
-                            "message" : "authorid not found"
-                        });
-                        return;
-                    }else if(err){
-                        sendJasonResponse(res, 400, err);
-                        return;
-                    }
-                    if (author.books && author.books.length > 0){
-                        book = author.books.id(req.params.bookid);
-                        if (!book){
-                            sendJasonResponse(res, 404, {
-                                "message" : "bookid not found"
-                            });
-                        }else {
-                            response = {
-                                author : {
-                                    name : author.name,
-                                    id: req.params.authorid
-                                },
-                                book : book
-                            };
-                            sendJasonResponse(res, 200, response);
-                        }
-                    }else{
-                        sendJasonResponse(res, 404, {
-                            "message" : "No books found"
-                        });
-                    }
-                }
-            );
-    }else{
-        sendJasonResponse(res, 404, {
-            "message" : "Not found, authorid and books are both required"
-        });
-    }
-};
+// module.exports.booksReadOne = function (req, res){
+//     if (req.params && req.params.authorid && req.params.bookid ) {
+//         Book.findById(req.params.authorid)
+//             .select('name books')
+//             .exec(
+//                 function (err, author){
+//                     var response, book;
+//                     if (!author) {
+//                         sendJasonResponse(res, 404, {
+//                             "message" : "authorid not found"
+//                         });
+//                         return;
+//                     }else if(err){
+//                         sendJasonResponse(res, 400, err);
+//                         return;
+//                     }
+//                     if (author.books && author.books.length > 0){
+//                         book = author.books.id(req.params.bookid);
+//                         if (!book){
+//                             sendJasonResponse(res, 404, {
+//                                 "message" : "bookid not found"
+//                             });
+//                         }else {
+//                             response = {
+//                                 author : {
+//                                     name : author.name,
+//                                     id: req.params.authorid
+//                                 },
+//                                 book : book
+//                             };
+//                             sendJasonResponse(res, 200, response);
+//                         }
+//                     }else{
+//                         sendJasonResponse(res, 404, {
+//                             "message" : "No books found"
+//                         });
+//                     }
+//                 }
+//             );
+//     }else{
+//         sendJasonResponse(res, 404, {
+//             "message" : "Not found, authorid and books are both required"
+//         });
+//     }
+// };
 
 module.exports.bookDeleteOne = function (req, res){
     if(!req.params.authorid || !req.params.bookid){
