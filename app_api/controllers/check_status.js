@@ -3,15 +3,23 @@
  */
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-var jwtDecode = require('jwt-decode');
+var jwt = require('jsonwebtoken');
 
 
-module.exports.checkStatus = function (req) {
+module.exports.checkState = function (req) {
     if (req.headers && req.headers.token) {
-        var decode = jwtDecode(req.headers.token);
+        var decode = jwt.verify(req.headers.token);
         if (User.findOne({email: decode.email})) {
             return true;
         }
         return false;
     }
+};
+
+module.exports.getReviewerScreenName = function (req) {
+    if (req.headers && req.headers.token) {
+        var decode = jwt.verify(req.headers.token);
+        return decode.screenName;
+    }
+    return false;
 };

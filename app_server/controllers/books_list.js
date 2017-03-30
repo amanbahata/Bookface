@@ -3,6 +3,8 @@
  */
 
 var request = require('request');
+var whoIsUser = require('./display_user');
+
 
 /*
  Setting up the api options
@@ -29,8 +31,14 @@ module.exports.addBook = function (req, res) {
 };
 
 var renderBookAddForm = function (req, res, data) {
+    var loggedIn = false;
+    var scrName = '';
     if (req.session && req.session.token){
+        loggedIn = true;
+        scrName = whoIsUser.screenNameDecoder(req);
         res.render('book_add_form', {
+        loggedIn: loggedIn,
+        scrName: scrName,
         title: 'Add book by ',
         pageHeader: {title: 'Add book by '},
         data: data
@@ -123,9 +131,11 @@ module.exports.booksList = function (req, res) {
 var bookListRenderer = function(req, res, authorDetail){
     var message;
     var loggedIn = false;
+    var scrName = '';
 
     if (req.session && req.session.token){
         loggedIn = true;
+        scrName = whoIsUser.screenNameDecoder(req);
     }
 
     if (!(authorDetail.books instanceof Array)){
@@ -141,6 +151,7 @@ var bookListRenderer = function(req, res, authorDetail){
             title: authorDetail.name
         },
         loggedIn: loggedIn,
+        scrName: scrName,
         author: authorDetail,
         books: authorDetail.books,
         message: message
@@ -170,15 +181,23 @@ module.exports.reviewsList = function (req, res) {
 
 var reviewsRenderer = function(req, res, data){
     var message;
+    var loggedIn = false;
+    var scrName = '';
+    if (req.session && req.session.token){
+        loggedIn = true;
+        scrName = whoIsUser.screenNameDecoder(req);
+    }
     if (!(data.book.reviews instanceof Array)){
         message = "API lookup error";
         data = [];
     }else{
         if (!data.book.reviews.length){
-            message = "No reviews found for " + data.name;
+            message = "There are no reviews for this book.";
         }
     }
     res.render('book_info', {
+        loggedIn: loggedIn,
+        scrName: scrName,
         title: data.book.name,
         pageHeader: {
             title: data.book.name
@@ -212,7 +231,15 @@ module.exports.addReview = function (req, res) {
 };
 
 var renderReviewForm = function (req, res, data) {
+    var loggedIn = false;
+    var scrName = '';
+    if (req.session && req.session.token){
+        loggedIn = true;
+        scrName = whoIsUser.screenNameDecoder(req);
+    }
     res.render('book_review_form', {
+        loggedIn: loggedIn,
+        scrName: scrName,
         title: 'Review ' + data.book.name,
         pageHeader: {title: 'Review ' + data.book.name},
         data: data
@@ -226,14 +253,17 @@ module.exports.doAddReview = function(req, res){
     bookid = req.params.bookid;
     path = '/api/authors/' + authorid + '/books/' + bookid + '/reviews';
     postData = {
-        author: req.body.name,
+        // author: req.body.name,
         rating: parseInt(req.body.rating, 10),
         reviewText: req.body.review
     };
     requestOptions = {
         url : apiOptions.server + path,
         method : "POST",
-        json: postData
+        json: postData,
+        headers: {
+            "token" : req.session.token
+        }
     };
     request (requestOptions,
         function(err, response, body){

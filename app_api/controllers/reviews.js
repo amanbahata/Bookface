@@ -5,33 +5,7 @@
 var mongoose = require('mongoose');
 var Book = mongoose.model('Book');
 var User = mongoose.model('User');
-
-
-var getUser = function (req, res, callback) {
-    if (req.payload && req.payload.email){          // check that the token object is in the request
-      User
-          .findOne({email : req.payload.email})     // use the email address to find the user
-          .exec(function (err, user) {
-              if (!user){
-                  sendJasonResponse(res, 404, {
-                      "message" : "User not registered"
-                  });
-                  return;
-              }else if (err){
-                  console.log(err);
-                  sendJasonResponse(res, 404, err);
-                  return;
-              }
-            callback(req, res, user.name);
-          });
-    }else {
-        sendJasonResponse(res, 404, {
-            "message" : "User not found"
-        });
-        return;
-    }
-
-};
+var check = require('./check_status');
 
 
 var sendJasonResponse = function(res, status, content) {
@@ -87,7 +61,8 @@ module.exports.listReviews = function (req, res) {
 };
 
 module.exports.reviewsCreate = function (req, res) {
-    getUser(req, res, function (req, res, userName) {
+    if (check.checkStatus(req)) {
+        var userName = check.getReviewerScreenName(req);
         var authorid = req.params.authorid;
         var bookid = req.params.bookid;
         if (authorid) {
@@ -105,7 +80,9 @@ module.exports.reviewsCreate = function (req, res) {
         } else {
             sendJasonResponse(res, 404, {"message": "The author was not found."});
         }
-    });
+    }else{
+        sendJasonResponse(res, 404, {"message": "Unauthorised access"});
+    }
 };
 
 

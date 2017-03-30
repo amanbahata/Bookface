@@ -5,6 +5,8 @@
 var passport = require('passport');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var jwt = require('jsonwebtoken');
+
 
 
 var sendJsonResponse = function (res, status, data) {
@@ -85,7 +87,7 @@ module.exports.doLogin = function (req, res) {
 module.exports.verify = function (req, res) {
     if(req.params && req.params.tokenid){
 
-        var token = jwt.decode(req.params.tokenid, process.env.JWT_SECRET);
+        var token = jwt.verify(req.params.tokenid, process.env.JWT_SECRET);
 
         User.findOne({email: token.email}, function (err, user) {
             user.active = true;

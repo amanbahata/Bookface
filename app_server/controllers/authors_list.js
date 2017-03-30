@@ -2,6 +2,7 @@
  * Created by aman1 on 06/03/2017.
  */
 var request = require('request');
+var whoIsUser = require('./display_user');
 
 /*
     Setting up the api options
@@ -16,13 +17,17 @@ var apiOptions = {
 
 
 var homepageRenderer = function(req, res, responseBody){
+
+    console.log(req);
+
     var message;
     var loggedIn = false;
+    var scrName = '';
 
     if (req.session && req.session.token){
         loggedIn = true;
+        scrName = whoIsUser.screenNameDecoder(req);
     }
-
     if (!(responseBody.author instanceof Array)){
         message = "API lookup error";
         responseBody.author = [];
@@ -33,6 +38,7 @@ var homepageRenderer = function(req, res, responseBody){
         }
     }
     res.render('authors_list', {
+            scrName: scrName,
             title: 'Bookface',
             pageHeader: {
                 title: 'List of Authors'
@@ -65,18 +71,21 @@ module.exports.homeList = function (req, res) {
 
 
 module.exports.addAuthor = function (req, res) {
+    var loggedIn = false;
+    var scrName = '';
     if (req.session && req.session.token) {
+        loggedIn = true;
+        scrName = whoIsUser.screenNameDecoder(req);
+    }
+    if (req.session && req.session.token) {
+        loggedIn = true;
+        scrName = whoIsUser.screenNameDecoder(req);
         res.render('author_add_form', {
+            scrName: scrName,
+            loggedIn: loggedIn,
             title: 'New Author',
             pageHeader: {title: 'add new author to the list'}
         });
-    }else{
-        res.render('author_add_form', {
-            title: 'New Author',
-            pageHeader: {title: 'add new author to the list'},
-            message : 'You must be logged in to add a new author'
-        });
-
     }
 };
 

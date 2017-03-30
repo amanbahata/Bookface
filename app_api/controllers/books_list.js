@@ -87,7 +87,7 @@ var addBook = function(req, res, author){
         sendJasonResponse(res, 404, {"message" : "authorid not found"});
     }else{
         author.books.push({
-            name: req.body.name,
+            title: req.body.name,
             description: req.body.description
         });
         author.save(function(err, author){

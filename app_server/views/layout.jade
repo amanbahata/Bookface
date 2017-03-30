@@ -12,17 +12,18 @@ html
         .navbar.navbar-default.navbar-fixed-top
             .container
                 .navbar-header
-                    a.navbar-brand(href='/') Bookface
-                ul.nav.navbar-nav
-                    #{loggedIn}
-                    if loggedIn
-                        li
-                            a(href='/logout') Logout
-                    else
-                        li
-                            a(href='/login') Login
-                        li
-                            a(href='/register') Register
+                    a.navbar-brand(href='/') | Bookface |
+                        ul.nav.navbar-nav
+                            small hello, #{scrName}
+                            #{loggedIn}
+                            if loggedIn
+                                li
+                                    a(href='/logout') Logout
+                            else
+                                li
+                                    a(href='/login') Login
+                                li
+                                    a(href='/register')  Register
 
         .container
             block content

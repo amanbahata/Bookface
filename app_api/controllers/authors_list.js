@@ -38,27 +38,24 @@ module.exports.listByAuthor = function (req, res) {
 };
 
 module.exports.authorCreate = function (req, res) {
-    if (check.checkStatus(req)) {
-        if (req.body.name) {
+       // if (req.body.name) {
+
+            console.log(req.body);
+
             Book.create({
                 name: req.body.name
-            }, function (err, author) {
+            }, function (err, authorName) {
                 if (err) {
                     sendJasonResponse(res, 400, err);
                 } else {
-                    sendJasonResponse(res, 201, author);
+                    sendJasonResponse(res, 201, authorName);
                 }
             });
-        }else{
-            sendJasonResponse(res, 404, {
-                "message" : "Author name is required"
-            })
-        }
-    }else {
-        sendJasonResponse(res, 404, {
-            "message" : "Unauthorized access."
-        });
-    }
+        // }else{
+        //     sendJasonResponse(res, 404, {
+        //         "message" : "Author name is required"
+        //     });
+        // }
 };
 
 
