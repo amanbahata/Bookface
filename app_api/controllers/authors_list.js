@@ -44,7 +44,7 @@ module.exports.authorCreate = function (req, res) {
 
         if (req.query.name) {
             Book.create({
-                name: req.query.name
+                writer: req.query.name
             }, function (err, author) {
                 if (err) {
                     sendJasonResponse(res, 400, err);
