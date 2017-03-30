@@ -35,7 +35,7 @@ var ctrlAuthentication = require('../controllers/authentication');
 router.get('/books', ctrlBooks.listBooks);
 router.post('/books', ctrlBooks.booksCreate);
 router.get('/books/:bookid', ctrlBooks.booksReadOne);
-// router.delete('/authors/:authorid/books/:bookid',  ctrlBooks.bookDeleteOne);
+router.delete('/books/:bookid',  ctrlBooks.bookDeleteOne);
 
 //Reviews
 
