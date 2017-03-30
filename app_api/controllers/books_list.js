@@ -15,6 +15,30 @@ var sendJasonResponse = function(res, status, content) {
 };
 
 
+
+module.exports.booksCreate = function (req, res) {
+        if (!req.body.addedBy || !req.body.author || !req.body.title || !req.body.description){
+            sendJasonResponse(res, 404, {
+                "message" : "Please try again with all the required fields."
+            });
+        }else {
+            Book.create({
+                //bookRating: req.query.bookRating,
+                addedBy: req.body.addedBy,
+                author: req.body.author,
+                title: req.body.title,
+                description: req.body.description
+            }, function (err, book) {
+                if (err) {
+                    sendJasonResponse(res, 400, err);
+                } else {
+                    sendJasonResponse(res, 201, book);
+                }
+            });
+        }
+};
+
+
 module.exports.listBooks = function (req, res){
     Book.find()
         .select('bookRating addedBy author title')
@@ -89,47 +113,44 @@ module.exports.listBooks = function (req, res){
 //     }
 // };
 
-module.exports.booksCreate = function (req, res) {
-    if (check.checkStatus(req)) {
-        var author = req.params.authorid;
-        if (author) {
-            Book.findById(author).select('books')
-                .exec(
-                    function (err, author) {
-                        if (err) {
-                            sendJasonResponse(res, 400, err);
-                        } else {
-                            addBook(req, res, author);
-                        }
-                    }
-                );
-        } else {
-            sendJasonResponse(res, 404, {"message": "The author was not found."});
-        }
-    }else{
-        sendJasonResponse(res, 404, {
-            "message" : "Unauthorized access."
-        });
-    }
-};
+// module.exports.booksCreate = function (req, res) {
+//         var author = req.params.authorid;
+//         if (author) {
+//             Book.findById(author).select('books')
+//                 .exec(
+//                     function (err, author) {
+//                         if (err) {
+//                             sendJasonResponse(res, 400, err);
+//                         } else {
+//                             addBook(req, res, author);
+//                         }
+//                     }
+//                 );
+//         } else {
+//             sendJasonResponse(res, 404, {"message": "The author was not found."});
+//         }
+// };
 
-var addBook = function(req, res, author){
-    if (!author){
-        sendJasonResponse(res, 404, {"message" : "authorid not found"});
-    }else{
-        author.books.push({
-            name: req.body.name,
-            description: req.body.description
-        });
-        author.save(function(err, author){
-            if (err){
-                sendJasonResponse(res, 404, err);
-            }else{
-                sendJasonResponse(res, 201, author);
-            }
-        });
-    }
-};
+
+
+
+// var addBook = function(req, res, author){
+//     if (!author){
+//         sendJasonResponse(res, 404, {"message" : "authorid not found"});
+//     }else{
+//         author.books.push({
+//             name: req.body.name,
+//             description: req.body.description
+//         });
+//         author.save(function(err, author){
+//             if (err){
+//                 sendJasonResponse(res, 404, err);
+//             }else{
+//                 sendJasonResponse(res, 201, author);
+//             }
+//         });
+//     }
+// };
 
 module.exports.booksReadOne = function (req, res){
     if (req.params && req.params.authorid && req.params.bookid ) {
