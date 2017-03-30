@@ -3,7 +3,9 @@
  */
 
 var mongoose = require('mongoose');
+// var Book = mongoose.model('Book');
 var Book = mongoose.model('Book');
+
 var check = require('./check_status');
 
 
@@ -12,51 +14,80 @@ var sendJasonResponse = function(res, status, content) {
     res.json(content);
 };
 
-module.exports.listBooks = function (req, res) {
-    if (req.params && req.params.authorid ) {
-        Book.findById(req.params.authorid)
-            .select('name books')
-            .exec(
-                function (err, author){
-                    var response, book;
-                    if (!author) {
+
+module.exports.listBooks = function (req, res){
+    Book.find()
+        .select('bookRating addedBy author title')
+        .exec(
+            function (err, books) {
+                var response, books;
+                if (books && books.length > 0) {
+                    if (!books) {
                         sendJasonResponse(res, 404, {
-                            "message" : "authorid not found"
+                            "message": "books not found"
                         });
-                        return;
-                    }else if(err){
-                        sendJasonResponse(res, 400, err);
-                        return;
+                    } else {
+                        response = {
+                            allBooks: books
+                        };
+                        sendJasonResponse(res, 200, response);
                     }
-                    if (author.books && author.books.length > 0){
-                        book = author.books;
-                        if (!book){
-                            sendJasonResponse(res, 404, {
-                                "message" : "books not found"
-                            });
-                        }else {
-                            response = {
-                                author : {
-                                    name : author.name,
-                                    id: req.params.authorid
-                                },
-                                book : book
-                            };
-                            sendJasonResponse(res, 200, response);
-                        }
-                    }else{
-                        sendJasonResponse(res, 404, {
-                            "message" : "No books found"
-                        });
-                    }
+                } else {
+                    sendJasonResponse(res, 404, {
+                        "message": "No books found."
+                    });
                 }
-            );
-    }else {
-        sendJasonResponse(res, 404, {
-            "message": "Not found, authorid and books are both required"
-        });
-    }
+            }
+    );
 };
+
+
+
+// module.exports.listBooks = function (req, res) {
+//     if (req.params && req.params.authorid ) {
+//         Book.findById(req.params.authorid)
+//             .select('name books')
+//             .exec(
+//                 function (err, author){
+//                     var response, book;
+//                     if (!author) {
+//                         sendJasonResponse(res, 404, {
+//                             "message" : "authorid not found"
+//                         });
+//                         return;
+//                     }else if(err){
+//                         sendJasonResponse(res, 400, err);
+//                         return;
+//                     }
+//                     if (author.books && author.books.length > 0){
+//                         book = author.books;
+//                         if (!book){
+//                             sendJasonResponse(res, 404, {
+//                                 "message" : "books not found"
+//                             });
+//                         }else {
+//                             response = {
+//                                 author : {
+//                                     name : author.name,
+//                                     id: req.params.authorid
+//                                 },
+//                                 book : book
+//                             };
+//                             sendJasonResponse(res, 200, response);
+//                         }
+//                     }else{
+//                         sendJasonResponse(res, 404, {
+//                             "message" : "No books found"
+//                         });
+//                     }
+//                 }
+//             );
+//     }else {
+//         sendJasonResponse(res, 404, {
+//             "message": "Not found, authorid and books are both required"
+//         });
+//     }
+// };
 
 module.exports.booksCreate = function (req, res) {
     if (check.checkStatus(req)) {
