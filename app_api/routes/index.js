@@ -23,6 +23,10 @@ var ctrlAuthentication = require('../controllers/authentication');
 // router.post('/authors' , ctrlAuthors.authorCreate);
 // router.get('/authors/:authorid', ctrlAuthors.authorReadOne);
 
+router.get('/authors', ctrlAuthors.listByAuthor);
+// router.post('/authors' , ctrlAuthors.authorCreate);
+// router.get('/authors/:authorid', ctrlAuthors.authorReadOne);
+
 
 //Books
 
