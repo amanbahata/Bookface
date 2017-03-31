@@ -22,18 +22,22 @@ module.exports.listByAuthors = function (req, res) {
 
 
 module.exports.listBooksByAuthor = function (req, res) {
-  //  if (req.params.authorName){
+  if (req.params.authorName){
         var authorName = req.params.authorName;
         Book.find({author: authorName}, function (err, books) {
-            if (err){
+            if (err) {
                 sendJasonResponse(res, 404, err);
+                return;
+            }
+            if (!books.length > 0){
+                sendJasonResponse(res, 404, {"message" : "Could not find books by author."});
             }else{
                 sendJasonResponse(res, 200, books);
             }
         })
-    // }else{
-    //     sendJasonResponse(res, 404, {"message" : "Author name not found"});
-    // }
+    }else{
+        sendJasonResponse(res, 404, {"message" : "Author name not found"});
+    }
 };
 
 
