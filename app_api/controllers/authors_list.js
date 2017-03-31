@@ -10,14 +10,30 @@ var sendJasonResponse = function(res, status, content) {
     res.json(content);
 };
 
-module.exports.listByAuthor = function (req, res) {
+module.exports.listByAuthors = function (req, res) {
         Book.distinct("author",function (err, authors) {
            if (err){
-               sendJasonResponse(res, 404, {"message" : "Problem retrieving authors. Distinct()"});
+               sendJasonResponse(res, 404, err);
            }else{
                 sendJasonResponse(res, 200, authors);
            }
         });
+};
+
+
+module.exports.listBooksByAuthor = function (req, res) {
+  //  if (req.params.authorName){
+        var authorName = req.params.authorName;
+        Book.find({author: authorName}, function (err, books) {
+            if (err){
+                sendJasonResponse(res, 404, err);
+            }else{
+                sendJasonResponse(res, 200, books);
+            }
+        })
+    // }else{
+    //     sendJasonResponse(res, 404, {"message" : "Author name not found"});
+    // }
 };
 
 
