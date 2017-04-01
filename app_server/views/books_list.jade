@@ -13,14 +13,15 @@ block content
         .col-xs-12.col-sm-8
             .error= message
             #{loggedIn}
-                if loggedIn
-                    a.btn.btn-default.pull-right(href="/authors/#{author._id}/new") Add Books
-                else
-                    a.btn.btn-default.pull-right(href="/login") Log-in
+                //if loggedIn
+                //    a.btn.btn-default.pull-right(href="/authors/#{author._id}/new") Add Books
+                //else
+                //    a.btn.btn-default.pull-right(href="/login") Log-in
             .row.list-group
                 each book in books
                     .col-xs-12.list-group-item
-                        p Rated: #{book.rating}
+                        p Rated: #{book.bookRating}
+                        p #{book.title}
                         h4
-                            a(href="/authors/#{author._id}/books/#{book._id}/reviews")= book.name
+                            a(href="/books/#{author._id}/books/#{book._id}/reviews")= book.title
                         p Description: #{book.description}
