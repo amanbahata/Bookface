@@ -24,6 +24,7 @@ var ctrlAuthentication = require('../controllers/authentication');
 // router.get('/authors/:authorid', ctrlAuthors.authorReadOne);
 
 router.get('/authors', ctrlAuthors.listByAuthors);
+router.get('/books/:authorName', ctrlAuthors.listBooksByAuthor);
 // router.post('/authors' , ctrlAuthors.authorCreate);
 // router.get('/authors/:authorid', ctrlAuthors.authorReadOne);
 
@@ -35,7 +36,7 @@ router.get('/authors', ctrlAuthors.listByAuthors);
 // router.get('/authors/:authorid/books/:bookid', ctrlBooks.booksReadOne);
 // router.delete('/authors/:authorid/books/:bookid',  ctrlBooks.bookDeleteOne);
 
-router.get('/books/:authorName', ctrlAuthors.listBooksByAuthor);
+
 router.get('/books', ctrlBooks.listBooks);
 router.post('/books', ctrlBooks.booksCreate);
 router.get('/books/:bookid', ctrlBooks.booksReadOne);
@@ -43,8 +44,11 @@ router.delete('/books/:bookid',  ctrlBooks.bookDeleteOne);
 
 //Reviews
 
-router.get('/authors/:authorid/books/:bookid/reviews', ctrlReviews.listReviews);
-router.post('/authors/:authorid/books/:bookid/reviews',  ctrlReviews.reviewsCreate);
+// router.get('/authors/:authorid/books/:bookid/reviews', ctrlReviews.listReviews);
+// router.post('/authors/:authorid/books/:bookid/reviews',  ctrlReviews.reviewsCreate);
+
+//router.get('/authors/:authorid/books/:bookid/reviews', ctrlReviews.listReviews);
+router.post('/books/:bookid/new',  ctrlReviews.createReview);
 
 //Authentication
 

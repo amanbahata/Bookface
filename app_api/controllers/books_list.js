@@ -14,6 +14,33 @@ var sendJasonResponse = function(res, status, content) {
     res.json(content);
 };
 
+module.exports.listBooks = function (req, res){
+    Book.find()
+        .select('bookRating addedBy author title')
+        .exec(
+            function (err, books) {
+                var response;
+                if (books && books.length > 0) {
+                    if (!books) {
+                        sendJasonResponse(res, 404, {
+                            "message": "books not found"
+                        });
+                    } else {
+                        response = {
+                            allBooks: books
+                        };
+                        sendJasonResponse(res, 200, response);
+                    }
+                } else {
+                    sendJasonResponse(res, 404, {
+                        "message": "No books found."
+                    });
+                }
+            }
+        );
+};
+
+
 
 
 module.exports.booksCreate = function (req, res) {
@@ -39,31 +66,6 @@ module.exports.booksCreate = function (req, res) {
 };
 
 
-module.exports.listBooks = function (req, res){
-    Book.find()
-        .select('bookRating addedBy author title')
-        .exec(
-            function (err, books) {
-                var response;
-                if (books && books.length > 0) {
-                    if (!books) {
-                        sendJasonResponse(res, 404, {
-                            "message": "books not found"
-                        });
-                    } else {
-                        response = {
-                            allBooks: books
-                        };
-                        sendJasonResponse(res, 200, response);
-                    }
-                } else {
-                    sendJasonResponse(res, 404, {
-                        "message": "No books found."
-                    });
-                }
-            }
-    );
-};
 
 
 module.exports.booksReadOne = function (req, res) {
