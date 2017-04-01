@@ -46,6 +46,9 @@ var bookDetailRenderer = function(req, res, book){
     if (!book) {
         message = "API lookup error. Please try again." ;
     }
+    if (!book.reviews || !book.reviews.length > 0){
+        message = "This book hasn't been reviewed yet."
+    }
     res.render('book_info', {
         title: book.title,
         pageHeader: {

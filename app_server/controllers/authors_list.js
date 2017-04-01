@@ -47,7 +47,6 @@ var homepageRenderer = function(req, res, responseBody) {
         }
     }
     res.render('authors_list', {
-            scrName: scrName,
             title: 'Bookface',
             pageHeader: {
                 title: 'List of Authors'

@@ -13,26 +13,28 @@ block content
   p Rating #{rating}
             //a.btn.btn-default.pull-right(href="/authors/#{author}/books/#{book}") Delete Book
            p Description #{description}
-        .row.col-xs-19
-         #{loggedIn}
-         if loggedIn
-             a.btn.btn-default.pull-right(href="/authors/#{author}/books/#{book}/reviews/new") Add Review
-         else
-             a.btn.btn-default.pull-right(href="/login") Log-in
-          .panel.panel-primary.review-panel
-           .panel-heading
-            //a.btn.btn-default.pull-right(href="/authors/#{author}/books/#{book}/reviews/new") Add Review
-            p.panel-title Reader reviews
-             .panel-body.review-container
-                  each review in reviews
-                     .row
-                         .review
-                             .well.well-sm.review-header
-                                 span.rating= review.rating
-                                 .row
-                                 span.reviewAuthor #{review.author}
-                                 .row
-                                 small.createdOn
-                                    +dateFormatter(review.createdOn)
-                            .col-xs-12
-                                 p #{(review.reviewText)}
+            .row
+               .col-xs-10
+                .panel.panel-primary.review-panel
+                    .panel-heading
+                        #{loggedIn}
+                         if loggedIn
+                             a.btn.btn-default.pull-right(href="/authors/#{author}/books/#{book}/reviews/new") Add Review
+                         else
+                             a.btn.btn-default.pull-right(href="/login") Log-in
+                             h2.panel-title Reader reviews
+                    .panel-body.review-container
+                        #{message}
+                            if message
+                                small #{message}
+                            else
+                        each review in reviews
+                             .row
+                                 .review
+                                     .well.well-sm.review-header
+                                         span.rating= review.rating
+                                         span.reviewAuthor #{review.screenName}
+                                         small.createdOn
+                                            +dateFormatter(review.createdOn)
+                                     .col-xs-12
+                                         p !{(review.reviewText).replace(/\n/g, '<br/>')}
