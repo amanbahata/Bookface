@@ -40,7 +40,7 @@ module.exports.homeList = function (req, res) {
 var homepageRenderer = function(req, res, responseBody) {
     var message;
     var loggedIn = false;
-    
+
     if (!(responseBody instanceof Array)){
         message = "API lookup error";
     }else{
@@ -65,34 +65,37 @@ var homepageRenderer = function(req, res, responseBody) {
 
 
 module.exports.addAuthor = function (req, res) {
-    if (req.session && req.session.token) {
+ //   if (req.session && req.session.token) {
         res.render('author_add_form', {
             title: 'New Author',
             pageHeader: {title: 'add new author to the list'}
         });
-    }else{
-        res.render('author_add_form', {
-            title: 'New Author',
-            pageHeader: {title: 'add new author to the list'},
-            message : 'You must be logged in to add a new author'
-        });
-
-    }
+    // }else{
+    //     res.render('author_add_form', {
+    //         title: 'New Author',
+    //         pageHeader: {title: 'add new author to the list'},
+    //         message : 'You must be logged in to add a new author'
+    //     });
+    //
+    // }
 };
 
 module.exports.doAddAuthor = function(req, res){
     var requestOptions, path, postData;
-    path = '/api/authors';
+    path = '/api/books';
     postData = {
-        name: req.body.name
+        addedBy: req.body.addedBy,
+        author: req.body.author,
+        title: req.body.title,
+        description: req.body.description
     };
     requestOptions = {
         url : apiOptions.server + path,
         method : "POST",
-        json: postData,
-        headers: {
-            "token" : req.session.token
-        }
+        json: postData //,
+        // headers: {
+        //     "token" : req.session.token
+        // }
     };
     request (requestOptions,
         function(err, response, body){
