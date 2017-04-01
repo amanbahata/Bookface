@@ -23,5 +23,5 @@ block content
                         p Rated: #{book.bookRating}
                         p #{book.title}
                         h4
-                            a(href="/books/#{author._id}/books/#{book._id}/reviews")= book.title
+                            a(href="/books/#{book._id}")= book.title
                         p Description: #{book.description}

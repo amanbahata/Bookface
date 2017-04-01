@@ -30,8 +30,6 @@ module.exports.homeList = function (req, res) {
     );
 };
 
-
-
 /*
     Setting up the main rendering function
  */
@@ -39,7 +37,6 @@ module.exports.homeList = function (req, res) {
 var homepageRenderer = function(req, res, responseBody) {
     var message;
     var loggedIn = false;
-
     if (!(responseBody instanceof Array)){
         message = "API lookup error";
     }else{
@@ -62,7 +59,6 @@ var homepageRenderer = function(req, res, responseBody) {
 module.exports.authorBooks = function (req, res) {
     var requestOptions, path;
     path = '/api/authors/' + req.params.authorName;
-console.log(req.params.authorName);
     requestOptions = {
         url : apiOptions.server + path,
         method : "GET",
@@ -82,10 +78,6 @@ console.log(req.params.authorName);
 var authorBooksRenderer = function (req, res, responseBody) {
     var message;
     var loggedIn = false;
-
-console.log(responseBody);
-
-
     if (!(responseBody instanceof Array)){
         message = "API lookup error";
     }else{
