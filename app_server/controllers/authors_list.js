@@ -10,43 +10,10 @@ var apiOptions = {
     server : "http://localhost:3000"
 };
 
-/*
-    Setting up the main rendering function
- */
-
-
-var homepageRenderer = function(req, res, responseBody){
-    var message;
-    var loggedIn = false;
-
-    if (req.session && req.session.token){
-        loggedIn = true;
-    }
-
-    if (!(responseBody.author instanceof Array)){
-        message = "API lookup error";
-        responseBody.author = [];
-    }else{
-        if (!responseBody.author.length){
-            responseBody.author = [];
-            message = "No authors found";
-        }
-    }
-    res.render('authors_list', {
-            title: 'Bookface',
-            pageHeader: {
-                title: 'List of Authors'
-            },
-            loggedIn: loggedIn,
-            authors: responseBody.author,
-            message : message
-        });
-};
-
 
 
 /*
-    Get the authors list
+ Get the authors list
  */
 module.exports.homeList = function (req, res) {
     var requestOptions, path;
@@ -62,6 +29,39 @@ module.exports.homeList = function (req, res) {
         }
     );
 };
+
+
+
+/*
+    Setting up the main rendering function
+ */
+
+
+var homepageRenderer = function(req, res, responseBody) {
+    var message;
+    var loggedIn = false;
+    
+    if (!(responseBody instanceof Array)){
+        message = "API lookup error";
+    }else{
+        if (!responseBody.length > 0){
+            message = "No authors found";
+        }
+    }
+    res.render('authors_list', {
+            title: 'Bookface',
+            pageHeader: {
+                title: 'List of Authors'
+            },
+            loggedIn: loggedIn,
+            authors: responseBody,
+            message : message
+        });
+};
+
+
+
+
 
 
 module.exports.addAuthor = function (req, res) {
