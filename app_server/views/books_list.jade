@@ -7,25 +7,30 @@ include includes/sharedFunctions
 
 block content
     #banner.page-header
-        .row
-            .col-lg-6
-                h3= pageHeader.title
-
     .row
-        .col-xs-12.col-sm-8
-            .error= message
-            #{loggedIn}
-                if loggedIn
-                    a.btn.btn-default.pull-right(href="/books/#{title}/new") Add Books
-                else
-                    a.btn.btn-default.pull-right(href="/login") Log-in
-            .row.list-group
+        .col-lg-6
+            h3= pageHeader.title
+        .row
+            .col-xs-12.col-sm-9
+                .error= message
+                #{loggedIn}
+                    if loggedIn
+                        a.btn.btn-default.pull-right(href="/books/#{title}/new") Add Books
+                    else
+                        a.btn.btn-default.pull-right(href="/login") Log-in
+    .row
+        .col-xs-12.col-sm-9
+            .panel-body
                 each book in books
-                    .col-xs-12.list-group-item
-                        p Rated:  &nbsp;
-                            span.book.bookRating
-                                +outputRating(book.bookRating)
-                        h4
-                            a(href="/books/#{book._id}")= book.title
-                        p Description: #{book.description}
+                    .row
+                        .col-xs-12
+                        .col-sm-12
+                            .row
+                                .list-group-item
+                                    p Rated:  &nbsp;
+                                        span.book.bookRating
+                                            +outputRating(book.bookRating)
+                                    h4
+                                        a(href="/books/#{book._id}")= book.title
+                                    p Description: #{book.description}
 

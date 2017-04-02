@@ -3,21 +3,26 @@
 extends layout
 include includes/sharedFunctions
 
-block content
-  .row.page-header: .col-lg-12
-    h3= pageHeader.title
-  .row
-    .col-xs-12.col-md-9
-      .row
-        .col-xs-12.col-sm-6
-  p Rating:  &nbsp;
-    span.rating
-        +outputRating(rating)
 
-            //a.btn.btn-default.pull-right(href="/authors/#{author}/books/#{book}") Delete Book
-           p Description: #{description}
-            .row
-               .col-xs-10
+block content
+  #banner.page-header
+  .row
+      .col-lg-12
+          h3= pageHeader.title
+          .row
+            .col-xs-12.col-md-9
+              .row
+                .col-xs-12.col-sm-12
+                  .panel.panel-primary
+                    .panel-body
+                        a.btn.btn-default.pull-right(href="#") Delete Book
+                        p Rating:  &nbsp;
+                            span.rating
+                                +outputRating(rating)
+                        .row
+                        p Description: #{description}
+              .row
+               .col-xs-12
                 .panel.panel-primary.review-panel
                     .panel-heading
                         #{loggedIn}
