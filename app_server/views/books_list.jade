@@ -21,7 +21,6 @@ block content
                 each book in books
                     .col-xs-12.list-group-item
                         p Rated: #{book.bookRating}
-                        p #{book.title}
                         h4
                             a(href="/books/#{book._id}")= book.title
                         p Description: #{book.description}

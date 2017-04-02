@@ -38,7 +38,7 @@ module.exports.homeList = function (req, res) {
 
 var homepageRenderer = function(req, res, responseBody) {
     var message;
-    var loggedIn = false;
+    var loggedIn = true;
     if (!(responseBody instanceof Array)){
         message = "API lookup error";
     }else{
@@ -88,9 +88,9 @@ var authorBooksRenderer = function (req, res, responseBody) {
         }
     }
     res.render('books_list', {
-        title: responseBody[0].author,
+        title: req.params.authorName,
         pageHeader: {
-            title: 'List of Books for: ' + responseBody[0].author
+            title: 'List of Books by: ' + req.params.authorName
         },
         loggedIn: loggedIn,
         books: responseBody,
@@ -99,56 +99,47 @@ var authorBooksRenderer = function (req, res, responseBody) {
 };
 
 
+module.exports.addAuthor = function (req, res) {
+    //   if (req.session && req.session.token) {
+    res.render('author_add_form', {
+        title: 'New Author',
+        pageHeader: {title: 'add new author to the list'}
+    });
+    // }else{
+    //     res.render('author_add_form', {
+    //         title: 'New Author',
+    //         pageHeader: {title: 'add new author to the list'},
+    //         message : 'You must be logged in to add a new author'
+    //     });
+    //
+    // }
+};
 
 
-
-
-
-
-
-
-
-//
-// module.exports.addAuthor = function (req, res) {
-//     //   if (req.session && req.session.token) {
-//     res.render('author_add_form', {
-//         title: 'New Author',
-//         pageHeader: {title: 'add new author to the list'}
-//     });
-//     // }else{
-//     //     res.render('author_add_form', {
-//     //         title: 'New Author',
-//     //         pageHeader: {title: 'add new author to the list'},
-//     //         message : 'You must be logged in to add a new author'
-//     //     });
-//     //
-//     // }
-// };
-//
-// module.exports.doAddAuthor = function(req, res){
-//     var requestOptions, path, postData;
-//     path = '/api/books';
-//     postData = {
-//         addedBy: req.body.addedBy,
-//         author: req.body.author,
-//         title: req.body.title,
-//         description: req.body.description
-//     };
-//     requestOptions = {
-//         url : apiOptions.server + path,
-//         method : "POST",
-//         json: postData //,
-//         // headers: {
-//         //     "token" : req.session.token
-//         // }
-//     };
-//     request (requestOptions,
-//         function(err, response){
-//             if (response.statusCode === 201){
-//                 res.redirect('/');
-//             }else{
-//                 res.redirect('/');
-//             }
-//         }
-//     );
-// };
+module.exports.doAddAuthor = function(req, res){
+    var requestOptions, path, postData;
+    path = '/api/books';
+    postData = {
+        addedBy: "Aman",
+        author: req.body.author,
+        title: req.body.title,
+        description: req.body.description
+    };
+    requestOptions = {
+        url : apiOptions.server + path,
+        method : "POST",
+        json: postData //,
+        // headers: {
+        //     "token" : req.session.token
+        // }
+    };
+    request (requestOptions,
+        function(err, response){
+            if (response.statusCode === 201){
+                res.redirect('/');
+            }else{
+                res.redirect('/');
+            }
+        }
+    );
+};
