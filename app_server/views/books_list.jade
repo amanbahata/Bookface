@@ -13,10 +13,10 @@ block content
         .col-xs-12.col-sm-8
             .error= message
             #{loggedIn}
-                //if loggedIn
-                //    a.btn.btn-default.pull-right(href="/authors/#{author._id}/new") Add Books
-                //else
-                //    a.btn.btn-default.pull-right(href="/login") Log-in
+                if loggedIn
+                    a.btn.btn-default.pull-right(href="/books/#{title}/new") Add Books
+                else
+                    a.btn.btn-default.pull-right(href="/login") Log-in
             .row.list-group
                 each book in books
                     .col-xs-12.list-group-item

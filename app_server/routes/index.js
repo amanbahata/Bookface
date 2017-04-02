@@ -16,7 +16,11 @@ var ctrlLogout = require('../controllers/logout');
 
 router.get('/', ctrlMain.homeList);
 router.get('/author/:authorName', ctrlMain.authorBooks);
- router.get('/books/:bookid', ctrlSecond.bookDetail);
+router.get('/books/:bookid', ctrlSecond.bookDetail);
+router.get('/books/:authorName/new', ctrlSecond.addBook);
+router.post('/books/:authorName/new', ctrlSecond.doAddBook);
+
+
 // router.get('/authors/:authorid/books/:bookid/reviews', ctrlSecond.reviewsList);
 // router.get('/authors/:authorid/books/:bookid/reviews/new', ctrlSecond.addReview);
 // router.post('/authors/:authorid/books/:bookid/reviews/new', ctrlSecond.doAddReview);
@@ -25,7 +29,6 @@ router.get('/author/:authorName', ctrlMain.authorBooks);
 // router.get('/new', ctrlMain.addAuthor);
 // router.post('/new', ctrlMain.doAddAuthor);
 
-// router.get('/authors/:authorid/new', ctrlSecond.addBook);
 // router.post('/authors/:authorid/new', ctrlSecond.doAddBook);
 //router.delete('/authors/:authorid/books/:bookid', ctrlSecond.doDeleteBook);
 

@@ -79,7 +79,7 @@ module.exports.authorBooks = function (req, res) {
 
 var authorBooksRenderer = function (req, res, responseBody) {
     var message;
-    var loggedIn = false;
+    var loggedIn = true;
     if (!(responseBody instanceof Array)){
         message = "API lookup error";
     }else{

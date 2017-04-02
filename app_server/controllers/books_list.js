@@ -65,65 +65,45 @@ var bookDetailRenderer = function(req, res, book){
     });
 };
 
-//
-// module.exports.addBook = function (req, res) {
-//     var requestOptions, path;
-//     path = '/api/authors/' + req.params.authorid + '/books';
-//     requestOptions = {
-//         url : apiOptions.server + path,
-//         method : "GET",
-//         json: {}
-//     };
-//     request (requestOptions,
-//         function(err, response, body){
-//             var data = body;
-//             renderBookAddForm(req, res, data);
-//         }
-//     );
-// };
-//
-// var renderBookAddForm = function (req, res, data) {
-//     if (req.session && req.session.token){
-//         res.render('book_add_form', {
-//         title: 'Add book by ',
-//         pageHeader: {title: 'Add book by '},
-//         data: data
-//         });
-//     }else{
-//         res.redirect('/');
-//
-//     }
-//
-// };
-//
-// module.exports.doAddBook = function(req, res){
-//     var requestOptions, path, authorid, postData;
-//     authorid = req.params.authorid;
-//     path = '/api/authors/' + authorid + '/books';
-//     postData = {
-//         name: req.body.name,
-//         description: req.body.description
-//     };
-//     requestOptions = {
-//         url : apiOptions.server + path,
-//         method : "POST",
-//         json: postData,
-//         headers: {
-//             "token" : req.session.token
-//         }
-//     };
-//     request (requestOptions,
-//         function(err, response, body){
-//             if (response.statusCode === 201){
-//                 res.redirect('/authors/' + authorid);
-//             }else{
-//                 console.log("Something went wrong");
-//                 res.redirect('/authors/' + authorid);
-//             }
-//         }
-//     );
-// };
-//
+
+
+module.exports.addBook = function (req, res) {
+    res.render('book_add_form', {
+        title: 'Add book',
+        pageHeader: {title: 'Add book'}
+    });
+};
+
+module.exports.doAddBook = function(req, res){
+    var requestOptions, path, authorName, postData;
+    authorName = req.params.authorName;
+    path = '/api/books';
+    postData = {
+        addedBy: "Aman" ,
+        author: req.params.authorName,
+        title: req.body.bookTitle,
+        description: req.body.description
+    };
+    requestOptions = {
+        url : apiOptions.server + path,
+        method : "POST",
+        json: postData
+        // headers: {
+        //     "token" : req.session.token
+        // }
+    };
+    request (requestOptions,
+        function(err, response, body){
+            if (response.statusCode === 201){
+                res.redirect('/author/' + authorName);
+            }else{
+                console.log("Something went wrong");
+                res.redirect('/');
+            }
+        }
+    );
+};
+
 
 
 // module.exports.doDeleteBook = function(req, res){
