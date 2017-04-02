@@ -2,6 +2,8 @@
    Created by aman1 on 21/03/2017.
 
 extends layout
+include includes/sharedFunctions
+
 
 block content
     #banner.page-header
@@ -20,7 +22,9 @@ block content
             .row.list-group
                 each book in books
                     .col-xs-12.list-group-item
-                        p Rated: #{book.bookRating}
+                        p Rated:  &nbsp;
+                            span.book.bookRating
+                                +outputRating(book.bookRating)
                         h4
                             a(href="/books/#{book._id}")= book.title
                         p Description: #{book.description}

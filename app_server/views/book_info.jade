@@ -10,7 +10,10 @@ block content
     .col-xs-12.col-md-9
       .row
         .col-xs-12.col-sm-6
-  p Rating: #{rating}
+  p Rating:  &nbsp;
+    span.rating
+        +outputRating(rating)
+
             //a.btn.btn-default.pull-right(href="/authors/#{author}/books/#{book}") Delete Book
            p Description: #{description}
             .row
@@ -32,8 +35,10 @@ block content
                                      .row
                                          .review
                                              .well.well-sm.review-header
-                                                 span.rating= review.rating
-                                                 span.reviewAuthor #{review.screenName}
+                                                 span.rating
+                                                    +outputRating(review.rating)
+                                                 .row
+                                                 span.reviewAuthor #{review.screenName} on the&nbsp;
                                                  small.createdOn
                                                     +dateFormatter(review.createdOn)
                                              .col-xs-12
