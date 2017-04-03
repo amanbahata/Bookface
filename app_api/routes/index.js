@@ -29,7 +29,7 @@ router.get('/authors/:authorName', ctrlAuthors.listBooksByAuthor);
 router.get('/books', ctrlBooks.listBooks);
 router.post('/books', ctrlBooks.booksCreate);
 router.get('/books/:bookid', ctrlBooks.booksReadOne);
-router.delete('/books/:bookid',  ctrlBooks.bookDeleteOne);
+router.delete('/:bookid/delete',  ctrlBooks.bookDeleteOne);
 
 //Reviews
 

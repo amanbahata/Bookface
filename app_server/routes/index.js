@@ -19,6 +19,7 @@ router.get('/author/:authorName', ctrlMain.authorBooks);
 router.get('/books/:bookid', ctrlSecond.bookDetail);
 router.get('/books/:authorName/new', ctrlSecond.addBook);
 router.post('/books/:authorName/new', ctrlSecond.doAddBook);
+router.get('/:bookid/delete', ctrlSecond.bookDelete);
 
 
 // router.get('/authors/:authorid/books/:bookid/reviews', ctrlSecond.reviewsList);
