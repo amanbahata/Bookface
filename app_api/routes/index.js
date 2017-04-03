@@ -33,7 +33,7 @@ router.delete('/:bookid/delete',  ctrlBooks.bookDeleteOne);
 
 //Reviews
 
-router.post('/books/:bookid/reviews',  ctrlReviews.createReview);
+router.post('/books/:bookid/reviews/new',  ctrlReviews.createReview);
 
 //Authentication
 

@@ -41,7 +41,7 @@ module.exports.bookDetail = function (req, res) {
 
 var bookDetailRenderer = function(req, res, book){
     var message;
-    var loggedIn = false;
+    var loggedIn = true;
 
     if (!book) {
         message = "API lookup error. Please try again." ;
@@ -81,7 +81,7 @@ module.exports.doAddBook = function(req, res){
     path = '/api/books';
     postData = {
         addedBy: "Aman" ,
-        author: req.params.authorName,
+        author: authorName,
         title: req.body.bookTitle,
         description: req.body.description
     };

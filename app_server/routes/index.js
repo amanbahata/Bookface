@@ -6,6 +6,7 @@ var express = require('express');
 var router = express.Router();
 var ctrlMain = require('../controllers/authors_list');
 var ctrlSecond = require('../controllers/books_list');
+var ctrlThird = require('../controllers/reviews_list');
 var ctrlLogin = require('../controllers/login');
 var ctrlRegister = require('../controllers/register');
 var ctrlVerify = require('../controllers/verification');
@@ -22,16 +23,15 @@ router.post('/books/:authorName/new', ctrlSecond.doAddBook);
 router.get('/:bookid/delete', ctrlSecond.bookDelete);
 
 
-// router.get('/authors/:authorid/books/:bookid/reviews', ctrlSecond.reviewsList);
-// router.get('/authors/:authorid/books/:bookid/reviews/new', ctrlSecond.addReview);
-// router.post('/authors/:authorid/books/:bookid/reviews/new', ctrlSecond.doAddReview);
+router.get('/books/:bookid/reviews/new', ctrlThird.addReview);
+router.post('/books/:bookid/reviews/new', ctrlThird.doAddReview);
 
 
 router.get('/newauthor', ctrlMain.addAuthor);
 router.post('/newauthor', ctrlMain.doAddAuthor);
 
-// router.post('/authors/:authorid/new', ctrlSecond.doAddBook);
-//router.delete('/authors/:authorid/books/:bookid', ctrlSecond.doDeleteBook);
+
+
 
 
 router.get('/login', ctrlLogin.login);

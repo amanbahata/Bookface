@@ -25,12 +25,12 @@ block content
                .col-xs-12
                 .panel.panel-primary.review-panel
                     .panel-heading
-                        #{loggedIn}
-                         if loggedIn
-                             a.btn.btn-default.pull-right(href="/authors/#{author}/books/#{book}/reviews/new") Add Review
-                         else
-                             a.btn.btn-default.pull-right(href="/login") Log-in
-                             h2.panel-title Reader reviews
+                        h2.panel-title Reader reviews
+                    #{loggedIn}
+                     if loggedIn
+                         a.btn.btn-default.pull-right(href="/books/#{bookid}/reviews/new") Add Review
+                     else
+                         a.btn.btn-default.pull-right(href="/login") Log-in
                     .panel-body.review-container
                         #{message}
                             if message
