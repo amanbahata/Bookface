@@ -40,6 +40,8 @@ block content
                                      .row
                                          .review
                                              .well.well-sm.review-header
+                                                 if (loggedIn && (scrName == review.screenName))
+                                                     a.btn.btn-default.pull-right(href="/books/#{bookid}/reviews/#{review._id}") Delete Review
                                                  span.rating
                                                     +outputRating(review.rating)
                                                  .row

@@ -27,7 +27,7 @@ module.exports.doAddReview = function(req, res){
     path = '/api/books/' + bookid + '/reviews/new';
     postData = {
         rating: req.body.rating,
-        screenName: 'Aman',
+        screenName: 'Jonny',
         reviewText: req.body.reviewText
     };
     requestOptions = {
@@ -41,6 +41,31 @@ module.exports.doAddReview = function(req, res){
     request (requestOptions,
         function(err, response, body){
             if (response.statusCode === 200){
+                res.redirect('/books/' + bookid);
+            }else{
+                console.log("Something went wrong");
+                res.redirect('/');
+            }
+        }
+    );
+};
+
+module.exports.doDeleteReview = function (req, res) {
+    var requestOptions, path, bookid, reviewid;
+    bookid = req.params.bookid;
+    reviewid = req.params.reviewid;
+    path = '/api/books/' + bookid + '/reviews/' + reviewid;
+    requestOptions = {
+        url : apiOptions.server + path,
+        method : "DELETE",
+        json: {}
+        // headers: {
+        //     "token" : req.session.token
+        // }
+    };
+    request (requestOptions,
+        function(err, response, body){
+            if (response.statusCode === 204){
                 res.redirect('/books/' + bookid);
             }else{
                 console.log("Something went wrong");

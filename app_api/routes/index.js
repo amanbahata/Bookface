@@ -34,6 +34,7 @@ router.delete('/:bookid/delete',  ctrlBooks.bookDeleteOne);
 //Reviews
 
 router.post('/books/:bookid/reviews/new',  ctrlReviews.createReview);
+router.delete('/books/:bookid/reviews/:reviewid',  ctrlReviews.doReviewDelete);
 
 //Authentication
 

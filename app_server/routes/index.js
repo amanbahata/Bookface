@@ -25,7 +25,7 @@ router.get('/:bookid/delete', ctrlSecond.bookDelete);
 
 router.get('/books/:bookid/reviews/new', ctrlThird.addReview);
 router.post('/books/:bookid/reviews/new', ctrlThird.doAddReview);
-
+router.get('/books/:bookid/reviews/:reviewid', ctrlThird.doDeleteReview);
 
 router.get('/newauthor', ctrlMain.addAuthor);
 router.post('/newauthor', ctrlMain.doAddAuthor);

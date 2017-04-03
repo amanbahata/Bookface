@@ -55,6 +55,7 @@ var bookDetailRenderer = function(req, res, book){
             title: book.title
         },
         loggedIn: loggedIn,
+        scrName: "Jonny",
         bookid: book._id,
         rating: book.bookRating,
         addedBy: book.addedBy,
