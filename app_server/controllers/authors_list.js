@@ -38,10 +38,14 @@ module.exports.homeList = function (req, res) {
 
 var homepageRenderer = function(req, res, responseBody) {
 
-    console.log(req.headers);
-
     var message;
     var loggedIn = false;
+
+    if (req.session && req.session.token){
+        loggedIn = true;
+        var screenName = whoIsUser.screenNameDecoder(req);
+    }
+
     if (!(responseBody instanceof Array)){
         message = "API lookup error";
     }else{
@@ -55,6 +59,7 @@ var homepageRenderer = function(req, res, responseBody) {
                 title: 'List of Authors'
             },
             loggedIn: loggedIn,
+            scrName: screenName,
             authors: responseBody,
             message : message
         });
@@ -108,14 +113,6 @@ module.exports.addAuthor = function (req, res) {
         title: 'New Author',
         pageHeader: {title: 'add new author to the list'}
     });
-    // }else{
-    //     res.render('author_add_form', {
-    //         title: 'New Author',
-    //         pageHeader: {title: 'add new author to the list'},
-    //         message : 'You must be logged in to add a new author'
-    //     });
-    //
-    // }
 };
 
 

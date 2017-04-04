@@ -40,7 +40,10 @@ module.exports.doLogin = function (req, res) {
     request (requestOptions,
         function(err, response){
             if (response.statusCode === 200){
-                req.setHeader('Authorisation', response.body.token);
+                // req.setHeader('Authorisation', response.body.token);
+
+                req.session.token = response.body.token;
+
                 setTimeout(function(){res.redirect('/')}, 3000);
             }else{
                 res.render('login',{
