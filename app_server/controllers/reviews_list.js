@@ -16,7 +16,7 @@ var apiOptions = {
 
 module.exports.addReview = function (req, res) {
     res.render('book_review_form', {
-        title: 'Add book',
+        title: 'Review book',
         pageHeader: {title: 'Add book'}
     });
 };
