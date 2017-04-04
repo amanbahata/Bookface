@@ -37,8 +37,11 @@ module.exports.homeList = function (req, res) {
 
 
 var homepageRenderer = function(req, res, responseBody) {
+
+    console.log(req.headers);
+
     var message;
-    var loggedIn = true;
+    var loggedIn = false;
     if (!(responseBody instanceof Array)){
         message = "API lookup error";
     }else{
@@ -79,7 +82,7 @@ module.exports.authorBooks = function (req, res) {
 
 var authorBooksRenderer = function (req, res, responseBody) {
     var message;
-    var loggedIn = true;
+    var loggedIn = false;
     if (!(responseBody instanceof Array)){
         message = "API lookup error";
     }else{

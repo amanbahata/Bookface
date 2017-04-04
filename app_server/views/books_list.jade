@@ -14,10 +14,10 @@ block content
             .col-xs-12.col-sm-9
                 .error= message
                 #{loggedIn}
-                    if loggedIn
-                        a.btn.btn-default.pull-right(href="/books/#{title}/new") Add Books
-                    else
-                        a.btn.btn-default.pull-right(href="/login") Log-in
+                if loggedIn
+                    a.btn.btn-default.pull-right(href="/books/#{title}/new") Add Books
+                else
+                    small You must log in to add books.
     .row
         .col-xs-12.col-sm-9
             .panel-body

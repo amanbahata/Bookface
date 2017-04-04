@@ -41,7 +41,7 @@ module.exports.bookDetail = function (req, res) {
 
 var bookDetailRenderer = function(req, res, book){
     var message;
-    var loggedIn = true;
+    var loggedIn = false;
 
     if (!book) {
         message = "API lookup error. Please try again." ;
@@ -55,7 +55,7 @@ var bookDetailRenderer = function(req, res, book){
             title: book.title
         },
         loggedIn: loggedIn,
-        scrName: "Jonny",
+        scrName: "Aman",
         bookid: book._id,
         rating: book.bookRating,
         addedBy: book.addedBy,

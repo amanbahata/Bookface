@@ -3,7 +3,6 @@
 extends layout
 include includes/sharedFunctions
 
-
 block content
   #banner.page-header
   .row
@@ -15,7 +14,9 @@ block content
                 .col-xs-12.col-sm-12
                   .panel.panel-primary
                     .panel-body
-                        a.btn.btn-default.pull-right(href="/#{bookid}/delete") Delete Book
+                        #{loggedIn}
+                            if loggedIn
+                                a.btn.btn-default.pull-right(href="/#{bookid}/delete") Delete Book
                         p Rating:  &nbsp;
                             span.rating
                                 +outputRating(rating)
