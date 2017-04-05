@@ -97,10 +97,10 @@ module.exports.doAddBook = function(req, res){
     requestOptions = {
         url : apiOptions.server + path,
         method : "POST",
-        json: postData
-        // headers: {
-        //     "token" : req.session.token
-        // }
+        json: postData,
+        headers: {
+            "token" : req.session.token
+        }
     };
     request (requestOptions,
         function(err, response, body){
