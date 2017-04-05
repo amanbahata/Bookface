@@ -27,7 +27,7 @@ module.exports.doAddReview = function(req, res){
     path = '/api/books/' + bookid + '/reviews/new';
     postData = {
         rating: req.body.rating,
-        screenName: 'Jonny',
+        screenName: "Jonny",
         reviewText: req.body.reviewText
     };
     requestOptions = {

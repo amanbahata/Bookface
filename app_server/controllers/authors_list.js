@@ -88,6 +88,12 @@ module.exports.authorBooks = function (req, res) {
 var authorBooksRenderer = function (req, res, responseBody) {
     var message;
     var loggedIn = false;
+
+    if (req.session && req.session.token){
+        loggedIn = true;
+        var screenName = whoIsUser.screenNameDecoder(req);
+    }
+
     if (!(responseBody instanceof Array)){
         message = "API lookup error";
     }else{
@@ -101,6 +107,7 @@ var authorBooksRenderer = function (req, res, responseBody) {
             title: 'List of Books by: ' + req.params.authorName
         },
         loggedIn: loggedIn,
+        scrName: screenName,
         books: responseBody,
         message : message
     });
@@ -108,19 +115,21 @@ var authorBooksRenderer = function (req, res, responseBody) {
 
 
 module.exports.addAuthor = function (req, res) {
-    //   if (req.session && req.session.token) {
     res.render('author_add_form', {
         title: 'New Author',
-        pageHeader: {title: 'add new author to the list'}
+        pageHeader: {title: 'add new author to the list'},
+        scrName: whoIsUser.screenNameDecoder(req)
+
     });
 };
 
 
 module.exports.doAddAuthor = function(req, res){
     var requestOptions, path, postData;
+    var screenName = whoIsUser.screenNameDecoder(req);
     path = '/api/books';
     postData = {
-        addedBy: "Aman",
+        addedBy: screenName,
         author: req.body.author,
         title: req.body.title,
         description: req.body.description

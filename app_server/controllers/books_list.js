@@ -43,6 +43,11 @@ var bookDetailRenderer = function(req, res, book){
     var message;
     var loggedIn = false;
 
+    if (req.session && req.session.token){
+        loggedIn = true;
+        var screenName = whoIsUser.screenNameDecoder(req);
+    }
+
     if (!book) {
         message = "API lookup error. Please try again." ;
     }
@@ -55,7 +60,7 @@ var bookDetailRenderer = function(req, res, book){
             title: book.title
         },
         loggedIn: loggedIn,
-        scrName: "Aman",
+        scrName: screenName,
         bookid: book._id,
         rating: book.bookRating,
         addedBy: book.addedBy,
@@ -70,18 +75,21 @@ var bookDetailRenderer = function(req, res, book){
 
 
 module.exports.addBook = function (req, res) {
+    var screenName = whoIsUser.screenNameDecoder(req);
     res.render('book_add_form', {
         title: 'Add book',
         pageHeader: {title: 'Add book'}
     });
+
 };
 
 module.exports.doAddBook = function(req, res){
+    var screenName = whoIsUser.screenNameDecoder(req);
     var requestOptions, path, authorName, postData;
     authorName = req.params.authorName;
     path = '/api/books';
     postData = {
-        addedBy: "Aman" ,
+        addedBy: screenName ,
         author: authorName,
         title: req.body.bookTitle,
         description: req.body.description
@@ -113,6 +121,9 @@ module.exports.bookDelete = function (req, res) {
     requestOptions = {
         url : apiOptions.server + path,
         method : "DELETE"
+        // headers: {
+        //     "token" : req.session.token
+        // }
     };
     request (requestOptions,
         function(err, response){
