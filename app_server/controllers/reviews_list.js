@@ -24,19 +24,20 @@ module.exports.addReview = function (req, res) {
 module.exports.doAddReview = function(req, res){
     var requestOptions, path, bookid, postData;
     bookid = req.params.bookid;
+    var screenName = whoIsUser.screenNameDecoder(req);
     path = '/api/books/' + bookid + '/reviews/new';
     postData = {
         rating: req.body.rating,
-        screenName: "Jonny",
+        screenName: screenName,
         reviewText: req.body.reviewText
     };
     requestOptions = {
         url : apiOptions.server + path,
         method : "POST",
-        json: postData
-        // headers: {
-        //     "token" : req.session.token
-        // }
+        json: postData,
+        headers: {
+            "token" : req.session.token
+        }
     };
     request (requestOptions,
         function(err, response, body){
@@ -58,10 +59,10 @@ module.exports.doDeleteReview = function (req, res) {
     requestOptions = {
         url : apiOptions.server + path,
         method : "DELETE",
-        json: {}
-        // headers: {
-        //     "token" : req.session.token
-        // }
+        json: {},
+        headers: {
+            "token" : req.session.token
+        }
     };
     request (requestOptions,
         function(err, response, body){
