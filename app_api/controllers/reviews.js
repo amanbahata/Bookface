@@ -5,7 +5,7 @@
 var mongoose = require('mongoose');
 var Book = mongoose.model('Book');
 var User = mongoose.model('User');
-// var check = require('./check_status');
+var check = require('./check_status');
 
 
 
@@ -16,18 +16,21 @@ var sendJasonResponse = function(res, status, content) {
 
 
 module.exports.createReview = function (req, res) {
-    var bookid = req.params.bookid;
-    if (bookid) {
-        Book.findById(bookid).select('reviews').exec(
-            function (err, book) {
-                if (err){
-                    sendJasonResponse(res, 404, err);
-                }else{
-                    addReview(req, res, book);
+    if (check.checkState(req)) {
+        var bookid = req.params.bookid;
+        if (bookid) {
+            Book.findById(bookid).select('reviews').exec(
+                function (err, book) {
+                    if (err) {
+                        sendJasonResponse(res, 404, err);
+                    } else {
+                        addReview(req, res, book);
+                    }
                 }
-
-            }
-        );
+            );
+        }
+    }else{
+        sendJasonResponse(res, 404, {"message" : "Unauthorized."});
     }
 };
 
@@ -87,47 +90,42 @@ var updateBookRating = function (book) {
 
 
 module.exports.doReviewDelete = function (req, res) {
-    var bookid = req.params.bookid;
-    var reviewid = req.params.reviewid;
-
-    console.log("bookid: " + bookid);
-    console.log("reviewid" + reviewid);
-
-
-    if (!bookid || !reviewid){
-        sendJasonResponse(res, 404, {"message" : "Not found, both bookid and reviewid are needed"});
-        return;
+    if (check.checkState(req)) {
+        var bookid = req.params.bookid;
+        var reviewid = req.params.reviewid;
+        if (!bookid || !reviewid) {
+            sendJasonResponse(res, 404, {"message": "Not found, both bookid and reviewid are needed"});
+            return;
+        }
+        Book.findById(bookid).select('reviews').exec(
+            function (err, book) {
+                if (!book) {
+                    sendJasonResponse(res, 404, {"message": "bookid doesn't exist"});
+                    return;
+                } else if (err) {
+                    sendJasonResponse(res, 404, err);
+                    return;
+                }
+                if (book.reviews && book.reviews.length > 0) {
+                    if (!book.reviews.id(reviewid)) {
+                        sendJasonResponse(res, 404, {"message": "reviewid not found"});
+                    } else {
+                        book.reviews.id(reviewid).remove();
+                        book.save(function (err) {
+                            if (err) {
+                                sendJasonResponse(res, 404, err);
+                            } else {
+                                updateBookRating(bookid);
+                                sendJasonResponse(res, 204, null);
+                            }
+                        });
+                    }
+                } else {
+                    sendJasonResponse(res, 404, {"message": "No review to delete."});
+                }
+            }
+        );
+    }else{
+        sendJasonResponse(res, 404, {"message" : "Unauthorized."});
     }
-    Book.findById(bookid).select('reviews').exec(
-      function (err, book) {
-
-          console.log(book);
-
-          if (!book) {
-              sendJasonResponse(res, 404, {"message":"bookid doesn't exist"});
-              return;
-          }else if (err) {
-              sendJasonResponse(res, 404, err);
-              return;
-          }
-          if (book.reviews && book.reviews.length > 0){
-              if (!book.reviews.id(reviewid)) {
-                  sendJasonResponse(res, 404, {"message":"reviewid not found"});
-              }else{
-                  book.reviews.id(reviewid).remove();
-                  book.save(function (err) {
-                     if (err){
-                         sendJasonResponse(res, 404, err);
-                     }else{
-                         updateBookRating(bookid);
-                         sendJasonResponse(res, 204, null);
-                     }
-                  });
-              }
-          }else{
-              sendJasonResponse(res, 404, {"message":"No review to delete."});
-          }
-      }
-    );
-
 };

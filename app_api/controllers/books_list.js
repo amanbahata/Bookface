@@ -90,7 +90,6 @@ module.exports.booksReadOne = function (req, res) {
 
 module.exports.bookDeleteOne = function (req, res){
     if (check.checkState(req)) {
-
         if (req.params.bookid) {
             var bookid = req.params.bookid;
             Book.findByIdAndRemove(bookid).exec(function (err, book) {
