@@ -44,13 +44,13 @@ module.exports.listBooks = function (req, res){
 
 
 module.exports.booksCreate = function (req, res) {
-        if (!req.body.addedBy || !req.body.author || !req.body.title || !req.body.description){
+    if (check.checkState(req)) {
+        if (!req.body.addedBy || !req.body.author || !req.body.title || !req.body.description) {
             sendJasonResponse(res, 404, {
-                "message" : "Please try again with all the required fields."
+                "message": "Please try again with all the required fields."
             });
-        }else {
+        } else {
             Book.create({
-                //bookRating: req.query.bookRating,
                 addedBy: req.body.addedBy,
                 author: req.body.author,
                 title: req.body.title,
@@ -63,6 +63,9 @@ module.exports.booksCreate = function (req, res) {
                 }
             });
         }
+    }else{
+        sendJasonResponse(res, 404, {"message" : "Unauthorized."});
+    }
 };
 
 
@@ -86,17 +89,22 @@ module.exports.booksReadOne = function (req, res) {
 
 
 module.exports.bookDeleteOne = function (req, res){
-    if (req.params.bookid) {
-        var bookid = req.params.bookid;
-        Book.findByIdAndRemove(bookid).exec(function (err, book){
-           if(err){
-               sendJasonResponse(res, 400, {"message" : err});
-               return;
-           }
-           sendJasonResponse(res, 200, {"message" : "Book removal successful"});
-        });
+    if (check.checkState(req)) {
+
+        if (req.params.bookid) {
+            var bookid = req.params.bookid;
+            Book.findByIdAndRemove(bookid).exec(function (err, book) {
+                if (err) {
+                    sendJasonResponse(res, 400, {"message": err});
+                    return;
+                }
+                sendJasonResponse(res, 200, {"message": "Book removal successful"});
+            });
+        } else {
+            sendJasonResponse(res, 400, {"message": "No bookid found"});
+        }
     }else{
-        sendJasonResponse(res, 400, {"message" : "No bookid found"});
+        sendJasonResponse(res, 404, {"message" : "Unauthorized."});
     }
 };
 

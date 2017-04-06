@@ -78,7 +78,8 @@ module.exports.addBook = function (req, res) {
     var screenName = whoIsUser.screenNameDecoder(req);
     res.render('book_add_form', {
         title: 'Add book',
-        pageHeader: {title: 'Add book'}
+        pageHeader: {title: 'Add book'},
+        scrName: screenName
     });
 
 };
@@ -120,17 +121,17 @@ module.exports.bookDelete = function (req, res) {
     path = '/api/' + bookid + '/delete';
     requestOptions = {
         url : apiOptions.server + path,
-        method : "DELETE"
-        // headers: {
-        //     "token" : req.session.token
-        // }
+        method : "DELETE",
+        headers: {
+            "token" : req.session.token
+        }
     };
     request (requestOptions,
         function(err, response){
             if (response.statusCode === 200){
                 res.redirect('/');
             }else{
-                console.log("Something went wrong");
+                console.log("Could not delete!");
                 res.redirect('/books/' + bookid);
             }
         }

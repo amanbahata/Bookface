@@ -8,7 +8,7 @@ var jwt = require('jsonwebtoken');
 
 module.exports.checkState = function (req) {
     if (req.headers && req.headers.token) {
-        var decode = jwt.verify(req.headers.token);
+        var decode = jwt.verify(req.headers.token, process.env.JWT_SECRET);
         if (User.findOne({email: decode.email})) {
             return true;
         }
@@ -16,10 +16,10 @@ module.exports.checkState = function (req) {
     }
 };
 
-module.exports.getReviewerScreenName = function (req) {
-    if (req.headers && req.headers.token) {
-        var decode = jwt.verify(req.headers.token);
-        return decode.screenName;
-    }
-    return false;
-};
+// module.exports.getReviewerScreenName = function (req) {
+//     if (req.headers && req.headers.token) {
+//         var decode = jwt.verify(req.headers.token, process.env.JWT_SECRET);
+//         return decode.screenName;
+//     }
+//     return false;
+// };
