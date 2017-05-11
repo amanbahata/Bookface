@@ -23,7 +23,7 @@ var siteUserSchema = new mongoose.Schema({
 
 
 /*
-    Encryption of user passwords by first salting and hashi afterwards users' password input
+    Encryption of user passwords by first salting and hash afterwards users' password input
  */
 siteUserSchema.methods.setPassword = function(password) {
     this.salt = crypto.randomBytes(16).toString('hex');
