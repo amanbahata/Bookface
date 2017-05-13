@@ -121,6 +121,13 @@ module.exports.addAuthor = function (req, res) {
 };
 
 
+/**
+ * This function preforms the addition of a new author by the user
+ * @param req
+ * @param res
+ */
+
+
 module.exports.doAddAuthor = function(req, res){
     var requestOptions, path, postData;
     var screenName = whoIsUser.screenNameDecoder(req);
