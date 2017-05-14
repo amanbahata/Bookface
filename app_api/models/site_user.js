@@ -6,8 +6,8 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 
-/*
-    Set up the database schema for the site user
+/**
+ *Set up the database schema for the site user
  */
 
 var siteUserSchema = new mongoose.Schema({
@@ -22,18 +22,18 @@ var siteUserSchema = new mongoose.Schema({
 });
 
 
-/*
-    Encryption of user passwords by first salting and hash afterwards users' password input
+/**
+ * Encryption of user passwords by first salting and hash afterwards users' password input
  */
 siteUserSchema.methods.setPassword = function(password) {
     this.salt = crypto.randomBytes(16).toString('hex');
     this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
 };
 
-/*
-    Password validation when users log in to website.
-    Returns true if the hashed version of the entered password is equal to the saved hashed version
-    of the password and if the user has completed the email verification
+/**
+ * Password validation when users log in to website.
+ * Returns true if the hashed version of the entered password is equal to the saved hashed version
+ * of the password and if the user has completed the email verification
  */
 
 siteUserSchema.methods.validatePassword = function(password) {
@@ -42,8 +42,8 @@ siteUserSchema.methods.validatePassword = function(password) {
 };
 
 
-/*
-    Generation of a jason web token that expires every seven days
+/**
+ *Generation of a jason web token that expires every seven days
  */
 
 siteUserSchema.methods.generateToken = function(){

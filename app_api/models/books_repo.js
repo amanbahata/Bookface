@@ -1,7 +1,13 @@
 /**
  * Created by aman1 on 06/03/2017.
  */
+
+//Import mongoose
 var mongoose = require('mongoose');
+
+/**
+ * Database schema for the book reviews
+ */
 
 var reviewSchema = new mongoose.Schema({
 
@@ -11,6 +17,10 @@ var reviewSchema = new mongoose.Schema({
     createdOn: {type: Date, 'default': Date.now}
 
 });
+
+/**
+ * Database schema for book details
+ */
 
 var bookSchema = new mongoose.Schema({
 
@@ -22,5 +32,5 @@ var bookSchema = new mongoose.Schema({
     reviews: [reviewSchema]
 });
 
-
+//Compile the schema
 mongoose.model('Book', bookSchema);
