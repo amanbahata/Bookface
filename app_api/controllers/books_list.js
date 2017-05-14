@@ -2,17 +2,28 @@
  * Created by aman1 on 06/03/2017.
  */
 
+// Import modules
 var mongoose = require('mongoose');
-// var Book = mongoose.model('Book');
 var Book = mongoose.model('Book');
-
 var check = require('./check_status');
 
 
+/**
+ * Named function that prepares the response object
+ * @param res - response object that holds data about where to send the response
+ * @param status - response status code
+ * @param content - information to send back
+ */
 var sendJasonResponse = function(res, status, content) {
     res.status(status);
     res.json(content);
 };
+
+/**
+ * listBooks - performs database query for the list of books stored
+ * @param req - request object
+ * @param res - response object
+ */
 
 module.exports.listBooks = function (req, res){
     Book.find()
@@ -41,7 +52,12 @@ module.exports.listBooks = function (req, res){
 };
 
 
-
+/**
+ * create a new book entry with the book author, book title and description
+ * to insert it to database.
+ * @param req - request object
+ * @param res - response object
+ */
 
 module.exports.booksCreate = function (req, res) {
     if (check.checkState(req)) {
@@ -68,6 +84,13 @@ module.exports.booksCreate = function (req, res) {
     }
 };
 
+/**
+ * Given a bookid read a book from database and send response of book
+ * with its details.
+ * details.
+ * @param req - request object
+ * @param res - response object
+ */
 
 module.exports.booksReadOne = function (req, res) {
     if (req.params.bookid){
@@ -87,6 +110,12 @@ module.exports.booksReadOne = function (req, res) {
     }
 };
 
+
+/**
+ * Delete a book given a bookid from the database
+ * @param req - request object
+ * @param res - response object
+ */
 
 module.exports.bookDeleteOne = function (req, res){
     if (check.checkState(req)) {
