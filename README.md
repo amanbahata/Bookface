@@ -17,5 +17,6 @@ SENDER_EMAIL = ************
 -senders' email password
 SENDER_EMAIL_PASSWORD = ***********
 
+2. The default application database is MongoDB, and has to be installed before running the app.
 
 

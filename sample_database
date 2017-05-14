@@ -1,0 +1,39 @@
+{
+    "_id" : ObjectId("58e42799feebcf0dde7042aa"),
+    "addedBy" : "John",
+    "author" : "Mario Puzo",
+    "title" : "The Sicilian",
+    "description" : "Michael Corleone's exile in Sicily is ending, but on the instructions of his father, The Godfather, he must bring back to him the young man known as Salvatore Giuliano - if he can find him. ",
+    "reviews" : [
+        {
+            "rating" : 1,
+            "screenName" : "Jonny",
+            "reviewText" : "This was just OK. The Michael Corleone link is totally unnecessary so felt like a cynical way to sell the book. Adds nothing to the story-and is short. I found the path to legend totally unrealistic for the main character. If you not are interested in bandits living in a mountain give this a miss. Finished the book and felt short changed. This has no relation to the Godfather book, so don't buy if that's what you are looking for.\r\n",
+            "_id" : ObjectId("58e427c1feebcf0dde7042ab"),
+            "createdOn" : ISODate("2017-04-04T23:09:53.806Z")
+        },
+        {
+            "rating" : 5,
+            "screenName" : "Jonny",
+            "reviewText" : "A typical, and classic, Puzo creation, based on a historical character. He mixes his favourite literate ingredients of love, friendship, honour and betrayal to create a Robin Hood esc tale giving a great incite into the history and culture of the isle of Sicily. A must for any Puzo fan, just don't watch the crummy film, it will ruin your enjoyment.",
+            "_id" : ObjectId("58e42911feebcf0dde7042ac"),
+            "createdOn" : ISODate("2017-04-04T23:15:29.957Z")
+        },
+        {
+            "rating" : 5,
+            "screenName" : "Jonny",
+            "reviewText" : "this is a good book.",
+            "_id" : ObjectId("58e43aad4b7fd00f8c231a9a"),
+            "createdOn" : ISODate("2017-04-05T00:30:37.804Z")
+        },
+        {
+            "rating" : 5,
+            "screenName" : "Jonny",
+            "reviewText" : "I like it too",
+            "_id" : ObjectId("58e6b7fb32ffb003f14464a1"),
+            "createdOn" : ISODate("2017-04-06T21:49:47.147Z")
+        }
+    ],
+    "bookRating" : 4,
+    "__v" : 0
+}
