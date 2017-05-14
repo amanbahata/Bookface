@@ -8,12 +8,25 @@ var User = mongoose.model('User');
 var check = require('./check_status');
 
 
+/**
+ * Named function that prepares the response object
+ * @param res - response object that holds data about where to send the response
+ * @param status - response status code
+ * @param content - information to send back
+ */
 
 var sendJasonResponse = function(res, status, content) {
     res.status(status);
     res.json(content);
 };
 
+
+/**
+ * Stores the user review that are contained in the request object.
+ * it uses addReview to actualy sore the data in the database
+ * @param req - request object
+ * @param res - response object
+ */
 
 module.exports.createReview = function (req, res) {
     if (check.checkState(req)) {
@@ -33,6 +46,15 @@ module.exports.createReview = function (req, res) {
         sendJasonResponse(res, 404, {"message" : "Unauthorized."});
     }
 };
+
+/**
+ * Funtion that actually stores the reviews to the database. It returns
+ * the data of the book that has been reviewed
+ *
+ * @param req - request object
+ * @param res - response object
+ * @param book - the enire data about the book that is being reviewd
+ */
 
 var addReview = function (req, res, book) {
     if (!book){
@@ -56,7 +78,10 @@ var addReview = function (req, res, book) {
     }
 };
 
-
+/**
+ * Function that updates tha star rating according to the review rating
+ * @param bookid - title of the book
+ */
 var findBookAndUpdateRating = function (bookid){
     Book.findById(bookid).select('bookRating reviews').exec(
         function (err, book) {
@@ -67,6 +92,10 @@ var findBookAndUpdateRating = function (bookid){
     );
 };
 
+/**
+ * function that updates the book rating in numbers
+ * @param book
+ */
 
 var updateBookRating = function (book) {
     var averageRating = 0;
@@ -88,6 +117,11 @@ var updateBookRating = function (book) {
 };
 
 
+/**
+ * controller that deletes a specific review.
+ * @param req - request object
+ * @param res - response object
+ */
 
 module.exports.doReviewDelete = function (req, res) {
     if (check.checkState(req)) {
