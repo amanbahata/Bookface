@@ -8,6 +8,10 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
 
+/**
+ * Uses the passport module strategy
+ */
+
 passport.use(new LocalStrategy({
     usernameField: 'email'},
     function (username, password, done) {

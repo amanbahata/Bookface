@@ -2,12 +2,19 @@
  * Created by aman1 on 23/03/2017.
  */
 
+// Import modules
 var passport = require('passport');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var jwt = require('jsonwebtoken');
 
 
+/**
+ * Named function that prepares the response object
+ * @param res - response object that holds data aboit where to send the response
+ * @param status - response status
+ * @param data - information to send back
+ */
 
 var sendJsonResponse = function (res, status, data) {
     res.status(status);
@@ -15,10 +22,12 @@ var sendJsonResponse = function (res, status, data) {
 };
 
 
-/*
- Registration controller for the api
+/**
+ * register - controller for the api to preform new user registration
+ *
+ * @param req - incoming request object
+ * @param res - outgoing response object
  */
-
 
 module.exports.register = function (req, res) {
 
@@ -55,6 +64,12 @@ module.exports.register = function (req, res) {
  Login controller for the api
  */
 
+/**
+ * doLogin - controller to preform the login authentication.
+ * @param req - request object containing the email and password that are contained in the request body
+ * @param res - response object that returns an access token if login is successful, or information if login fails
+ */
+
 module.exports.doLogin = function (req, res) {
     if (!req.body.email || !req.body.password){  // check that all the required fields are supplied
         sendJsonResponse(res, 400, {
@@ -83,6 +98,13 @@ module.exports.doLogin = function (req, res) {
     })(req, res);
 };
 
+
+/**
+ * verify - login to preform account verification to a newly created account.
+ * It does account verification and sends an appropriate response.
+ * @param req - request object
+ * @param res - response object
+ */
 
 module.exports.verify = function (req, res) {
     if(req.params && req.params.tokenid){
