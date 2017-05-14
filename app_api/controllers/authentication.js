@@ -12,7 +12,7 @@ var jwt = require('jsonwebtoken');
 /**
  * Named function that prepares the response object
  * @param res - response object that holds data aboit where to send the response
- * @param status - response status
+ * @param status - response status code
  * @param data - information to send back
  */
 

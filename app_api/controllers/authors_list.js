@@ -10,8 +10,8 @@ var Book = mongoose.model('Book');
 /**
  * Named function that prepares the response object
  * @param res - response object that holds data aboit where to send the response
- * @param status - response status
- * @param data - information to send back
+ * @param status - response status code
+ * @param content - information to send back
  */
 var sendJasonResponse = function(res, status, content) {
     res.status(status);
@@ -19,13 +19,16 @@ var sendJasonResponse = function(res, status, content) {
 };
 
 /**
+ *listByAuthors - controller that preforms database query for the list of authors
+ * held in the database. It returns the authors present in the database with a response.
+ * It sends a status code 200 in case of success, code 404 with the error description otherwise
  *
- * @param req
- * @param res
+ * @param req - request object
+ * @param res - response object
  */
 
 module.exports.listByAuthors = function (req, res) {
-        Book.distinct("author",function (err, authors) {
+        Book.distinct("author",function (err, authors) {  //preform database query
            if (err){
                sendJasonResponse(res, 404, err);
            }else{
@@ -35,6 +38,14 @@ module.exports.listByAuthors = function (req, res) {
 };
 
 
+/**
+ * listBooksByAuthor - controller that preforms database query for the list of books
+ * written by an author. It returns an error object with a 404 status code if query fails,
+ * returns an information message if author doesn't have books, the list of books in case of success.
+ *
+ * @param req - request object
+ * @param res - response object
+ */
 module.exports.listBooksByAuthor = function (req, res) {
   if (req.params.authorName){
         var authorName = req.params.authorName;
