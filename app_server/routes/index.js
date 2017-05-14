@@ -2,6 +2,7 @@
  * Created by aman1 on 06/03/2017.
  */
 
+//Import modules
 var express = require('express');
 var router = express.Router();
 var ctrlMain = require('../controllers/authors_list');
@@ -13,27 +14,28 @@ var ctrlVerify = require('../controllers/verification');
 var ctrlLogout = require('../controllers/logout');
 
 
-
+// Autors
 
 router.get('/', ctrlMain.homeList);
 router.get('/author/:authorName', ctrlMain.authorBooks);
+
+//Books
 router.get('/books/:bookid', ctrlSecond.bookDetail);
 router.get('/books/:authorName/new', ctrlSecond.addBook);
 router.post('/books/:authorName/new', ctrlSecond.doAddBook);
 router.get('/:bookid/delete', ctrlSecond.bookDelete);
-
-
 router.get('/books/:bookid/reviews/new', ctrlThird.addReview);
 router.post('/books/:bookid/reviews/new', ctrlThird.doAddReview);
 router.get('/books/:bookid/reviews/:reviewid', ctrlThird.doDeleteReview);
 
+//New author
 router.get('/newauthor', ctrlMain.addAuthor);
 router.post('/newauthor', ctrlMain.doAddAuthor);
 
 
 
 
-
+//site access
 router.get('/login', ctrlLogin.login);
 router.get('/register', ctrlRegister.register);
 

@@ -4,26 +4,30 @@
 
 var request = require('request');
 
-/*
- Setting up the api options
+/**
+ *Setting up the api options
  */
 var apiOptions = {
     server : "http://localhost:3000"
 };
 
-
+//Render login form to the screen
 module.exports.login = function (req, res) {
     renderLoginForm(req, res);
 };
-
+//Named function to render login form
 var renderLoginForm = function (req, res) {
     res.render('login', {
         title: 'Login',
         pageHeader: {title: 'Login'}
     });
-
 };
 
+/**
+ * Sends a POST request with the user login details
+ * @param req
+ * @param res
+ */
 
 module.exports.doLogin = function (req, res) {
     var requestOptions, path, postData;

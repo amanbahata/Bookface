@@ -6,20 +6,30 @@ var request = require('request');
 var whoIsUser = require('./display_user');
 
 
-/*
- Setting up the api options
+/**
+ *Setting up the api options
  */
 var apiOptions = {
     server : "http://localhost:3000"
 };
 
-
+/**
+ * Renders the book_review_form page on the screen
+ * @param req
+ * @param res
+ */
 module.exports.addReview = function (req, res) {
     res.render('book_review_form', {
         title: 'Review book',
         pageHeader: {title: 'Add book'}
     });
 };
+
+/**
+ * Sends a POST request that holds the book review of a user
+ * @param req
+ * @param res
+ */
 
 module.exports.doAddReview = function(req, res){
     var requestOptions, path, bookid, postData;
@@ -51,6 +61,12 @@ module.exports.doAddReview = function(req, res){
     );
 };
 
+
+/**
+ * Sends a DELETe request of a single review that a user has made
+ * @param req
+ * @param res
+ */
 module.exports.doDeleteReview = function (req, res) {
     var requestOptions, path, bookid, reviewid;
     bookid = req.params.bookid;

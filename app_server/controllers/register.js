@@ -2,18 +2,22 @@
  * Created by aman1 on 23/03/2017.
  */
 
-
+//import modules
 var request = require('request');
 var mailer = require('./mailer');
 
-/*
- Setting up the api options
+/**
+ *Setting up the api options
  */
 var apiOptions = {
     server : "http://localhost:3000"
 };
 
-
+/**renders the registration form
+ *
+ * @param req
+ * @param res
+ */
 module.exports.register = function (req, res) {
     renderRegisterForm(req, res);
 };
@@ -25,6 +29,11 @@ var renderRegisterForm = function (req, res) {
     });
 };
 
+/**
+ * It sends a POST request binding the user registration details
+ * @param req
+ * @param res
+ */
 module.exports.doRegister = function(req, res){
     var requestOptions, path, postData;
     path = '/api/register';
@@ -54,6 +63,10 @@ module.exports.doRegister = function(req, res){
     );
 };
 
+/**
+ * It renders the error page in case user registration fails
+ * @param res
+ */
 var renderErrorPage = function (res) {
     res.render('error', {
         title: 'Oops',

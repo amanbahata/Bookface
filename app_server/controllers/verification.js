@@ -7,16 +7,20 @@ var request = require('request');
 
 
 
-/*
- Setting up the api options
+/**
+ *Setting up the api options
  */
 var apiOptions = {
     server : "http://localhost:3000"
 };
 
 
-
-
+/**
+ * Sends a GET request to the api in order to check that the
+ * newly registered user has verified their email address
+ * @param req
+ * @param res
+ */
 
 module.exports.doVerification = function (req, res) {
     var requestOptions, path;
@@ -39,7 +43,12 @@ module.exports.doVerification = function (req, res) {
     );
 };
 
-
+/**
+ * Renders the account verification page with the appropriate message
+ * @param req
+ * @param res
+ * @param verified
+ */
 
 var renderVerificationForm = function(req, res, verified){
     var message;

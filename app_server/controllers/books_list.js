@@ -6,8 +6,8 @@ var request = require('request');
 var whoIsUser = require('./display_user');
 
 
-/*
- Setting up the api options
+/**
+ *Setting up the api options
  */
 var apiOptions = {
     server : "http://localhost:3000"
@@ -15,8 +15,8 @@ var apiOptions = {
 
 
 
-/*
- Get books list of a single author
+/**
+ *Get books list of a single author
  */
 
 module.exports.bookDetail = function (req, res) {
@@ -35,8 +35,8 @@ module.exports.bookDetail = function (req, res) {
 };
 
 
-/*
- Rendering the single author page
+/**
+ *Rendering the single author page
  */
 
 var bookDetailRenderer = function(req, res, book){
@@ -72,7 +72,11 @@ var bookDetailRenderer = function(req, res, book){
     });
 };
 
-
+/**
+ * Render book_add_form page
+ * @param req
+ * @param res
+ */
 
 module.exports.addBook = function (req, res) {
     var screenName = whoIsUser.screenNameDecoder(req);
@@ -83,6 +87,13 @@ module.exports.addBook = function (req, res) {
     });
 
 };
+
+
+/**
+ * Preforms POST request to the api to save an new book to the database
+ * @param req
+ * @param res
+ */
 
 module.exports.doAddBook = function(req, res){
     var screenName = whoIsUser.screenNameDecoder(req);
@@ -114,6 +125,12 @@ module.exports.doAddBook = function(req, res){
         }
     );
 };
+
+/**
+ * Sends DELETE request to remove a single book from the database
+ * @param req
+ * @param res
+ */
 
 module.exports.bookDelete = function (req, res) {
     var requestOptions, path,bookid;

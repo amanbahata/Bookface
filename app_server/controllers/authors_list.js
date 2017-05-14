@@ -13,8 +13,8 @@ var apiOptions = {
 
 
 
-/*
- Get the authors list
+/**
+ *Get the authors list
  */
 module.exports.homeList = function (req, res) {
     var requestOptions, path;
@@ -31,8 +31,8 @@ module.exports.homeList = function (req, res) {
     );
 };
 
-/*
-    Setting up the main rendering function
+/**
+ * Setting up the main rendering function
  */
 
 
@@ -65,6 +65,11 @@ var homepageRenderer = function(req, res, responseBody) {
         });
 };
 
+/**
+ * Get books list of an author
+ * @param req
+ * @param res
+ */
 
 module.exports.authorBooks = function (req, res) {
     var requestOptions, path;
@@ -81,7 +86,12 @@ module.exports.authorBooks = function (req, res) {
     );
 };
 
-
+/**
+ * Render response from authorBooks
+ * @param req
+ * @param res
+ * @param responseBody
+ */
 var authorBooksRenderer = function (req, res, responseBody) {
     var message;
     var loggedIn = false;
@@ -110,6 +120,11 @@ var authorBooksRenderer = function (req, res, responseBody) {
     });
 };
 
+/**
+ * Renders author_add_form page
+ * @param req
+ * @param res
+ */
 
 module.exports.addAuthor = function (req, res) {
     res.render('author_add_form', {
