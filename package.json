@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "a social networking site for people who love reading",
   "main": "app.js",
+  "engines": {
+    "node": "~6.6.0",
+    "npm": "~3.10.3"
+  },
   "dependencies": {
     "body-parser": "^1.17.1",
     "bootstrap": "^3.3.7",
