@@ -1,5 +1,5 @@
 # Bookface
-Enterprise computing coursework.
+Enterprise computing coursework. It uses Node.js as a platform, Express framework and MongoDB
 
 Application setup:
 
